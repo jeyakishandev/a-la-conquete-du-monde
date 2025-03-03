@@ -3,46 +3,78 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact</title>
+    <title>À la Conquête du Monde</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header>
-      <div class="logotitre">
+      <div class="header-logo">
         <img src="images/Logo-voyage.png" class="Logo" alt="Logo" />
         <a href="/index.html"> <h1>À la Conquête du Monde</h1></a>
       </div>
 
-      <nav class="navbar">
-        <ul>
+      <nav class="header-nav">
+        <ul class="header-link">
           <li><a href="">About</a></li>
           <li><a href="/index.html">Blog</a></li>
-          <li><a href="">Articles</a></li>
+          <li><a href="/index.html">Articles</a></li>
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
-      <div class="btnlogin">
-        <button class="Lire">S'incrire</button>
-        <button class="Lire">Login</button>
+      <div class="auth-buttons">
+        <button class="button-primary">S'incrire</button>
+        <button class="button-primary">Login</button>
       </div>
     </header>
-<main>
-    <section>
-    <div class="Bloc">
-        <h2 class="moi">Contactez-moi</h2>
-      <form action="">
-        <label for="name">Nom :</label>
-        <input type="text" name="name" id="name" />
-        <label for="name">Prénom :</label>
-        <input type="text" name="name" id="name" />
-        <label for="email">Email :</label>
-        <input type="email" name="email" id="email" />
-        <label for="message">Message</label>
-        <textarea name="message" id="message"></textarea>
-        <button class="submit" type="submit">Envoyer</button> 
-      </form>
-    </section>
+    <main>
+      <section>
+        <div class="contact-form-container">
+          <h2 class="form-title">Contactez-moi</h2>
+          <form action="">
+            <label for="name">Nom :</label>
+            <input type="text" name="name" id="name" />
+            <label for="prenom">Prénom :</label>
+            <input type="text" name="prenom" id="prenom" />
+            <label for="email">Email :</label>
+            <input type="email" name="email" id="email" />
+            <label for="message">Message</label>
+            <textarea name="message" id="message"></textarea>
+            <button class="button-submit" type="submit">Envoyer</button>
+          </form>
+        </div>
+      </section>
     </main>
+    <footer class="footer" >
+      <div class="footer-main">
+      <div class="footer-links">
+        <ul >
+          <li><a href="">About</a></li>
+          <li><a href="/index.html">Blog</a></li>
+          <li><a href="/index.html">Articles</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+   
+        <div class="footer-contact">
+          <label for="email">Email de contact</label>
+          <input type="email" name="email" id="email">
+      </div>
+    
+      <div class="footer-socials">
+        <img class="icone" src="/images/facebook.png" alt="icone facebook">
+        <img class="icone" src="/images/insta.png" alt="icone insta">
+        <img class="icone" src="/images/x.png" alt="icone x">
+      </div>
     </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
+  </div>
+    </footer>
   </body>
 </html>
