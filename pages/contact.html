@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>À la Conquête du Monde</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/assets/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,16 +15,16 @@
   <body>
     <header>
       <div class="header-logo">
-        <img src="images/Logo-voyage.png" class="Logo" alt="Logo" />
-        <a href="/index.html"> <h1>À la Conquête du Monde</h1></a>
+        <img src="/assets/images/Logo-voyage.png" class="Logo" alt="Logo" />
+        <a href="/pages/index.html"> <h1>À la Conquête du Monde</h1></a>
       </div>
 
       <nav class="header-nav">
         <ul class="header-link">
           <li><a href="">About</a></li>
-          <li><a href="/index.html">Blog</a></li>
-          <li><a href="/index.html">Articles</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/pages/index.html">Blog</a></li>
+          <li><a href="/pages/index.html">Articles</a></li>
+          <li><a href="/pages/contact.html">Contact</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
@@ -32,6 +32,7 @@
         <button class="button-primary">Login</button>
       </div>
     </header>
+
     <main>
       <section>
         <div class="contact-form-container">
@@ -50,31 +51,32 @@
         </div>
       </section>
     </main>
-    <footer class="footer" >
+    <footer class="footer">
       <div class="footer-main">
-      <div class="footer-links">
-        <ul >
-          <li><a href="">About</a></li>
-          <li><a href="/index.html">Blog</a></li>
-          <li><a href="/index.html">Articles</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </div>
-   
+        <div class="footer-links">
+          <ul>
+            <li><a href="">About</a></li>
+            <li><a href="/pages/index.html">Blog</a></li>
+            <li><a href="/pages/index.html">Articles</a></li>
+            <li><a href="/pages/contact.html">Contact</a></li>
+          </ul>
+        </div>
+
         <div class="footer-contact">
-          <label for="email">Email de contact</label>
-          <input type="email" name="email" id="email">
+          <label class="emaildecontact" for="email">Email de contact :</label>
+          <input type="email" name="email" id="email" />
+          <button class="submit2" type="submit">Envoyer</button>
+        </div>
+
+        <div class="footer-socials">
+          <img class="icone" src="/assets/images/facebook.png" alt="icone facebook" />
+          <img class="icone" src="/assets/images/insta.png" alt="icone insta" />
+          <img class="icone" src="/assets/images/x.png" alt="icone x" />
+        </div>
       </div>
-    
-      <div class="footer-socials">
-        <img class="icone" src="/images/facebook.png" alt="icone facebook">
-        <img class="icone" src="/images/insta.png" alt="icone insta">
-        <img class="icone" src="/images/x.png" alt="icone x">
+      <div class="footer-bottom">
+        <p>&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
-  </div>
     </footer>
   </body>
 </html>
