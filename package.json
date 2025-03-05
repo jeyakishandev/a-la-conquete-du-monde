@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+ "scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeyakishandev/A-la-Conque-te-du-Monde.git"
@@ -16,5 +19,16 @@
   "bugs": {
     "url": "https://github.com/jeyakishandev/A-la-Conque-te-du-Monde/issues"
   },
-  "homepage": "https://github.com/jeyakishandev/A-la-Conque-te-du-Monde#readme"
+  "homepage": "https://github.com/jeyakishandev/A-la-Conque-te-du-Monde#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.9"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.9",
+    "@tailwindcss/postcss": "^4.0.9",
+    "@tailwindcss/vite": "^4.0.9",
+    "vite": "^6.2.0"
+  }
 }
