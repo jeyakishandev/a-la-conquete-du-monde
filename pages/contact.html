@@ -1,82 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>À la Conquête du Monde</title>
-    <link rel="stylesheet" href="/assets/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header>
-      <div class="header-logo">
-        <img src="/assets/images/Logo-voyage.png" class="Logo" alt="Logo" />
-        <a href="/pages/index.html"> <h1>À la Conquête du Monde</h1></a>
-      </div>
-
-      <nav class="header-nav">
-        <ul class="header-link">
-          <li><a href="">About</a></li>
-          <li><a href="/pages/index.html">Blog</a></li>
-          <li><a href="/pages/index.html">Articles</a></li>
-          <li><a href="/pages/contact.html">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <button class="button-primary">S'incrire</button>
-        <button class="button-primary">Login</button>
-      </div>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - À la Conquête du Monde</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', serif;
+        }
+        body {
+            background: white;
+            color: #3F2E20;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50 flex flex-col md:flex-row justify-between items-center p-5">
+        <div class="text-center md:text-left">
+            <h1 class="text-xl font-bold">À la Conquête du Monde</h1>
+        </div>
+        <div class="flex items-center mt-2 md:mt-0">
+            <img src="/assets/images/Logo-voyage.png" class="w-16 h-16 rounded-full" alt="Logo" />
+        </div>
+        <nav>
+            <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                <li><a href="index.html" class="text-gray-700 hover:text-orange-500">Accueil</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
+                <li><a href="contact.html" class="text-gray-700 hover:text-orange-500">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
-      <section>
-        <div class="contact-form-container">
-          <h2 class="form-title">Contactez-moi</h2>
-          <form action="">
-            <label for="name">Nom :</label>
-            <input type="text" name="name" id="name" />
-            <label for="prenom">Prénom :</label>
-            <input type="text" name="prenom" id="prenom" />
-            <label for="email">Email :</label>
-            <input type="email" name="email" id="email" />
-            <label for="message">Message</label>
-            <textarea name="message" id="message"></textarea>
-            <button class="button-submit" type="submit">Envoyer</button>
-          </form>
+    <main class="mt-24 px-10 flex justify-center">
+        <div class="bg-white p-8 shadow-lg rounded-lg max-w-lg w-full">
+            <h2 class="text-2xl font-bold text-center">Contactez-nous</h2>
+            <form action="#" class="mt-6 flex flex-col space-y-4">
+                <label class="font-bold">Nom :</label>
+                <input type="text" class="border p-2 rounded" placeholder="Votre nom" required>
+
+                <label class="font-bold">Prénom :</label>
+                <input type="text" class="border p-2 rounded" placeholder="Votre prénom" required>
+
+                <label class="font-bold">Email :</label>
+                <input type="email" class="border p-2 rounded" placeholder="Votre email" required>
+
+                <label class="font-bold">Message :</label>
+                <textarea class="border p-2 rounded h-24" placeholder="Votre message" required></textarea>
+
+                <button type="submit" class="bg-orange-500 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Envoyer</button>
+            </form>
         </div>
-      </section>
     </main>
-    <footer class="footer">
-      <div class="footer-main">
-        <div class="footer-links">
-          <ul>
-            <li><a href="">About</a></li>
-            <li><a href="/pages/index.html">Blog</a></li>
-            <li><a href="/pages/index.html">Articles</a></li>
-            <li><a href="/pages/contact.html">Contact</a></li>
-          </ul>
-        </div>
 
-        <div class="footer-contact">
-          <label class="emaildecontact" for="email">Email de contact :</label>
-          <input type="email" name="email" id="email" />
-          <button class="submit2" type="submit">Envoyer</button>
+    <footer class="bg-white text-black p-6 mt-10 shadow-md">
+        <div class="flex justify-between items-center max-w-5xl mx-auto">
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="text-gray-700 hover:text-orange-500">Accueil</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
+                <li><a href="contact.html" class="text-gray-700 hover:text-orange-500">Contact</a></li>
+            </ul>
+            <div>
+                <input type="email" placeholder="Votre email" class="border p-2 rounded-l" />
+                <button class="bg-orange-500 text-white p-2 rounded-r">Envoyer</button>
+            </div>
+            <div class="flex space-x-4">
+                <img src="/assets/images/facebook.png" class="w-6" alt="Facebook" />
+                <img src="/assets/images/insta.png" class="w-6" alt="Instagram" />
+                <img src="/assets/images/x.png" class="w-6" alt="Twitter" />
+            </div>
         </div>
-
-        <div class="footer-socials">
-          <img class="icone" src="/assets/images/facebook.png" alt="icone facebook" />
-          <img class="icone" src="/assets/images/insta.png" alt="icone insta" />
-          <img class="icone" src="/assets/images/x.png" alt="icone x" />
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
-      </div>
+        <p class="text-center mt-4">&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
     </footer>
-  </body>
+</body>
 </html>

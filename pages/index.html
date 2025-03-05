@@ -1,134 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>À la Conquête du Monde</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <h1 class="text-4xl text-blue-500">Test Tailwind</h1>
-
-    <header class="flex items-center justify-between px-8 py-4 bg-gray-100 shadow-md">
-      <div class="flex items-center space-x-4">
-        <img src="/assets/images/Logo-voyage.png" class="w-16 h-16" alt="Logo">
-        <h1 class="text-2xl font-bold text-gray-900">À la Conquête du Monde</h1>
-      </div>
-      <nav class="flex space-x-6">
-        <a href="#" class="text-gray-700 hover:text-yellow-500">About</a>
-        <a href="#" class="text-gray-700 hover:text-yellow-500">Blog</a>
-        <a href="#" class="text-gray-700 hover:text-yellow-500">Articles</a>
-        <a href="#" class="text-gray-700 hover:text-yellow-500">Contact</a>
-      </nav>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', serif;
+        }
+        body {
+            background: white;
+            color: #3F2E20;
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease-in-out;
+        }
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50 flex flex-col md:flex-row justify-between items-center p-5">
+        <div class="text-center md:text-left">
+            <h1 class="text-xl font-bold">À la Conquête du Monde</h1>
+        </div>
+        <div class="flex items-center mt-2 md:mt-0">
+            <img src="/assets/images/Logo-voyage.png" class="w-16 h-16 rounded-full" alt="Logo" />
+        </div>
+        <nav>
+            <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">About</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
+                <li><a href="/pages/contact.html" class="text-gray-700 hover:text-orange-500">Contact</a></li>
+            </ul>
+        </nav>
     </header>
     
-
-    <main>
-      <section>
-        <article class="article-card">
-          <img src="/assets/images/voyage.jpg" alt="Voyager partout" />
-          <h2>Les 5 destinations incontournables en 2024</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem vero
-            aliquid commodi voluptates, deleniti reiciendis quam mollitia
-            officiis accusamus enim voluptatibus nemo velit placeat harum
-            exercitationem. Nostrum blanditiis quaerat a?
-          </p>
-          <button class="button-primary">Lire la suite</button>
-        </article>
-
-        <article class="article-card">
-          <img src="/assets/images/plage.jpg" alt="Plage" />
-          <h2>Bali : le paradis entre plages et rizières</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem vero
-            aliquid commodi voluptates, deleniti reiciendis quam mollitia
-            officiis accusamus enim voluptatibus nemo velit placeat harum
-            exercitationem. Nostrum blanditiis quaerat a?
-          </p>
-          <button class="button-primary">Lire la suite</button>
-        </article>
-
-        <article class="article-card">
-          <img src="/assets/images/New-york.jpg" alt="New-york" />
-          <h2>New York : Que voir en 3 jours ?</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem vero
-            aliquid commodi voluptates, deleniti reiciendis quam mollitia
-            officiis accusamus enim voluptatibus nemo velit placeat harum
-            exercitationem. Nostrum blanditiis quaerat a?
-          </p>
-          <button class="button-primary">Lire la suite</button>
-        </article>
-
-        <article class="article-card">
-          <img src="/assets/images/paysage.jpg" alt="Paysage" />
-          <h2>Road-trip en Islande : paysages à couper le souffle</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem vero
-            aliquid commodi voluptates, deleniti reiciendis quam mollitia
-            officiis accusamus enim voluptatibus nemo velit placeat harum
-            exercitationem. Nostrum blanditiis quaerat a?
-          </p>
-          <button class="button-primary">Lire la suite</button>
-        </article>
-
-        <article class="article-card">
-          <img src="/assets/images/Safari.jpg" alt="Safari" />
-          <h2>Safari en Afrique : une aventure inoubliable</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem vero
-            aliquid commodi voluptates, deleniti reiciendis quam mollitia
-            officiis accusamus enim voluptatibus nemo velit placeat harum
-            exercitationem. Nostrum blanditiis quaerat a?
-          </p>
-          <button class="button-primary">Lire la suite</button>
-        </article>
-        <article class="article-card">
-          <img src="/assets/images/Grandetours.jpg" alt="Grande tours" />
-          <h2>Chicago, États-Unis</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem vero
-            aliquid commodi voluptates, deleniti reiciendis quam mollitia
-            officiis accusamus enim voluptatibus nemo velit placeat harum
-            exercitationem. Nostrum blanditiis quaerat a?
-          </p>
-          <button class="button-primary">Lire la suite</button>
-        </article>
-      </section>
+    <main class="mt-24 px-10">
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+                <img src="/assets/images/voyage.jpg" alt="Voyage" />
+                <h2 class="text-xl font-bold mt-4">Les 5 destinations incontournables en 2024</h2>
+                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur...</p>
+                <button class="mt-4 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
+            </article>
+            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+                <img src="/assets/images/plage.jpg" alt="Plage" />
+                <h2 class="text-xl font-bold mt-4">Bali : le paradis entre plages et rizières</h2>
+                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur...</p>
+                <button class="mt-4 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
+            </article>
+            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+                <img src="/assets/images/New-york.jpg" alt="New York" />
+                <h2 class="text-xl font-bold mt-4">New York : Que voir en 3 jours ?</h2>
+                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur...</p>
+                <button class="mt-4 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
+            </article>
+            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+                <img src="/assets/images/paysage.jpg" alt="Paysage" />
+                <h2 class="text-xl font-bold mt-4">Road-trip en Islande</h2>
+                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur...</p>
+                <button class="mt-4 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
+            </article>
+            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+                <img src="/assets/images/Safari.jpg" alt="Safari" />
+                <h2 class="text-xl font-bold mt-4">Safari en Afrique</h2>
+                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur...</p>
+                <button class="mt-4 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
+            </article>
+            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+                <img src="/assets/images/Grandetours.jpg" alt="Chicago" />
+                <h2 class="text-xl font-bold mt-4">Chicago, États-Unis</h2>
+                <p class="text-sm mt-2">Lorem ipsum dolor sit amet consectetur...</p>
+                <button class="mt-4 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
+            </article>
+        </section>
     </main>
-    <footer class="footer">
-      <div class="footer-main">
-        <div class="footer-links">
-          <ul>
-            <li><a href="">About</a></li>
-            <li><a href="/pages/index.html">Blog</a></li>
-            <li><a href="/pages/index.html">Articles</a></li>
-            <li><a href="/pages/contact.html">Contact</a></li>
-          </ul>
+    
+    <footer class="bg-white text-black p-6 mt-10 shadow-md">
+        <div class="flex justify-between items-center max-w-5xl mx-auto">
+            <ul class="flex space-x-6">
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">About</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-orange-500">Contact</a></li>
+            </ul>
+            <div>
+                <input type="email" placeholder="Votre email" class="border p-2 rounded-l" />
+                <button class="bg-orange-500 text-white p-2 rounded-r">Envoyer</button>
+            </div>
+            <div class="flex space-x-4">
+                <img src="/assets/images/facebook.png" class="w-6" alt="Facebook" />
+                <img src="/assets/images/insta.png" class="w-6" alt="Instagram" />
+                <img src="/assets/images/x.png" class="w-6" alt="Twitter" />
+            </div>
         </div>
-
-        <div class="footer-contact">
-          <label class="emaildecontact" for="email">Email de contact :</label>
-          <input type="email" name="email" id="email" />
-          <button class="submit2" type="submit">Envoyer</button>
-        </div>
-
-        <div class="footer-socials">
-          <img class="icone" src="/assets/images/facebook.png" alt="icone facebook" />
-          <img class="icone" src="/assets/images/insta.png" alt="icone insta" />
-          <img class="icone" src="/assets/images/x.png" alt="icone x" />
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
-      </div>
+        <p class="text-center mt-4">&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
     </footer>
-  </body>
+</body>
 </html>
