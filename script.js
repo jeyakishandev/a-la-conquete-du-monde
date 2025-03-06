@@ -19,5 +19,13 @@ window.addEventListener("resize", function () {
 
 
 menuBtn.addEventListener("click", function () {
-    navMenu.classList.toggle("hidden");
+    if (navMenu.classList.contains("hidden")) {
+        navMenu.classList.remove("hidden");
+        navMenu.classList.add("visible");
+        menuBtn.innerHTML = "✖";
+    } else {
+        navMenu.classList.add("hidden");
+        navMenu.classList.remove("visible");
+        menuBtn.innerHTML = "☰";
+    }
 });
