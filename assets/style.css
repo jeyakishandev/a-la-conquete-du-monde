@@ -1,104 +1,91 @@
-
-/* ✅ Réinitialisation */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Lora', serif;
+  transition: background 0.3s ease, color 0.3s ease;
 }
-
-/* ✅ Arrière-plan plus élégant */
 body {
-  background: linear-gradient(to bottom, #f4f1eb, #d9c2a3);
+  background: white;
   color: #3F2E20;
 }
+.dark {
+background: #1a1a1a;
+color: white;
+}
+.dark a {
+color: #E9C46A;
+}
+.dark a:hover {
+color: #E97451;
+}
+.dark header {
+background: rgba(0, 0, 0, 0.8);
+}
+.dark footer {
+background: #121212;
+color: white;
+}
 
-/* ✅ Header amélioré */
-header {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 20px 50px;
+#dark-mode-toggle {
   position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* ✅ Navigation */
-.header-nav ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-
-.header-nav a {
-  text-decoration: none;
-  font-weight: bold;
-  color: #5a3e2b;
-  transition: color 0.3s;
-}
-
-.header-nav a:hover {
-  color: #E9C46A;
-}
-
-/* ✅ Boutons */
-.button-primary {
-  background: linear-gradient(45deg, #E97451, #E9C46A);
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(45deg, #E9C46A, #E97451);
   color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 18px;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
-.button-primary:hover {
+/* Effet au survol */
+#dark-mode-toggle:hover {
   transform: scale(1.1);
 }
 
-/* ✅ Section des articles */
-.article-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  padding: 80px 20px;
+.header {
+transition: background 0.3s ease-in-out;
 }
 
-.article-card {
-  background: #1F1F1F;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  width: 350px;
-  color: white;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease-in-out;
+.header.scrolled {
+background: rgba(0, 0, 0, 0.8);
 }
+
+
 
 .article-card:hover {
   transform: translateY(-5px);
+  transition: transform 0.3s ease-in-out;
+}
+.article-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-/* ✅ Footer amélioré */
-.footer {
-  background: #1F1F1F;
-  color: white;
-  padding: 40px;
-  text-align: center;
+  .nav-menu {
+transition: all 0.3s ease-in-out;
+opacity: 0;
+transform: translateY(-20px);
+pointer-events: none;
 }
-
-.footer-links a {
-  color: white;
-  text-decoration: none;
+.nav-menu.active {
+opacity: 1;
+transform: translateY(0);
+pointer-events: auto;
+}
+.hidden {
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none; 
+}
+.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
