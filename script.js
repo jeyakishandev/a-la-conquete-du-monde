@@ -128,3 +128,22 @@ likeButtons.forEach((button, index) => {
     });
 });
 
+// Sélection de la barre de recherche et des articles
+const searchBar = document.getElementById("search-bar");
+const articles = document.querySelectorAll(".article-card");
+
+// Écouteur d'événement sur la barre de recherche
+searchBar.addEventListener("input", function () {
+    const searchText = searchBar.value.toLowerCase(); // Récupère et met en minuscule l'entrée utilisateur
+
+    articles.forEach(article => {
+        const title = article.querySelector("h2").textContent.toLowerCase(); // Récupère le titre de l'article
+        
+        if (title.includes(searchText)) {
+            article.style.display = "block"; // Affiche l'article si le texte est trouvé
+        } else {
+            article.style.display = "none"; // Cache l'article sinon
+        }
+    });
+});
+

@@ -45,6 +45,10 @@ body {
 .dark-mode a:hover {
   color: #E97451;
 }
+.dark-mode #dark-mode-btn {
+  background-color: white;
+  color: black;
+}
 
 
 .header {
@@ -107,7 +111,9 @@ pointer-events: auto;
     transform: scale(1.1);
 }
 
-
+.mt-24 {
+    margin-top: 9rem !important; /* Force la prise en compte de la marge */
+}
 
 
     </style>
@@ -152,6 +158,16 @@ pointer-events: auto;
 </header>
     
 <main class="mt-24 px-10">
+
+  <div class="search-container text-center mt-24  my-6">
+    <input 
+        type="text" 
+        id="search-bar" 
+        placeholder="Rechercher un article..." 
+        class="p-3 border rounded-lg w-1/2"
+    />
+</div>
+
   <p>👀 Nombre de vues : <span id="vue-compteur">0</span></p>
   
 
