@@ -46,53 +46,27 @@ window.addEventListener("scroll", function () {
         document.querySelector("header").classList.remove("scrolled");
     }
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const darkModeToggle = document.getElementById("dark-mode-toggle");
-    
-    if (!darkModeToggle) {
-        console.error("Bouton dark mode introuvable !");
-        return;
-    }
+const darkModeBtn = document.getElementById("dark-mode-btn");
 
-    // Vérifier si le mode sombre est déjà activé
-    if (localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark");
-        darkModeToggle.textContent = "☀️";
-    }
-
-    // Gérer le clic sur le bouton
-    darkModeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-
-        // Changer l'icône
-        if (document.body.classList.contains("dark")) {
-            darkModeToggle.textContent = "☀️";
-            localStorage.setItem("darkMode", "enabled");
-        } else {
-            darkModeToggle.textContent = "🌙";
-            localStorage.setItem("darkMode", "disabled");
-        }
-    });
-});
-
-// Vérifie si l'utilisateur avait activé le mode sombre avant
+// Vérifie si l'utilisateur avait déjà activé le mode sombre
 if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark");
+    document.body.classList.add("dark-mode");
+    darkModeBtn.textContent = "☀️"; // Soleil pour indiquer le mode clair
 }
 
+// Gestion du clic sur le bouton
+darkModeBtn.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
 
-darkModeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-
-   
-    if (document.body.classList.contains("dark")) {
-        darkModeToggle.textContent = "☀️";
+    if (document.body.classList.contains("dark-mode")) {
         localStorage.setItem("darkMode", "enabled");
+        darkModeBtn.textContent = "☀️"; // Icône soleil pour désactiver
     } else {
-        darkModeToggle.textContent = "🌙";
         localStorage.setItem("darkMode", "disabled");
+        darkModeBtn.textContent = "🌙"; // Icône lune pour activer
     }
 });
+
 // Lire la suite
 let reduire = document.querySelectorAll(".reduire");
 let read = document.querySelectorAll(".read-more");
