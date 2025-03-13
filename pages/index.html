@@ -119,6 +119,27 @@ pointer-events: auto;
   opacity: 1;
   pointer-events: auto;
 }
+.slider-container {
+    width: 500px;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 1rem;
+}
+
+.article-card {
+    min-width: calc(100% / 3); /* Afficher 3 articles */
+    flex-shrink: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 
 
     </style>
@@ -163,46 +184,82 @@ pointer-events: auto;
 
 </header>
     
-    <main class="mt-24 px-10">
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
-                <img src="/assets/images/voyage.jpg" alt="Voyage" />
-                <h2 class="text-xl font-bold mt-4">Les 5 destinations incontournables en 2024</h2>
-                <p  class=" reduire mt-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit et necessitatibus corrupti aliquid nemo est repellat soluta iusto ea, quia iure, iste, tempore dolorem. Veritatis vero minima sunt repellat.</p>
-                <button  class=" read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
-            </article>
-            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
-                <img src="/assets/images/plage.jpg" alt="Plage" />
-                <h2 class="text-xl font-bold mt-4">Bali : le paradis entre plages et rizières</h2>
-                <p  class=" reduire mt-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit et necessitatibus corrupti aliquid nemo est repellat soluta iusto ea, quia iure, iste, tempore dolorem. Veritatis vero minima sunt repellat.</p>
-                <button  class=" read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
-            </article>
-            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
-                <img src="/assets/images/New-york.jpg" alt="New York" />
-                <h2 class="text-xl font-bold mt-4">New York : Que voir en 3 jours ?</h2>
-                <p  class=" reduire text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore repudiandae expedita magnam voluptate pariatur labore, animi modi rem. Animi consequuntur magni odio pariatur modi sint aut quibusdam molestiae dolorem dolorum!</p>
-                <button  class=" read-more  bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
-            </article>
-            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
-                <img src="/assets/images/paysage.jpg" alt="Paysage" />
-                <h2 class="text-xl font-bold mt-4">Road-trip en Islande</h2>
-                <p  class="reduire text-sm mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim architecto omnis iusto excepturi ex quis libero rem? Magni animi expedita quod harum aliquam earum iste sunt quam? Beatae, veritatis quam.</p>
-                <button  class=" read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
-            </article>
-            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
-                <img src="/assets/images/Safari.jpg" alt="Safari" />
-                <h2 class="text-xl font-bold mt-4">Safari en Afrique</h2>
-                <p  class=" reduire text-sm mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam error tenetur possimus deserunt nesciunt culpa voluptate sunt similique et explicabo, qui est aspernatur fugiat molestias at atque, earum iste praesentium!</p>
-                <button  class=" read-more  bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
-            </article>
-            <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
-                <img src="/assets/images/Grandetours.jpg" alt="Chicago" />
-                <h2 class="text-xl font-bold mt-4">Chicago, États-Unis</h2>
-                <p  class=" reduire text-sm mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quidem doloremque culpa nihil vitae nobis reprehenderit possimus in dolorem, iusto illo nemo voluptates expedita minima quam cupiditate, animi, laboriosam accusamus.</p>
-                <button  class=" read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Lire la suite</button>
-            </article>
-        </section>
-    </main>
+<main class="mt-24 px-10">
+  <p>👀 Nombre de vues : <span id="vue-compteur">0</span></p>
+  
+
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+          <img src="/assets/images/voyage.jpg" alt="Voyage" />
+          <h2 class="text-xl font-bold mt-4">Les 5 destinations incontournables en 2024</h2>
+          <p class="reduire mt-2">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit et necessitatibus corrupti aliquid nemo est repellat soluta iusto ea, quia iure, iste, tempore dolorem. Veritatis vero minima sunt repellat.
+          </p>
+          <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
+              Lire la suite
+          </button>
+          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+
+      </article>
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+          <img src="/assets/images/plage.jpg" alt="Plage" />
+          <h2 class="text-xl font-bold mt-4">Bali : le paradis entre plages et rizières</h2>
+          <p class="reduire mt-2">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit et necessitatibus corrupti aliquid nemo est repellat soluta iusto ea, quia iure, iste, tempore dolorem. Veritatis vero minima sunt repellat.
+          </p>
+          <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
+              Lire la suite
+          </button>
+          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+      </article>
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+          <img src="/assets/images/New-york.jpg" alt="New York" />
+          <h2 class="text-xl font-bold mt-4">New York : Que voir en 3 jours ?</h2>
+          <p class="reduire text-sm mt-2">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore repudiandae expedita magnam voluptate pariatur labore, animi modi rem. Animi consequuntur magni odio pariatur modi sint aut quibusdam molestiae dolorem dolorum!
+          </p>
+          <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
+              Lire la suite
+          </button>
+          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+      </article>
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+          <img src="/assets/images/paysage.jpg" alt="Paysage" />
+          <h2 class="text-xl font-bold mt-4">Road-trip en Islande</h2>
+          <p class="reduire text-sm mt-2">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim architecto omnis iusto excepturi ex quis libero rem? Magni animi expedita quod harum aliquam earum iste sunt quam? Beatae, veritatis quam.
+          </p>
+          <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
+              Lire la suite
+          </button>
+          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+      </article>
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+          <img src="/assets/images/Safari.jpg" alt="Safari" />
+          <h2 class="text-xl font-bold mt-4">Safari en Afrique</h2>
+          <p class="reduire text-sm mt-2">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam error tenetur possimus deserunt nesciunt culpa voluptate sunt similique et explicabo, qui est aspernatur fugiat molestias at atque, earum iste praesentium!
+          </p>
+          <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
+              Lire la suite
+          </button>
+          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+      </article>
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+          <img src="/assets/images/Grandetours.jpg" alt="Chicago" />
+          <h2 class="text-xl font-bold mt-4">Chicago, États-Unis</h2>
+          <p class="reduire text-sm mt-2">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quidem doloremque culpa nihil vitae nobis reprehenderit possimus in dolorem, iusto illo nemo voluptates expedita minima quam cupiditate, animi, laboriosam accusamus.
+          </p>
+          <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
+              Lire la suite
+          </button>
+          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+      </article>
+  </section>
+</main>
+
+
     
     <footer class="bg-white text-black p-6 mt-10 shadow-md">
         <div class="flex justify-between items-center max-w-5xl mx-auto">

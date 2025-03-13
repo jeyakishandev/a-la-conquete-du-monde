@@ -119,3 +119,38 @@ read.forEach((button, index) => {
         }
     });
 });
+
+// Sélection de l'élément du compteur
+const vueCompteur = document.getElementById("vue-compteur");
+
+// Vérifier si un nombre est déjà stocké dans le localStorage
+let nombreDeVues = localStorage.getItem("nombreDeVues") || 0;
+
+// Augmenter le nombre de vues à chaque chargement
+nombreDeVues++;
+localStorage.setItem("nombreDeVues", nombreDeVues);
+
+// Afficher la valeur dans le compteur
+vueCompteur.textContent = nombreDeVues;
+
+// Sélectionne tous les boutons et compteurs de likes
+const likeButtons = document.querySelectorAll(".like-btn");
+const likeCompteurs = document.querySelectorAll(".like-compteur");
+
+// Parcourt chaque bouton de like
+likeButtons.forEach((button, index) => {
+    // Récupère le compteur correspondant
+    let compteur = likeCompteurs[index];
+
+    // Vérifie si un nombre de likes est déjà stocké pour cet article
+    let nombreDeLikes = localStorage.getItem(`likes-article-${index}`) || 0;
+    compteur.textContent = nombreDeLikes; // Affiche les likes existants
+
+    // Ajoute un événement au clic
+    button.addEventListener("click", function () {
+        nombreDeLikes++;
+        localStorage.setItem(`likes-article-${index}`, nombreDeLikes); // Stocke le like dans localStorage
+        compteur.textContent = nombreDeLikes; // Met à jour l'affichage
+    });
+});
+
