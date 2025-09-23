@@ -208,11 +208,29 @@ pointer-events: auto;
     />
 </div>
 
+  <!-- Filtres par catégorie -->
+  <div class="category-filters text-center my-6">
+      <div class="flex flex-wrap justify-center gap-2">
+          <button class="category-btn active bg-orange-500 text-white px-4 py-2 rounded-full text-sm hover:bg-orange-600" data-category="all">
+              Tous
+          </button>
+          <button class="category-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-gray-300" data-category="destinations">
+              Destinations
+          </button>
+          <button class="category-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-gray-300" data-category="aventure">
+              Aventure
+          </button>
+          <button class="category-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm hover:bg-gray-300" data-category="culture">
+              Culture
+          </button>
+      </div>
+  </div>
+
   <p>👀 Nombre de vues : <span id="vue-compteur">0</span></p>
   
 
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articles-container">
-      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="destinations">
           <img src="assets/images/voyage.jpg" alt="Voyage" />
           <h2 class="text-xl font-bold mt-4">Les 5 destinations incontournables en 2024</h2>
           <p class="reduire mt-2">
@@ -224,7 +242,7 @@ pointer-events: auto;
           <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
 
       </article>
-      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="destinations">
           <img src="assets/images/plage.jpg" alt="Plage" />
           <h2 class="text-xl font-bold mt-4">Bali : le paradis entre plages et rizières</h2>
           <p class="reduire mt-2">
@@ -235,7 +253,7 @@ pointer-events: auto;
           </button>
           <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
       </article>
-      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="culture">
           <img src="assets/images/New-york.jpg" alt="New York" />
           <h2 class="text-xl font-bold mt-4">New York : Que voir en 3 jours ?</h2>
           <p class="reduire text-sm mt-2">
@@ -246,7 +264,7 @@ pointer-events: auto;
           </button>
           <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
       </article>
-      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="aventure">
           <img src="assets/images/paysage.jpg" alt="Paysage" />
           <h2 class="text-xl font-bold mt-4">Road-trip en Islande</h2>
           <p class="reduire text-sm mt-2">
@@ -257,7 +275,7 @@ pointer-events: auto;
           </button>
           <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
       </article>
-      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="aventure">
           <img src="assets/images/Safari.jpg" alt="Safari" />
           <h2 class="text-xl font-bold mt-4">Safari en Afrique</h2>
           <p class="reduire text-sm mt-2">
@@ -268,7 +286,7 @@ pointer-events: auto;
           </button>
           <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
       </article>
-      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg">
+      <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="culture">
           <img src="assets/images/Grandetours.jpg" alt="Chicago" />
           <h2 class="text-xl font-bold mt-4">Chicago, États-Unis</h2>
           <p class="reduire text-sm mt-2">

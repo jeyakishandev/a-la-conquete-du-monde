@@ -249,3 +249,40 @@ window.addEventListener("resize", function() {
 // Initialisation des optimisations mobile
 handleMobileOptimizations();
 
+// Filtres par catégorie
+const categoryBtns = document.querySelectorAll(".category-btn");
+
+categoryBtns.forEach(btn => {
+    btn.addEventListener("click", function() {
+        // Retirer la classe active de tous les boutons
+        categoryBtns.forEach(b => {
+            b.classList.remove("active", "bg-orange-500", "text-white");
+            b.classList.add("bg-gray-200", "text-gray-700");
+        });
+        
+        // Ajouter la classe active au bouton cliqué
+        this.classList.add("active", "bg-orange-500", "text-white");
+        this.classList.remove("bg-gray-200", "text-gray-700");
+        
+        // Filtrer les articles
+        const selectedCategory = this.dataset.category;
+        filterArticlesByCategory(selectedCategory);
+    });
+});
+
+// Fonction pour filtrer les articles par catégorie
+function filterArticlesByCategory(category) {
+    articles.forEach(article => {
+        if (category === "all" || article.dataset.category === category) {
+            article.style.display = "block";
+        } else {
+            article.style.display = "none";
+        }
+    });
+    
+    // Réinitialiser la pagination après filtrage
+    currentPage = 1;
+    showPage(currentPage);
+    updatePagination();
+}
+
