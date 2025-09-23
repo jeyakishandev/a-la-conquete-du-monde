@@ -216,3 +216,36 @@ document.getElementById("next-btn").addEventListener("click", () => {
 showPage(currentPage);
 updatePagination();
 
+// Améliorations mobile
+function handleMobileOptimizations() {
+    // Optimisation de la barre de recherche sur mobile
+    const searchBar = document.getElementById("search-bar");
+    if (window.innerWidth <= 768) {
+        searchBar.addEventListener("focus", function() {
+            // Scroll vers la barre de recherche pour éviter le clavier virtuel
+            setTimeout(() => {
+                searchBar.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 300);
+        });
+    }
+    
+    // Amélioration des boutons de pagination sur mobile
+    const paginationBtns = document.querySelectorAll(".pagination-btn");
+    paginationBtns.forEach(btn => {
+        btn.addEventListener("touchstart", function() {
+            this.style.transform = "scale(0.95)";
+        });
+        btn.addEventListener("touchend", function() {
+            this.style.transform = "scale(1)";
+        });
+    });
+}
+
+// Détection du changement de taille d'écran
+window.addEventListener("resize", function() {
+    handleMobileOptimizations();
+});
+
+// Initialisation des optimisations mobile
+handleMobileOptimizations();
+

@@ -22,6 +22,47 @@ body {
   background: white;
   color: #3F2E20;
 }
+
+/* Améliorations mobile */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.2rem;
+  }
+  
+  .search-container input {
+    width: 90% !important;
+    margin: 0 auto;
+  }
+  
+  .article-card {
+    margin-bottom: 1rem;
+  }
+  
+  .pagination-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pagination-container .flex {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .footer .flex {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .footer input {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
 /* Mode sombre */
 .dark-mode {
   background-color: #1a1a1a;
@@ -158,12 +199,12 @@ pointer-events: auto;
     
 <main class="mt-24 px-10">
 
-  <div class="search-container text-center mt-24  my-6">
+  <div class="search-container text-center mt-24 my-6">
     <input 
         type="text" 
         id="search-bar" 
         placeholder="Rechercher un article..." 
-        class="p-3 border rounded-lg w-1/2"
+        class="p-3 border rounded-lg w-1/2 max-w-md mx-auto"
     />
 </div>
 
@@ -242,14 +283,14 @@ pointer-events: auto;
 
   <!-- Pagination -->
   <div class="pagination-container flex justify-center mt-8 mb-8">
-      <div class="flex space-x-2">
-          <button id="prev-btn" class="pagination-btn bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">
+      <div class="flex space-x-2 flex-wrap justify-center">
+          <button id="prev-btn" class="pagination-btn bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed text-sm">
               ← Précédent
           </button>
-          <div id="page-numbers" class="flex space-x-1">
+          <div id="page-numbers" class="flex space-x-1 flex-wrap justify-center">
               <!-- Les numéros de page seront générés par JavaScript -->
           </div>
-          <button id="next-btn" class="pagination-btn bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">
+          <button id="next-btn" class="pagination-btn bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed text-sm">
               Suivant →
           </button>
       </div>
