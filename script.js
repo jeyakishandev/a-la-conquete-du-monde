@@ -550,6 +550,500 @@ function optimizeForMobile() {
 // Initialiser les optimisations mobiles
 optimizeForMobile();
 
+// ===== FONCTIONNALITÉS DYNAMIQUES =====
+
+// Animation de la section héro
+function initHeroAnimations() {
+    const heroSection = document.querySelector('.hero-section');
+    const heroTitle = heroSection.querySelector('h1');
+    const heroSubtitle = heroSection.querySelector('p');
+    const heroButtons = heroSection.querySelectorAll('button');
+    
+    // Animation d'apparition progressive
+    setTimeout(() => {
+        heroTitle.style.opacity = '0';
+        heroTitle.style.transform = 'translateY(30px)';
+        heroTitle.style.transition = 'all 0.8s ease-out';
+        
+        setTimeout(() => {
+            heroTitle.style.opacity = '1';
+            heroTitle.style.transform = 'translateY(0)';
+        }, 100);
+    }, 200);
+    
+    setTimeout(() => {
+        heroSubtitle.style.opacity = '0';
+        heroSubtitle.style.transform = 'translateY(20px)';
+        heroSubtitle.style.transition = 'all 0.6s ease-out';
+        
+        setTimeout(() => {
+            heroSubtitle.style.opacity = '1';
+            heroSubtitle.style.transform = 'translateY(0)';
+        }, 100);
+    }, 600);
+    
+    setTimeout(() => {
+        heroButtons.forEach((button, index) => {
+            button.style.opacity = '0';
+            button.style.transform = 'translateY(20px)';
+            button.style.transition = 'all 0.5s ease-out';
+            
+            setTimeout(() => {
+                button.style.opacity = '1';
+                button.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+    }, 1000);
+}
+
+// Effet de parallaxe sur la section héro
+function initParallaxEffect() {
+    const heroSection = document.querySelector('.hero-section');
+    const decorativeElements = heroSection.querySelectorAll('.absolute');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        decorativeElements.forEach((element, index) => {
+            const speed = (index + 1) * 0.3;
+            element.style.transform = `translateY(${rate * speed}px)`;
+        });
+    });
+}
+
+// Chargement dynamique des articles
+function loadArticlesDynamically() {
+    const loadingSection = document.getElementById('loading-section');
+    const articlesContainer = document.getElementById('articles-container');
+    
+    // Simuler un chargement progressif
+    loadingSection.classList.remove('hidden');
+    articlesContainer.style.opacity = '0.3';
+    
+    setTimeout(() => {
+        loadingSection.classList.add('hidden');
+        articlesContainer.style.opacity = '1';
+        articlesContainer.style.transition = 'opacity 0.5s ease-in-out';
+        
+        // Animation d'apparition des articles
+        const articles = articlesContainer.querySelectorAll('.article-card');
+        articles.forEach((article, index) => {
+            article.style.opacity = '0';
+            article.style.transform = 'translateY(30px)';
+            article.style.transition = 'all 0.6s ease-out';
+            
+            setTimeout(() => {
+                article.style.opacity = '1';
+                article.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }, 1500);
+}
+
+// Compteur animé pour les statistiques
+function animateCounters() {
+    const counters = document.querySelectorAll('#vue-compteur, #total-likes, #total-comments');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.textContent) || 0;
+        const increment = target / 50;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                counter.textContent = target;
+                clearInterval(timer);
+            } else {
+                counter.textContent = Math.floor(current);
+            }
+        }, 30);
+    });
+}
+
+// Effet de typing pour le titre
+function typeWriterEffect() {
+    const title = document.querySelector('.hero-section h1');
+    const text = title.textContent;
+    title.textContent = '';
+    
+    let i = 0;
+    const typeInterval = setInterval(() => {
+        title.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+            clearInterval(typeInterval);
+        }
+    }, 100);
+}
+
+// Notifications dynamiques
+function showDynamicNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
+    
+    const colors = {
+        'info': 'bg-blue-500 text-white',
+        'success': 'bg-green-500 text-white',
+        'warning': 'bg-yellow-500 text-black',
+        'error': 'bg-red-500 text-white'
+    };
+    
+    notification.className += ` ${colors[type]}`;
+    notification.innerHTML = `
+        <div class="flex items-center">
+            <span class="mr-2">${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️'}</span>
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-xl">&times;</button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animation d'entrée
+    setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Auto-suppression après 3 secondes
+    setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Effet de particules flottantes
+function createFloatingParticles() {
+    const heroSection = document.querySelector('.hero-section');
+    
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'absolute w-2 h-2 bg-white opacity-20 rounded-full';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
+        particle.style.animationDelay = Math.random() * 2 + 's';
+        
+        heroSection.appendChild(particle);
+    }
+}
+
+// Gestion des boutons de la section héro
+function initHeroButtons() {
+    const exploreBtn = document.getElementById('explore-btn');
+    const articlesBtn = document.getElementById('articles-btn');
+    
+    if (exploreBtn) {
+        exploreBtn.addEventListener('click', () => {
+            showDynamicNotification('Exploration des destinations en cours...', 'info');
+            
+            // Effet de vibration sur mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(100);
+            }
+            
+            // Scroll vers les articles
+            setTimeout(() => {
+                document.getElementById('articles-container').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 500);
+        });
+    }
+    
+    if (articlesBtn) {
+        articlesBtn.addEventListener('click', () => {
+            showDynamicNotification('Chargement des articles...', 'success');
+            
+            // Effet de vibration sur mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            // Animation de chargement
+            loadArticlesDynamically();
+        });
+    }
+}
+
+// Mise à jour en temps réel des statistiques
+function updateStatsRealtime() {
+    // Simuler des mises à jour en temps réel
+    setInterval(() => {
+        const vueCompteur = document.getElementById('vue-compteur');
+        if (vueCompteur) {
+            const currentViews = parseInt(vueCompteur.textContent) || 0;
+            const newViews = currentViews + Math.floor(Math.random() * 3);
+            vueCompteur.textContent = newViews;
+            
+            // Animation du compteur
+            vueCompteur.style.transform = 'scale(1.1)';
+            vueCompteur.style.color = '#f97316';
+            setTimeout(() => {
+                vueCompteur.style.transform = 'scale(1)';
+                vueCompteur.style.color = '';
+            }, 200);
+        }
+    }, 5000);
+}
+
+// Initialisation de toutes les fonctionnalités dynamiques
+function initDynamicFeatures() {
+    // Attendre que le DOM soit chargé
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initHeroAnimations();
+            initParallaxEffect();
+            initHeroButtons();
+            createFloatingParticles();
+            animateCounters();
+            updateStatsRealtime();
+        });
+    } else {
+        initHeroAnimations();
+        initParallaxEffect();
+        initHeroButtons();
+        createFloatingParticles();
+        animateCounters();
+        updateStatsRealtime();
+    }
+}
+
+// Lancer les fonctionnalités dynamiques
+initDynamicFeatures();
+
+// ===== FONCTIONNALITÉS INTERACTIVES AVANCÉES =====
+
+// Système de likes en temps réel avec animations
+function initRealtimeLikes() {
+    const likeButtons = document.querySelectorAll('.like-btn');
+    
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Animation de l'icône
+            const icon = this.querySelector('span');
+            icon.style.transform = 'scale(1.3) rotate(15deg)';
+            icon.style.color = '#ef4444';
+            
+            setTimeout(() => {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+                icon.style.color = '';
+            }, 300);
+            
+            // Effet de particules
+            createLikeParticles(this);
+            
+            // Notification
+            showDynamicNotification('Article liké ! ❤️', 'success');
+            
+            // Vibration sur mobile
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 100, 50]);
+            }
+        });
+    });
+}
+
+// Créer des particules pour les likes
+function createLikeParticles(button) {
+    const rect = button.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    for (let i = 0; i < 6; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'fixed w-2 h-2 bg-red-500 rounded-full pointer-events-none z-50';
+        particle.style.left = centerX + 'px';
+        particle.style.top = centerY + 'px';
+        
+        const angle = (i / 6) * Math.PI * 2;
+        const velocity = 50 + Math.random() * 50;
+        const vx = Math.cos(angle) * velocity;
+        const vy = Math.sin(angle) * velocity;
+        
+        document.body.appendChild(particle);
+        
+        // Animation de la particule
+        let x = 0, y = 0;
+        const animate = () => {
+            x += vx * 0.02;
+            y += vy * 0.02;
+            vy += 2; // Gravité
+            
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            particle.style.opacity = 1 - (Math.abs(x) + Math.abs(y)) / 200;
+            
+            if (particle.style.opacity > 0) {
+                requestAnimationFrame(animate);
+            } else {
+                particle.remove();
+            }
+        };
+        
+        requestAnimationFrame(animate);
+    }
+}
+
+// Système de commentaires en temps réel
+function initRealtimeComments() {
+    const commentButtons = document.querySelectorAll('.add-comment');
+    
+    commentButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const articleCard = this.closest('.article-card');
+            const commentSection = articleCard.querySelector('.comment-section');
+            
+            if (commentSection) {
+                // Animation d'apparition
+                commentSection.style.opacity = '0';
+                commentSection.style.transform = 'translateY(20px)';
+                commentSection.style.transition = 'all 0.3s ease-out';
+                
+                setTimeout(() => {
+                    commentSection.style.opacity = '1';
+                    commentSection.style.transform = 'translateY(0)';
+                }, 100);
+                
+                // Focus sur le champ de commentaire
+                const textarea = commentSection.querySelector('textarea');
+                if (textarea) {
+                    textarea.focus();
+                    textarea.style.borderColor = '#f97316';
+                    textarea.style.boxShadow = '0 0 0 3px rgba(249, 115, 22, 0.1)';
+                }
+            }
+        });
+    });
+}
+
+// Effet de survol avancé pour les cartes d'articles
+function initAdvancedHoverEffects() {
+    const articleCards = document.querySelectorAll('.article-card');
+    
+    articleCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Effet de lueur
+            this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(249, 115, 22, 0.1)';
+            
+            // Animation de l'image
+            const img = this.querySelector('img');
+            if (img) {
+                img.style.transform = 'scale(1.05)';
+                img.style.transition = 'transform 0.3s ease-out';
+            }
+            
+            // Animation du titre
+            const title = this.querySelector('h2');
+            if (title) {
+                title.style.color = '#f97316';
+                title.style.transition = 'color 0.3s ease-out';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.boxShadow = '';
+            
+            const img = this.querySelector('img');
+            if (img) {
+                img.style.transform = 'scale(1)';
+            }
+            
+            const title = this.querySelector('h2');
+            if (title) {
+                title.style.color = '';
+            }
+        });
+    });
+}
+
+// Système de recherche en temps réel
+function initRealtimeSearch() {
+    const searchInput = document.getElementById('search-bar');
+    
+    if (searchInput) {
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            
+            searchTimeout = setTimeout(() => {
+                const query = this.value.toLowerCase();
+                const articles = document.querySelectorAll('.article-card');
+                
+                articles.forEach((article, index) => {
+                    const title = article.querySelector('h2').textContent.toLowerCase();
+                    const description = article.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(query) || description.includes(query)) {
+                        article.style.display = 'block';
+                        article.style.animation = 'fadeInUp 0.5s ease-out';
+                    } else {
+                        article.style.display = query ? 'none' : 'block';
+                    }
+                });
+                
+                // Notification de recherche
+                if (query.length > 2) {
+                    showDynamicNotification(`${articles.length} articles trouvés`, 'info');
+                }
+            }, 300);
+        });
+    }
+}
+
+// Effet de scroll progressif
+function initScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'fixed top-0 left-0 w-full h-1 bg-orange-500 z-50';
+    progressBar.style.transform = 'scaleX(0)';
+    progressBar.style.transformOrigin = 'left';
+    progressBar.style.transition = 'transform 0.1s ease-out';
+    
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollTop / docHeight;
+        
+        progressBar.style.transform = `scaleX(${scrollPercent})`;
+    });
+}
+
+// Système de notifications avancé
+function initAdvancedNotifications() {
+    // Notification de bienvenue
+    setTimeout(() => {
+        showDynamicNotification('Bienvenue sur notre blog de voyage ! 🌍', 'success');
+    }, 2000);
+    
+    // Notification de scroll
+    let scrollNotificationShown = false;
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500 && !scrollNotificationShown) {
+            showDynamicNotification('Découvrez nos articles ci-dessous ! 📖', 'info');
+            scrollNotificationShown = true;
+        }
+    });
+}
+
+// Initialisation de toutes les fonctionnalités interactives
+function initInteractiveFeatures() {
+    initRealtimeLikes();
+    initRealtimeComments();
+    initAdvancedHoverEffects();
+    initRealtimeSearch();
+    initScrollProgress();
+    initAdvancedNotifications();
+}
+
+// Lancer les fonctionnalités interactives
+initInteractiveFeatures();
+
 // Optimisation des images
 function optimizeImages() {
     const images = document.querySelectorAll('.article-card img');
