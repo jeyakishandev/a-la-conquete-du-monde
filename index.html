@@ -108,6 +108,46 @@ box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
   transition: transform 0.3s ease-in-out;
 }
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.article-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.comment {
+  animation: slideIn 0.4s ease-out;
+}
+
+/* Animation pour les boutons */
+.like-btn, .favorite-btn, .add-comment {
+  transition: all 0.2s ease;
+}
+
+.like-btn:hover, .favorite-btn:hover, .add-comment:hover {
+  transform: scale(1.05);
+}
 .article-card img {
   width: 100%;
   height: 200px;
@@ -260,6 +300,28 @@ pointer-events: auto;
               <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
                   ⭐ Favoris
               </button>
+          </div>
+          
+          <!-- Section commentaires -->
+          <div class="comments-section mt-4 border-t pt-3">
+              <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-sm font-semibold text-gray-600">💬 Commentaires (<span class="comment-count">0</span>)</h4>
+                  <button class="toggle-comments text-xs text-orange-500 hover:text-orange-600" data-article="0">
+                      Afficher
+                  </button>
+              </div>
+              <div class="comments-list hidden">
+                  <div class="comment-form mb-3">
+                      <input type="text" placeholder="Votre nom" class="w-full p-2 border rounded mb-2 text-sm" />
+                      <textarea placeholder="Votre commentaire..." class="w-full p-2 border rounded mb-2 text-sm" rows="2"></textarea>
+                      <button class="add-comment bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600">
+                          Publier
+                      </button>
+                  </div>
+                  <div class="comments-display">
+                      <!-- Les commentaires seront ajoutés ici par JavaScript -->
+                  </div>
+              </div>
           </div>
 
       </article>

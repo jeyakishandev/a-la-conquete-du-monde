@@ -138,13 +138,20 @@ searchBar.addEventListener("input", function () {
 
     articles.forEach(article => {
         const title = article.querySelector("h2").textContent.toLowerCase(); // Récupère le titre de l'article
+        const description = article.querySelector("p").textContent.toLowerCase(); // Récupère la description
         
-        if (title.includes(searchText)) {
+        // Recherche dans le titre ET la description
+        if (title.includes(searchText) || description.includes(searchText)) {
             article.style.display = "block"; // Affiche l'article si le texte est trouvé
         } else {
             article.style.display = "none"; // Cache l'article sinon
         }
     });
+    
+    // Réinitialiser la pagination après recherche
+    currentPage = 1;
+    showPage(currentPage);
+    updatePagination();
 });
 
 // Pagination
@@ -381,4 +388,64 @@ function optimizeImages() {
 
 // Initialisation de l'optimisation des images
 optimizeImages();
+
+// Système de commentaires
+const toggleCommentsBtns = document.querySelectorAll(".toggle-comments");
+const addCommentBtns = document.querySelectorAll(".add-comment");
+
+// Gestion des boutons d'affichage des commentaires
+toggleCommentsBtns.forEach(btn => {
+    btn.addEventListener("click", function() {
+        const articleIndex = this.dataset.article;
+        const commentsList = this.closest('.comments-section').querySelector('.comments-list');
+        const isHidden = commentsList.classList.contains('hidden');
+        
+        if (isHidden) {
+            commentsList.classList.remove('hidden');
+            this.textContent = 'Masquer';
+        } else {
+            commentsList.classList.add('hidden');
+            this.textContent = 'Afficher';
+        }
+    });
+});
+
+// Gestion de l'ajout de commentaires
+addCommentBtns.forEach(btn => {
+    btn.addEventListener("click", function() {
+        const commentForm = this.closest('.comment-form');
+        const nameInput = commentForm.querySelector('input[type="text"]');
+        const commentTextarea = commentForm.querySelector('textarea');
+        const commentsDisplay = commentForm.nextElementSibling;
+        
+        const name = nameInput.value.trim();
+        const comment = commentTextarea.value.trim();
+        
+        if (name && comment) {
+            // Créer le commentaire
+            const commentElement = document.createElement('div');
+            commentElement.className = 'comment bg-gray-50 p-3 rounded mb-2 text-sm';
+            commentElement.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <strong class="text-orange-600">${name}</strong>
+                        <p class="mt-1">${comment}</p>
+                    </div>
+                    <span class="text-xs text-gray-500">${new Date().toLocaleDateString()}</span>
+                </div>
+            `;
+            
+            commentsDisplay.appendChild(commentElement);
+            
+            // Vider le formulaire
+            nameInput.value = '';
+            commentTextarea.value = '';
+            
+            // Mettre à jour le compteur
+            const commentCount = this.closest('.comments-section').querySelector('.comment-count');
+            const currentCount = parseInt(commentCount.textContent);
+            commentCount.textContent = currentCount + 1;
+        }
+    });
+});
 
