@@ -256,6 +256,48 @@ window.addEventListener("resize", function() {
 // Initialisation des optimisations mobile
 handleMobileOptimizations();
 
+// Ajouter automatiquement les sections commentaires aux articles qui n'en ont pas
+function addCommentsToAllArticles() {
+    const articles = document.querySelectorAll('.article-card');
+    
+    articles.forEach((article, index) => {
+        // Vérifier si l'article a déjà une section commentaires
+        const existingComments = article.querySelector('.comments-section');
+        
+        if (!existingComments) {
+            // Créer la section commentaires
+            const commentsSection = document.createElement('div');
+            commentsSection.className = 'comments-section mt-4 border-t pt-3';
+            commentsSection.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <h4 class="text-sm font-semibold text-gray-600">💬 Commentaires (<span class="comment-count">0</span>)</h4>
+                    <button class="toggle-comments text-xs text-orange-500 hover:text-orange-600" data-article="${index}">
+                        Afficher
+                    </button>
+                </div>
+                <div class="comments-list hidden">
+                    <div class="comment-form mb-3">
+                        <input type="text" placeholder="Votre nom" class="w-full p-2 border rounded mb-2 text-sm" />
+                        <textarea placeholder="Votre commentaire..." class="w-full p-2 border rounded mb-2 text-sm" rows="2"></textarea>
+                        <button class="add-comment bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600">
+                            Publier
+                        </button>
+                    </div>
+                    <div class="comments-display">
+                        <!-- Les commentaires seront ajoutés ici par JavaScript -->
+                    </div>
+                </div>
+            `;
+            
+            // Ajouter la section commentaires à la fin de l'article
+            article.appendChild(commentsSection);
+        }
+    });
+}
+
+// Exécuter l'ajout des commentaires au chargement
+addCommentsToAllArticles();
+
 // Filtres par catégorie
 const categoryBtns = document.querySelectorAll(".category-btn");
 
