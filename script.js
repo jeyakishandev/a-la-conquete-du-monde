@@ -429,6 +429,127 @@ function updateStats() {
 // Mettre à jour les stats au chargement
 updateStats();
 
+// Améliorations responsive et mobile
+function initResponsiveFeatures() {
+    // Détection de l'appareil
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+    const isDesktop = window.innerWidth > 1024;
+    
+    // Optimisations pour mobile
+    if (isMobile) {
+        // Améliorer les interactions tactiles
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        
+        // Optimiser les boutons pour le tactile
+        const buttons = document.querySelectorAll('button, .like-btn, .favorite-btn, .add-comment, .share-btn');
+        buttons.forEach(button => {
+            button.style.minHeight = '44px'; // Taille minimale recommandée pour le tactile
+            button.style.minWidth = '44px';
+        });
+        
+        // Améliorer la navigation mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('hidden');
+                navMenu.classList.toggle('flex');
+            });
+        }
+    }
+    
+    // Optimisations pour tablette
+    if (isTablet) {
+        // Ajuster la grille des articles
+        const articlesContainer = document.getElementById('articles-container');
+        if (articlesContainer) {
+            articlesContainer.style.gridTemplateColumns = 'repeat(2, 1fr)';
+        }
+    }
+    
+    // Optimisations pour desktop
+    if (isDesktop) {
+        // Activer les effets de survol avancés
+        const articleCards = document.querySelectorAll('.article-card');
+        articleCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    }
+}
+
+// Gestion du redimensionnement de la fenêtre
+function handleResize() {
+    const width = window.innerWidth;
+    
+    // Mettre à jour les classes responsive
+    if (width <= 480) {
+        document.body.classList.add('mobile-small');
+        document.body.classList.remove('mobile-large', 'tablet', 'desktop');
+    } else if (width <= 768) {
+        document.body.classList.add('mobile-large');
+        document.body.classList.remove('mobile-small', 'tablet', 'desktop');
+    } else if (width <= 1024) {
+        document.body.classList.add('tablet');
+        document.body.classList.remove('mobile-small', 'mobile-large', 'desktop');
+    } else {
+        document.body.classList.add('desktop');
+        document.body.classList.remove('mobile-small', 'mobile-large', 'tablet');
+    }
+    
+    // Réinitialiser les fonctionnalités responsive
+    initResponsiveFeatures();
+}
+
+// Écouter les changements de taille
+window.addEventListener('resize', handleResize);
+
+// Initialiser au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    initResponsiveFeatures();
+    handleResize();
+});
+
+// Optimisations pour les performances mobiles
+function optimizeForMobile() {
+    // Lazy loading amélioré pour mobile
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.remove('loading');
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+        
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+    
+    // Optimiser les animations pour mobile
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion || window.innerWidth <= 768) {
+        // Désactiver les animations complexes sur mobile
+        document.documentElement.style.setProperty('--animation-duration', '0.1s');
+    }
+}
+
+// Initialiser les optimisations mobiles
+optimizeForMobile();
+
 // Optimisation des images
 function optimizeImages() {
     const images = document.querySelectorAll('.article-card img');

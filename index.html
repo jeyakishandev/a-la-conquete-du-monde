@@ -63,6 +63,349 @@ body {
     margin-bottom: 0.5rem;
   }
 }
+
+/* Responsive Design - Mobile First */
+
+/* Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem;
+  }
+  
+  .header h1 {
+    font-size: 1rem;
+  }
+  
+  .hero-section {
+    padding: 2rem 1rem;
+    margin: 0 0.5rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .hero-section p {
+    font-size: 1rem;
+  }
+  
+  .hero-section button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .search-container {
+    margin: 1rem 0.5rem;
+  }
+  
+  .search-container input {
+    width: 100%;
+    max-width: none;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .stats-section {
+    padding: 1rem;
+    margin: 0 0.5rem;
+  }
+  
+  .stats-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .article-card {
+    margin: 0 0.5rem 1rem 0.5rem;
+    padding: 1rem;
+  }
+  
+  .article-card img {
+    height: 120px;
+  }
+  
+  .article-card h2 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+  
+  .article-card p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  
+  .like-btn, .favorite-btn, .add-comment, .share-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    margin: 0.2rem;
+  }
+  
+  .comment {
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+  }
+  
+  .comment input, .comment textarea {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+  
+  .pagination-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0.5rem;
+  }
+  
+  .pagination-container button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .footer {
+    padding: 2rem 1rem;
+  }
+  
+  .footer .grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footer .col-span-1 {
+    text-align: center;
+  }
+}
+
+/* Mobile Large (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 2rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-section p {
+    font-size: 1.2rem;
+  }
+  
+  .stats-section .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .article-card img {
+    height: 150px;
+  }
+  
+  .article-card h2 {
+    font-size: 1.3rem;
+  }
+  
+  .article-card p {
+    font-size: 0.95rem;
+  }
+  
+  .like-btn, .favorite-btn, .add-comment, .share-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .comment {
+    padding: 1rem;
+  }
+  
+  .footer .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-section {
+    padding: 4rem 3rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 3.5rem;
+  }
+  
+  .hero-section p {
+    font-size: 1.4rem;
+  }
+  
+  .stats-section .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  
+  .article-card {
+    margin-bottom: 2rem;
+  }
+  
+  .article-card img {
+    height: 180px;
+  }
+  
+  .article-card h2 {
+    font-size: 1.4rem;
+  }
+  
+  .article-card p {
+    font-size: 1rem;
+  }
+  
+  .like-btn, .favorite-btn, .add-comment, .share-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .comment {
+    padding: 1.2rem;
+  }
+  
+  .footer .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .hero-section {
+    padding: 5rem 4rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 4rem;
+  }
+  
+  .hero-section p {
+    font-size: 1.6rem;
+  }
+  
+  .stats-section .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+  }
+  
+  .article-card {
+    margin-bottom: 2.5rem;
+  }
+  
+  .article-card img {
+    height: 200px;
+  }
+  
+  .article-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  .article-card p {
+    font-size: 1.1rem;
+  }
+  
+  .like-btn, .favorite-btn, .add-comment, .share-btn {
+    padding: 0.7rem 1.4rem;
+    font-size: 1rem;
+  }
+  
+  .comment {
+    padding: 1.5rem;
+  }
+  
+  .footer .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+  }
+}
+
+/* Améliorations spécifiques pour la navigation mobile */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
+  
+  .hamburger {
+    display: block;
+  }
+  
+  .category-buttons {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0.5rem;
+  }
+  
+  .category-buttons button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Optimisations pour les très petits écrans */
+@media (max-width: 320px) {
+  .hero-section {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-section p {
+    font-size: 0.9rem;
+  }
+  
+  .hero-section button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  
+  .stats-section .grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .article-card {
+    margin: 0 0.25rem 0.75rem 0.25rem;
+    padding: 0.75rem;
+  }
+  
+  .article-card img {
+    height: 100px;
+  }
+  
+  .article-card h2 {
+    font-size: 1rem;
+  }
+  
+  .article-card p {
+    font-size: 0.8rem;
+  }
+  
+  .like-btn, .favorite-btn, .add-comment, .share-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+  }
+}
 /* Mode sombre */
 .dark-mode {
   background-color: #1a1a1a;
