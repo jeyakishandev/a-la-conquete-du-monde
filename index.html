@@ -109,7 +109,7 @@ box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease-in-out;
 }
 
-/* Animations */
+/* Animations améliorées */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -132,8 +132,32 @@ box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
   }
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 .article-card {
   animation: fadeInUp 0.6s ease-out;
+  transition: all 0.3s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .comment {
@@ -141,12 +165,68 @@ box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Animation pour les boutons */
-.like-btn, .favorite-btn, .add-comment {
-  transition: all 0.2s ease;
+.like-btn, .favorite-btn, .add-comment, .share-btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.like-btn:hover, .favorite-btn:hover, .add-comment:hover {
+.like-btn:hover, .favorite-btn:hover, .add-comment:hover, .share-btn:hover {
   transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet de vague sur les boutons */
+.like-btn::before, .favorite-btn::before, .add-comment::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.like-btn:active::before, .favorite-btn:active::before, .add-comment:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Animation du héro */
+.hero-section {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Amélioration de la typographie */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.article-card h2 {
+  background: linear-gradient(45deg, #3F2E20, #E97451);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Effet de chargement */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 .article-card img {
   width: 100%;
@@ -250,7 +330,28 @@ pointer-events: auto;
     
 <main class="mt-24 px-10">
 
-  <div class="search-container text-center mt-24 my-6">
+  <!-- Section Héro -->
+  <section class="hero-section bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-16 rounded-2xl mb-12 relative overflow-hidden">
+      <div class="absolute inset-0 bg-black opacity-20"></div>
+      <div class="relative z-10 text-center">
+          <h1 class="text-4xl md:text-6xl font-bold mb-4">À la Conquête du Monde</h1>
+          <p class="text-xl md:text-2xl mb-8 opacity-90">Découvrez les plus belles destinations du monde</p>
+          <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+              <button class="bg-white text-orange-500 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors">
+                  Explorer maintenant
+              </button>
+              <button class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-orange-500 transition-colors">
+                  Nos articles
+              </button>
+          </div>
+      </div>
+      <!-- Éléments décoratifs -->
+      <div class="absolute top-10 left-10 w-20 h-20 bg-white opacity-10 rounded-full"></div>
+      <div class="absolute bottom-10 right-10 w-32 h-32 bg-white opacity-10 rounded-full"></div>
+      <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-white opacity-10 rounded-full"></div>
+  </section>
+
+  <div class="search-container text-center my-6">
     <input 
         type="text" 
         id="search-bar" 
@@ -277,7 +378,27 @@ pointer-events: auto;
       </div>
   </div>
 
-  <p>👀 Nombre de vues : <span id="vue-compteur">0</span></p>
+  <!-- Section Statistiques -->
+  <section class="stats-section bg-gradient-to-r from-blue-50 to-orange-50 py-8 rounded-xl mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div class="stat-item">
+              <div class="text-3xl font-bold text-orange-500" id="vue-compteur">0</div>
+              <div class="text-gray-600">Vues totales</div>
+          </div>
+          <div class="stat-item">
+              <div class="text-3xl font-bold text-blue-500" id="total-articles">6</div>
+              <div class="text-gray-600">Articles</div>
+          </div>
+          <div class="stat-item">
+              <div class="text-3xl font-bold text-green-500" id="total-likes">0</div>
+              <div class="text-gray-600">Likes</div>
+          </div>
+          <div class="stat-item">
+              <div class="text-3xl font-bold text-purple-500" id="total-comments">0</div>
+              <div class="text-gray-600">Commentaires</div>
+          </div>
+      </div>
+  </section>
   
 
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articles-container">
@@ -498,25 +619,57 @@ pointer-events: auto;
 
 
     
-    <footer class="bg-white text-black p-6 mt-10 shadow-md">
-        <div class="flex justify-between items-center max-w-5xl mx-auto">
-            <ul class="flex space-x-6">
-                <li><a href="#" class="text-gray-700 hover:text-orange-500">About</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-orange-500">Contact</a></li>
-            </ul>
-            <div>
-                <input type="email" placeholder="Votre email" class="border p-2 rounded-l" />
-                <button class="bg-orange-500 text-white p-2 rounded-r">Envoyer</button>
+    <footer class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo et description -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img src="assets/images/Logo-voyage.png" class="w-12 h-12 rounded-full mr-3" alt="Logo" />
+                        <h3 class="text-2xl font-bold">À la Conquête du Monde</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Découvrez les plus belles destinations du monde à travers nos récits de voyage et nos conseils d'experts.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                            <img src="assets/images/facebook.png" class="w-5 h-5" alt="Facebook" />
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors">
+                            <img src="assets/images/insta.png" class="w-5 h-5" alt="Instagram" />
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                            <img src="assets/images/x.png" class="w-5 h-5" alt="Twitter" />
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Liens rapides -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Liens rapides</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-orange-400 transition-colors">À propos</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-orange-400 transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-orange-400 transition-colors">Articles</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-orange-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Recevez nos dernières aventures par email</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Votre email" class="flex-1 px-3 py-2 rounded-l-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        <button class="bg-orange-500 text-white px-4 py-2 rounded-r-lg hover:bg-orange-600 transition-colors">
+                            S'abonner
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="flex space-x-4">
-                <img src="assets/images/facebook.png" class="w-6" alt="Facebook" />
-                <img src="assets/images/insta.png" class="w-6" alt="Instagram" />
-                <img src="assets/images/x.png" class="w-6" alt="Twitter" />
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
             </div>
         </div>
-        <p class="text-center mt-4">&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
     </footer>
 
     <script src="script.js"></script>

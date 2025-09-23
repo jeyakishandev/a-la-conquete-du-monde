@@ -406,6 +406,29 @@ document.getElementById("favorites-btn").addEventListener("click", function() {
 // Mettre à jour le compteur de favoris
 updateFavoritesCount();
 
+// Statistiques dynamiques
+function updateStats() {
+    // Compter le total des likes
+    let totalLikes = 0;
+    likeCompteurs.forEach(compteur => {
+        totalLikes += parseInt(compteur.textContent) || 0;
+    });
+    
+    // Compter le total des commentaires
+    let totalComments = 0;
+    const commentCounts = document.querySelectorAll('.comment-count');
+    commentCounts.forEach(count => {
+        totalComments += parseInt(count.textContent) || 0;
+    });
+    
+    // Mettre à jour les statistiques
+    document.getElementById('total-likes').textContent = totalLikes;
+    document.getElementById('total-comments').textContent = totalComments;
+}
+
+// Mettre à jour les stats au chargement
+updateStats();
+
 // Optimisation des images
 function optimizeImages() {
     const images = document.querySelectorAll('.article-card img');
