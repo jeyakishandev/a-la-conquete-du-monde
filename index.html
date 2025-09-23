@@ -184,6 +184,7 @@ pointer-events: auto;
                 <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
                 <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
                 <li><a href="pages/contact.html" class="text-gray-700 hover:text-orange-500">Contact</a></li>
+                <li><button id="favorites-btn" class="text-gray-700 hover:text-orange-500">⭐ Favoris (<span id="favorites-count">0</span>)</button></li>
                 <button id="dark-mode-btn" class="fixed bottom-5 right-5 bg-gray-800 text-white p-3 rounded-full shadow-md">🌙</button>
 
            
@@ -239,7 +240,17 @@ pointer-events: auto;
           <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
               Lire la suite
           </button>
-          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+          <div class="flex justify-between items-center mt-3">
+              <div class="flex justify-between items-center mt-3">
+              <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+              <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
+                  ⭐ Favoris
+              </button>
+          </div>
+              <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
+                  ⭐ Favoris
+              </button>
+          </div>
 
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="destinations">
@@ -251,7 +262,12 @@ pointer-events: auto;
           <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
               Lire la suite
           </button>
-          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+          <div class="flex justify-between items-center mt-3">
+              <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+              <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
+                  ⭐ Favoris
+              </button>
+          </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="culture">
           <img src="assets/images/New-york.jpg" alt="New York" />
@@ -262,7 +278,12 @@ pointer-events: auto;
           <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
               Lire la suite
           </button>
-          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+          <div class="flex justify-between items-center mt-3">
+              <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+              <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
+                  ⭐ Favoris
+              </button>
+          </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="aventure">
           <img src="assets/images/paysage.jpg" alt="Paysage" />
@@ -273,7 +294,12 @@ pointer-events: auto;
           <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
               Lire la suite
           </button>
-          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+          <div class="flex justify-between items-center mt-3">
+              <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+              <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
+                  ⭐ Favoris
+              </button>
+          </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="aventure">
           <img src="assets/images/Safari.jpg" alt="Safari" />
@@ -284,7 +310,12 @@ pointer-events: auto;
           <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
               Lire la suite
           </button>
-          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+          <div class="flex justify-between items-center mt-3">
+              <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+              <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
+                  ⭐ Favoris
+              </button>
+          </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="culture">
           <img src="assets/images/Grandetours.jpg" alt="Chicago" />
@@ -295,7 +326,12 @@ pointer-events: auto;
           <button class="read-more bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">
               Lire la suite
           </button>
-          <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+          <div class="flex justify-between items-center mt-3">
+              <button class="like-btn">❤️ J'aime (<span class="like-compteur">0</span>)</button>
+              <button class="favorite-btn bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300" data-article="0">
+                  ⭐ Favoris
+              </button>
+          </div>
       </article>
   </section>
 

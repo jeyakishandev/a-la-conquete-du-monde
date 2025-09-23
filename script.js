@@ -286,3 +286,74 @@ function filterArticlesByCategory(category) {
     updatePagination();
 }
 
+// Système de favoris
+const favoriteBtns = document.querySelectorAll(".favorite-btn");
+
+// Initialiser les favoris au chargement
+function initializeFavorites() {
+    favoriteBtns.forEach((btn, index) => {
+        const isFavorite = localStorage.getItem(`favorite-${index}`) === "true";
+        updateFavoriteButton(btn, isFavorite);
+    });
+}
+
+// Mettre à jour l'apparence du bouton favoris
+function updateFavoriteButton(btn, isFavorite) {
+    if (isFavorite) {
+        btn.classList.remove("bg-gray-200", "text-gray-700");
+        btn.classList.add("bg-yellow-400", "text-yellow-900");
+        btn.textContent = "⭐ Favori";
+    } else {
+        btn.classList.remove("bg-yellow-400", "text-yellow-900");
+        btn.classList.add("bg-gray-200", "text-gray-700");
+        btn.textContent = "⭐ Favoris";
+    }
+}
+
+// Gestion des clics sur les boutons favoris
+favoriteBtns.forEach((btn, index) => {
+    btn.addEventListener("click", function() {
+        const isCurrentlyFavorite = localStorage.getItem(`favorite-${index}`) === "true";
+        const newFavoriteState = !isCurrentlyFavorite;
+        
+        localStorage.setItem(`favorite-${index}`, newFavoriteState.toString());
+        updateFavoriteButton(btn, newFavoriteState);
+    });
+});
+
+// Initialisation des favoris
+initializeFavorites();
+
+// Compteur de favoris
+function updateFavoritesCount() {
+    let favoritesCount = 0;
+    favoriteBtns.forEach((btn, index) => {
+        if (localStorage.getItem(`favorite-${index}`) === "true") {
+            favoritesCount++;
+        }
+    });
+    document.getElementById("favorites-count").textContent = favoritesCount;
+}
+
+// Bouton pour afficher/masquer les favoris
+document.getElementById("favorites-btn").addEventListener("click", function() {
+    const articles = document.querySelectorAll(".article-card");
+    
+    articles.forEach((article, index) => {
+        const isFavorite = localStorage.getItem(`favorite-${index}`) === "true";
+        if (isFavorite) {
+            article.style.display = "block";
+        } else {
+            article.style.display = "none";
+        }
+    });
+    
+    // Réinitialiser la pagination
+    currentPage = 1;
+    showPage(currentPage);
+    updatePagination();
+});
+
+// Mettre à jour le compteur de favoris
+updateFavoritesCount();
+
