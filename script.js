@@ -147,3 +147,72 @@ searchBar.addEventListener("input", function () {
     });
 });
 
+// Pagination
+const articlesPerPage = 3;
+let currentPage = 1;
+const totalPages = Math.ceil(articles.length / articlesPerPage);
+
+// Fonction pour afficher les articles de la page courante
+function showPage(page) {
+    articles.forEach((article, index) => {
+        const startIndex = (page - 1) * articlesPerPage;
+        const endIndex = startIndex + articlesPerPage;
+        
+        if (index >= startIndex && index < endIndex) {
+            article.style.display = "block";
+        } else {
+            article.style.display = "none";
+        }
+    });
+}
+
+// Fonction pour mettre à jour les boutons de pagination
+function updatePagination() {
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const pageNumbers = document.getElementById("page-numbers");
+    
+    // Boutons précédent/suivant
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    // Numéros de page
+    pageNumbers.innerHTML = "";
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.textContent = i;
+        pageBtn.className = `px-3 py-2 rounded-lg ${
+            i === currentPage 
+                ? "bg-orange-500 text-white" 
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+        }`;
+        pageBtn.addEventListener("click", () => {
+            currentPage = i;
+            showPage(currentPage);
+            updatePagination();
+        });
+        pageNumbers.appendChild(pageBtn);
+    }
+}
+
+// Événements des boutons
+document.getElementById("prev-btn").addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        showPage(currentPage);
+        updatePagination();
+    }
+});
+
+document.getElementById("next-btn").addEventListener("click", () => {
+    if (currentPage < totalPages) {
+        currentPage++;
+        showPage(currentPage);
+        updatePagination();
+    }
+});
+
+// Initialisation
+showPage(currentPage);
+updatePagination();
+
