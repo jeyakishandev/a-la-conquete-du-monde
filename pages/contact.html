@@ -5,82 +5,361 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - À la Conquête du Monde</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Lora', serif;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        body {
-            background: white;
-            color: #3F2E20;
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Mode sombre */
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode .bg-white {
+            background-color: #2d2d2d;
+        }
+
+        .dark-mode .text-black {
+            color: white;
+        }
+
+        .dark-mode input,
+        .dark-mode textarea {
+            background-color: #3d3d3d;
+            color: white;
+            border-color: #555;
+        }
+
+        .dark-mode input::placeholder,
+        .dark-mode textarea::placeholder {
+            color: #aaa;
         }
     </style>
 </head>
-<body>
-  <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50 flex flex-col md:flex-row justify-between items-center p-5">
-    <div class="text-center md:text-left">
-        <h1 class="text-xl font-bold">À la Conquête du Monde</h1>
-    </div>
-    <div class="flex items-center justify-center md:justify-start mt-2 md:mt-0">
-        <img src="/assets/images/Logo-voyage.png" class="w-16 h-16 rounded-full" alt="Logo" />
-    </div>
-    
-    <nav class="mt-2 md:mt-0">
-       
-        <ul class="flex flex-row space-x-4 md:space-x-6">
-            <li><a href="/pages/index.html" class="text-gray-700 hover:text-orange-500">Accueil</a></li>
-            <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
-            <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
-            <li><a href="#" class="text-gray-700 hover:text-orange-500">Contact</a></li>
-        </ul>
-    </nav>
-</header>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="../assets/images/Logo-voyage.png" class="w-12 h-12 rounded-full" alt="Logo" />
+                <h1 class="text-2xl font-bold text-gray-800">À la Conquête du Monde</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="../index.html" class="text-gray-700 hover:text-orange-500 transition-colors">Accueil</a>
+                <a href="blog.html" class="text-gray-700 hover:text-orange-500 transition-colors">Blog</a>
+                <a href="destinations.html" class="text-gray-700 hover:text-orange-500 transition-colors">Destinations</a>
+                <a href="about.html" class="text-gray-700 hover:text-orange-500 transition-colors">À propos</a>
+                <a href="contact.html" class="text-orange-500 font-semibold">Contact</a>
+            </nav>
 
-    <main class="mt-24 px-10 flex justify-center">
-        <div class="bg-white p-8 shadow-lg rounded-lg max-w-lg w-full">
-            <h2 class="text-2xl font-bold text-center">Contactez-nous</h2>
-            <form action="#" class="mt-6 flex flex-col space-y-4">
-                <label class="font-bold">Nom :</label>
-                <input type="text" class="border p-2 rounded" placeholder="Votre nom" required>
+            <button id="dark-mode-btn" class="fixed bottom-5 right-5 bg-gray-800 text-white p-3 rounded-full shadow-md">🌙</button>
+        </div>
+    </header>
 
-                <label class="font-bold">Prénom :</label>
-                <input type="text" class="border p-2 rounded" placeholder="Votre prénom" required>
+    <main class="pt-24 px-6">
+        <!-- Section Héro -->
+        <section class="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-16 rounded-2xl mb-12 text-center float-animation">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 fade-in">Contactez-nous</h1>
+            <p class="text-xl md:text-2xl opacity-90 fade-in">Nous serions ravis d'avoir de vos nouvelles !</p>
+        </section>
 
-                <label class="font-bold">Email :</label>
-                <input type="email" class="border p-2 rounded" placeholder="Votre email" required>
+        <!-- Contenu principal -->
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Formulaire de contact -->
+                <section class="bg-white rounded-2xl p-8 shadow-lg fade-in">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Envoyez-nous un message</h2>
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
+                                <input type="text" id="firstName" name="firstName" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+                                <input type="text" id="lastName" name="lastName" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Sujet</label>
+                            <select id="subject" name="subject" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                                <option value="">Sélectionnez un sujet</option>
+                                <option value="question">Question générale</option>
+                                <option value="collaboration">Collaboration</option>
+                                <option value="partnership">Partenariat</option>
+                                <option value="feedback">Retour d'expérience</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="6" required 
+                                      placeholder="Dites-nous tout ! Nous lirons votre message avec attention."
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 hover:scale-105">
+                            Envoyer le message
+                        </button>
+                    </form>
+                </section>
 
-                <label class="font-bold">Message :</label>
-                <textarea class="border p-2 rounded h-24" placeholder="Votre message" required></textarea>
+                <!-- Informations de contact -->
+                <section class="space-y-8 fade-in">
+                    <!-- Coordonnées -->
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Nos coordonnées</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                                    <span class="text-2xl">📧</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Email</h3>
+                                    <p class="text-gray-600">contact@conquetedumonde.fr</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-2xl">📱</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Téléphone</h3>
+                                    <p class="text-gray-600">+33 1 23 45 67 89</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                    <span class="text-2xl">📍</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Adresse</h3>
+                                    <p class="text-gray-600">123 Avenue des Voyages<br>75001 Paris, France</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <button type="submit" class="bg-orange-500 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105">Envoyer</button>
-            </form>
+                    <!-- Réseaux sociaux -->
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Suivez-nous</h2>
+                        <div class="grid grid-cols-3 gap-4">
+                            <a href="#" class="flex flex-col items-center p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                                <img src="../assets/images/facebook.png" class="w-8 h-8 mb-2" alt="Facebook" />
+                                <span class="text-sm font-medium text-gray-700">Facebook</span>
+                            </a>
+                            <a href="#" class="flex flex-col items-center p-4 bg-pink-50 rounded-xl hover:bg-pink-100 transition-colors">
+                                <img src="../assets/images/insta.png" class="w-8 h-8 mb-2" alt="Instagram" />
+                                <span class="text-sm font-medium text-gray-700">Instagram</span>
+                            </a>
+                            <a href="#" class="flex flex-col items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                                <img src="../assets/images/x.png" class="w-8 h-8 mb-2" alt="Twitter" />
+                                <span class="text-sm font-medium text-gray-700">Twitter</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Horaires -->
+                    <div class="bg-white rounded-2xl p-8 shadow-lg">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Horaires</h2>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Lundi - Vendredi</span>
+                                <span class="font-semibold text-gray-800">9h00 - 18h00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Samedi</span>
+                                <span class="font-semibold text-gray-800">10h00 - 16h00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Dimanche</span>
+                                <span class="font-semibold text-gray-800">Fermé</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </main>
 
-    <footer class="bg-white text-black p-6 mt-10 shadow-md">
-        <div class="flex justify-between items-center max-w-5xl mx-auto">
-            <ul class="flex space-x-6">
-                <li><a href="index.html" class="text-gray-700 hover:text-orange-500">Accueil</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-orange-500">Blog</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-orange-500">Articles</a></li>
-                <li><a href="contact.html" class="text-gray-700 hover:text-orange-500">Contact</a></li>
-            </ul>
-            <div>
-                <input type="email" placeholder="Votre email" class="border p-2 rounded-l" />
-                <button class="bg-orange-500 text-white p-2 rounded-r">Envoyer</button>
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img src="../assets/images/Logo-voyage.png" class="w-12 h-12 rounded-full mr-3" alt="Logo" />
+                        <h3 class="text-2xl font-bold">À la Conquête du Monde</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Découvrez les plus belles destinations du monde à travers nos récits de voyage et nos conseils d'experts.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Liens rapides</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-300 hover:text-orange-400 transition-colors">Accueil</a></li>
+                        <li><a href="blog.html" class="text-gray-300 hover:text-orange-400 transition-colors">Blog</a></li>
+                        <li><a href="destinations.html" class="text-gray-300 hover:text-orange-400 transition-colors">Destinations</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-orange-400 transition-colors">À propos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li><a href="contact.html" class="text-gray-300 hover:text-orange-400 transition-colors">Nous contacter</a></li>
+                        <li><span class="text-gray-300">contact@conquetedumonde.fr</span></li>
+                    </ul>
+                </div>
             </div>
-            <div class="flex space-x-4">
-                <img src="/assets/images/facebook.png" class="w-6" alt="Facebook" />
-                <img src="/assets/images/insta.png" class="w-6" alt="Instagram" />
-                <img src="/assets/images/x.png" class="w-6" alt="Twitter" />
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
             </div>
         </div>
-        <p class="text-center mt-4">&copy; 2025 À la Conquête du Monde. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        // Mode sombre
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        const body = document.body;
+
+        darkModeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            darkModeBtn.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', isDark);
+        });
+
+        // Charger le mode sombre sauvegardé
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark-mode');
+            darkModeBtn.textContent = '☀️';
+        }
+
+        // Gestion du formulaire
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Animation de soumission
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            // Simuler l'envoi
+            setTimeout(() => {
+                // Notification de succès
+                showNotification('Message envoyé avec succès ! Nous vous répondrons bientôt.', 'success');
+                
+                // Réinitialiser le formulaire
+                contactForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Fonction de notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
+            
+            const colors = {
+                'success': 'bg-green-500 text-white',
+                'error': 'bg-red-500 text-white',
+                'info': 'bg-blue-500 text-white'
+            };
+            
+            notification.className += ` ${colors[type]}`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <span class="mr-2">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-xl">&times;</button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animation d'entrée
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Auto-suppression après 5 secondes
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000);
+        }
+
+        // Animation d'apparition des éléments
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observer tous les éléments avec la classe fade-in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
