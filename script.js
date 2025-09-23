@@ -357,3 +357,28 @@ document.getElementById("favorites-btn").addEventListener("click", function() {
 // Mettre à jour le compteur de favoris
 updateFavoritesCount();
 
+// Optimisation des images
+function optimizeImages() {
+    const images = document.querySelectorAll('.article-card img');
+    
+    images.forEach(img => {
+        // Ajouter la classe loading
+        img.classList.add('loading');
+        
+        // Gérer le chargement
+        img.addEventListener('load', function() {
+            this.classList.remove('loading');
+            this.classList.add('loaded');
+        });
+        
+        // Gérer les erreurs
+        img.addEventListener('error', function() {
+            this.classList.remove('loading');
+            this.style.display = 'none';
+        });
+    });
+}
+
+// Initialisation de l'optimisation des images
+optimizeImages();
+

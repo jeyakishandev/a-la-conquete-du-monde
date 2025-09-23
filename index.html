@@ -113,6 +113,16 @@ box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
+  transition: opacity 0.3s ease;
+}
+
+.article-card img.loading {
+  opacity: 0.5;
+  background: #f3f4f6;
+}
+
+.article-card img.loaded {
+  opacity: 1;
 }
 
   .nav-menu {
@@ -232,7 +242,7 @@ pointer-events: auto;
 
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articles-container">
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="destinations">
-          <img src="assets/images/voyage.jpg" alt="Voyage" />
+          <img src="assets/images/voyage.jpg" alt="Voyage" loading="lazy" />
           <h2 class="text-xl font-bold mt-4">Les 5 destinations incontournables en 2024</h2>
           <p class="reduire mt-2">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit et necessitatibus corrupti aliquid nemo est repellat soluta iusto ea, quia iure, iste, tempore dolorem. Veritatis vero minima sunt repellat.
@@ -254,7 +264,7 @@ pointer-events: auto;
 
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="destinations">
-          <img src="assets/images/plage.jpg" alt="Plage" />
+          <img src="assets/images/plage.jpg" alt="Plage" loading="lazy" />
           <h2 class="text-xl font-bold mt-4">Bali : le paradis entre plages et rizières</h2>
           <p class="reduire mt-2">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt reprehenderit et necessitatibus corrupti aliquid nemo est repellat soluta iusto ea, quia iure, iste, tempore dolorem. Veritatis vero minima sunt repellat.
@@ -270,7 +280,7 @@ pointer-events: auto;
           </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="culture">
-          <img src="assets/images/New-york.jpg" alt="New York" />
+          <img src="assets/images/New-york.jpg" alt="New York" loading="lazy" />
           <h2 class="text-xl font-bold mt-4">New York : Que voir en 3 jours ?</h2>
           <p class="reduire text-sm mt-2">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore repudiandae expedita magnam voluptate pariatur labore, animi modi rem. Animi consequuntur magni odio pariatur modi sint aut quibusdam molestiae dolorem dolorum!
@@ -286,7 +296,7 @@ pointer-events: auto;
           </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="aventure">
-          <img src="assets/images/paysage.jpg" alt="Paysage" />
+          <img src="assets/images/paysage.jpg" alt="Paysage" loading="lazy" />
           <h2 class="text-xl font-bold mt-4">Road-trip en Islande</h2>
           <p class="reduire text-sm mt-2">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim architecto omnis iusto excepturi ex quis libero rem? Magni animi expedita quod harum aliquam earum iste sunt quam? Beatae, veritatis quam.
@@ -302,7 +312,7 @@ pointer-events: auto;
           </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="aventure">
-          <img src="assets/images/Safari.jpg" alt="Safari" />
+          <img src="assets/images/Safari.jpg" alt="Safari" loading="lazy" />
           <h2 class="text-xl font-bold mt-4">Safari en Afrique</h2>
           <p class="reduire text-sm mt-2">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam error tenetur possimus deserunt nesciunt culpa voluptate sunt similique et explicabo, qui est aspernatur fugiat molestias at atque, earum iste praesentium!
@@ -318,7 +328,7 @@ pointer-events: auto;
           </div>
       </article>
       <article class="article-card bg-white text-black p-6 rounded-lg shadow-lg" data-category="culture">
-          <img src="assets/images/Grandetours.jpg" alt="Chicago" />
+          <img src="assets/images/Grandetours.jpg" alt="Chicago" loading="lazy" />
           <h2 class="text-xl font-bold mt-4">Chicago, États-Unis</h2>
           <p class="reduire text-sm mt-2">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quidem doloremque culpa nihil vitae nobis reprehenderit possimus in dolorem, iusto illo nemo voluptates expedita minima quam cupiditate, animi, laboriosam accusamus.
