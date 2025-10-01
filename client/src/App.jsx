@@ -49,7 +49,7 @@ function App() {
           </Routes>
         </main>
 
-        <Footer />
+        <Footer darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       </div>
     </Router>
   )

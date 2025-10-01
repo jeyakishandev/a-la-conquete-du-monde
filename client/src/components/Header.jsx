@@ -24,8 +24,14 @@ export default function Header({ darkMode, toggleDarkMode }) {
   }, [])
 
   return (
-    <header className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-black bg-opacity-80 shadow-xl' : 'bg-white shadow-md'
+    <header className={`fixed w-full top-0 left-0 z-50 transition-all duration-500 ${
+      isScrolled 
+        ? darkMode 
+          ? 'bg-gray-900/95 backdrop-blur-md shadow-2xl border-b border-gray-700/50' 
+          : 'bg-white/95 backdrop-blur-md shadow-xl border-b border-gray-200/50'
+        : darkMode
+          ? 'bg-gray-900/90 backdrop-blur-sm'
+          : 'bg-white/90 backdrop-blur-sm'
     } ${darkMode ? 'dark' : ''}`}>
       <div className="flex flex-col md:flex-row justify-between items-center p-5">
         <h1 className="text-xl font-bold text-gray-800 dark:text-white">
@@ -100,12 +106,6 @@ export default function Header({ darkMode, toggleDarkMode }) {
           </ul>
         </nav>
 
-        <button 
-          onClick={toggleDarkMode}
-          className="fixed bottom-5 right-5 bg-gray-800 dark:bg-white text-white dark:text-black p-3 rounded-full shadow-md hover:scale-110 transition-transform"
-        >
-          {darkMode ? '☀️' : '🌙'}
-        </button>
       </div>
     </header>
   )

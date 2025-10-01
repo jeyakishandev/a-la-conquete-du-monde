@@ -45,7 +45,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all duration-500">
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-20 rounded-2xl mb-12 text-center mx-6 mt-6">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-pulse">
@@ -73,23 +73,23 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="max-w-6xl mx-auto px-6 mb-12">
-        <div className="bg-white rounded-2xl p-8 shadow-lg">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg dark:shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-3xl font-bold text-orange-500 mb-2">{articles.length}+</div>
-              <div className="text-gray-600">Articles récents</div>
+              <div className="text-3xl font-bold text-orange-500 dark:text-orange-400 mb-2">{articles.length}+</div>
+              <div className="text-gray-600 dark:text-gray-300">Articles récents</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-500 mb-2">{stats.totalViews}</div>
-              <div className="text-gray-600">Vues totales</div>
+              <div className="text-3xl font-bold text-orange-500 dark:text-orange-400 mb-2">{stats.totalViews}</div>
+              <div className="text-gray-600 dark:text-gray-300">Vues totales</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-500 mb-2">50+</div>
-              <div className="text-gray-600">Pays visités</div>
+              <div className="text-3xl font-bold text-orange-500 dark:text-orange-400 mb-2">50+</div>
+              <div className="text-gray-600 dark:text-gray-300">Pays visités</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-500 mb-2">5</div>
-              <div className="text-gray-600">Années d'expérience</div>
+              <div className="text-3xl font-bold text-orange-500 dark:text-orange-400 mb-2">5</div>
+              <div className="text-gray-600 dark:text-gray-300">Années d'expérience</div>
             </div>
           </div>
         </div>
@@ -121,32 +121,32 @@ export default function Home() {
       {/* Features Section */}
       <section className="max-w-6xl mx-auto px-6 mb-12">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">🌟 Pourquoi nous choisir ?</h2>
+          <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">🌟 Pourquoi nous choisir ?</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center hover:scale-105 transition-transform">
+          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg dark:shadow-2xl text-center hover:scale-105 transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50">
             <div className="text-5xl mb-4">📝</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Récits Authentiques</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Récits Authentiques</h3>
+            <p className="text-gray-600 dark:text-gray-300">
               Nos articles sont basés sur de vraies expériences de voyage, 
               avec des conseils pratiques et des anecdotes personnelles.
             </p>
           </div>
           
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center hover:scale-105 transition-transform">
+          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg dark:shadow-2xl text-center hover:scale-105 transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50">
             <div className="text-5xl mb-4">🗺️</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Guides Détaillés</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Guides Détaillés</h3>
+            <p className="text-gray-600 dark:text-gray-300">
               Des guides complets avec itinéraires, budgets, 
               conseils pratiques et les meilleures adresses.
             </p>
           </div>
           
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center hover:scale-105 transition-transform">
+          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg dark:shadow-2xl text-center hover:scale-105 transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50">
             <div className="text-5xl mb-4">🌍</div>
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Monde Entier</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Monde Entier</h3>
+            <p className="text-gray-600 dark:text-gray-300">
               De l'Europe à l'Asie, en passant par l'Afrique et les Amériques, 
               découvrez le monde dans toute sa diversité.
             </p>
