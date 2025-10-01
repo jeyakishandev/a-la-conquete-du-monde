@@ -62,7 +62,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
             </li>
             <li>
               <Link 
-                to="/" 
+                to="/blog" 
                 className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
               >
                 Blog
@@ -70,10 +70,18 @@ export default function Header({ darkMode, toggleDarkMode }) {
             </li>
             <li>
               <Link 
-                to="/" 
+                to="/destinations" 
                 className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
               >
-                Articles
+                Destinations
+              </Link>
+            </li>
+            <li>
+              <Link 
+                to="/about" 
+                className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
+              >
+                À propos
               </Link>
             </li>
             <li>

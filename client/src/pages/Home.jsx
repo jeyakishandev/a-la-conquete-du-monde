@@ -1,32 +1,26 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import ArticleCard from '../components/ArticleCard'
 
 export default function Home() {
   const [articles, setArticles] = useState([])
-  const [filteredArticles, setFilteredArticles] = useState([])
-  const [currentCategory, setCurrentCategory] = useState('all')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const [loading, setLoading] = useState(true)
   const [stats, setStats] = useState({ totalViews: 0 })
-  const articlesPerPage = 6
 
   useEffect(() => {
     loadArticles()
     loadStats()
   }, [])
 
-  useEffect(() => {
-    filterArticles()
-  }, [articles, currentCategory, searchQuery])
-
   const loadArticles = async () => {
     try {
       const { data } = await axios.get('/api/articles')
-      setArticles(data)
-      setFilteredArticles(data)
+      setArticles(data.slice(0, 3)) // Afficher seulement les 3 derniers articles
     } catch (error) {
       console.error('Erreur chargement articles:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -39,132 +33,150 @@ export default function Home() {
     }
   }
 
-  const filterArticles = () => {
-    let filtered = articles
-
-    // Filtre par catégorie
-    if (currentCategory !== 'all') {
-      filtered = filtered.filter(a => a.category === currentCategory)
-    }
-
-    // Filtre par recherche
-    if (searchQuery) {
-      filtered = filtered.filter(a => 
-        a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        a.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    }
-
-    setFilteredArticles(filtered)
-    setCurrentPage(1)
-  }
-
-  const handleCategoryChange = (category) => {
-    setCurrentCategory(category)
-  }
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value)
-  }
-
-  // Pagination
-  const indexOfLastArticle = currentPage * articlesPerPage
-  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage
-  const currentArticles = filteredArticles.slice(indexOfFirstArticle, indexOfLastArticle)
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage)
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Chargement...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="fade-in">
-      {/* Barre de recherche */}
-      <div className="text-center my-6">
-        <input 
-          type="text"
-          placeholder="Rechercher un article..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="p-3 border border-gray-300 dark:border-gray-600 rounded-lg w-full md:w-1/2 max-w-md mx-auto bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-        />
-      </div>
-
-      {/* Filtres par catégorie */}
-      <div className="flex flex-wrap justify-center gap-2 my-6">
-        {['all', 'destinations', 'aventure', 'culture'].map((category) => (
-          <button
-            key={category}
-            onClick={() => handleCategoryChange(category)}
-            className={`px-4 py-2 rounded-full text-sm transition ${
-              currentCategory === category
-                ? 'bg-orange-500 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-20 rounded-2xl mb-12 text-center mx-6 mt-6">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-pulse">
+          🌍 À la Conquête du Monde
+        </h1>
+        <p className="text-xl md:text-2xl opacity-90 mb-8 max-w-3xl mx-auto">
+          Découvrez les plus beaux endroits de la planète à travers nos récits d'aventure, 
+          conseils pratiques et guides détaillés pour vos prochains voyages.
+        </p>
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
+          <Link 
+            to="/blog" 
+            className="bg-white text-orange-500 font-bold py-4 px-8 rounded-lg hover:scale-105 transition-transform text-lg"
           >
-            {category === 'all' ? 'Tous' : category.charAt(0).toUpperCase() + category.slice(1)}
-          </button>
-        ))}
-      </div>
-
-      {/* Statistiques */}
-      <p className="text-center mb-6 text-gray-600 dark:text-gray-400">
-        👀 Nombre de vues : <span className="font-bold text-orange-500">{stats.totalViews}</span>
-      </p>
-
-      {/* Articles */}
-      {currentArticles.length === 0 ? (
-        <div className="text-center py-20">
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
-            Aucun article trouvé 😔
-          </p>
+            📖 Lire nos articles
+          </Link>
+          <Link 
+            to="/destinations" 
+            className="bg-orange-600 text-white font-bold py-4 px-8 rounded-lg hover:scale-105 transition-transform text-lg"
+          >
+            🗺️ Explorer les destinations
+          </Link>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {currentArticles.map((article) => (
+      </section>
+
+      {/* Stats Section */}
+      <section className="max-w-6xl mx-auto px-6 mb-12">
+        <div className="bg-white rounded-2xl p-8 shadow-lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+              <div className="text-3xl font-bold text-orange-500 mb-2">{articles.length}+</div>
+              <div className="text-gray-600">Articles récents</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-orange-500 mb-2">{stats.totalViews}</div>
+              <div className="text-gray-600">Vues totales</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-orange-500 mb-2">50+</div>
+              <div className="text-gray-600">Pays visités</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-orange-500 mb-2">5</div>
+              <div className="text-gray-600">Années d'expérience</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Articles */}
+      <section className="max-w-6xl mx-auto px-6 mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">✨ Nos Articles Récents</h2>
+          <p className="text-gray-600 text-lg">Découvrez nos dernières aventures et conseils de voyage</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {articles.map(article => (
             <ArticleCard key={article.id} article={article} />
           ))}
         </div>
-      )}
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center space-x-2 mb-8">
-          <button
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-4 py-2 rounded-lg bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        <div className="text-center mt-8">
+          <Link 
+            to="/blog" 
+            className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-8 rounded-lg hover:scale-105 transition-transform"
           >
-            ← Précédent
-          </button>
-
-          <div className="flex space-x-1">
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => paginate(index + 1)}
-                className={`px-3 py-2 rounded-lg transition ${
-                  currentPage === index + 1
-                    ? 'bg-orange-500 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-
-          <button
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 rounded-lg bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          >
-            Suivant →
-          </button>
+            Voir tous les articles →
+          </Link>
         </div>
-      )}
+      </section>
+
+      {/* Features Section */}
+      <section className="max-w-6xl mx-auto px-6 mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">🌟 Pourquoi nous choisir ?</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white rounded-2xl p-8 shadow-lg text-center hover:scale-105 transition-transform">
+            <div className="text-5xl mb-4">📝</div>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Récits Authentiques</h3>
+            <p className="text-gray-600">
+              Nos articles sont basés sur de vraies expériences de voyage, 
+              avec des conseils pratiques et des anecdotes personnelles.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-2xl p-8 shadow-lg text-center hover:scale-105 transition-transform">
+            <div className="text-5xl mb-4">🗺️</div>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Guides Détaillés</h3>
+            <p className="text-gray-600">
+              Des guides complets avec itinéraires, budgets, 
+              conseils pratiques et les meilleures adresses.
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-2xl p-8 shadow-lg text-center hover:scale-105 transition-transform">
+            <div className="text-5xl mb-4">🌍</div>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Monde Entier</h3>
+            <p className="text-gray-600">
+              De l'Europe à l'Asie, en passant par l'Afrique et les Amériques, 
+              découvrez le monde dans toute sa diversité.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="max-w-4xl mx-auto px-6 mb-12">
+        <div className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-2xl p-8 text-center">
+          <h2 className="text-3xl font-bold mb-4">🚀 Prêt à partir à l'aventure ?</h2>
+          <p className="text-xl mb-6 opacity-90">
+            Rejoignez notre communauté de voyageurs et découvrez de nouveaux horizons
+          </p>
+          <div className="flex flex-col md:flex-row gap-4 justify-center">
+            <Link 
+              to="/destinations" 
+              className="bg-white text-orange-500 font-bold py-3 px-6 rounded-lg hover:scale-105 transition-transform"
+            >
+              Explorer les destinations
+            </Link>
+            <Link 
+              to="/contact" 
+              className="bg-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:scale-105 transition-transform"
+            >
+              Nous contacter
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
-
