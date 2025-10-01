@@ -40,7 +40,7 @@
     "docker",
     "typescript"
   ],
-  "author": "Développeur Fullstack",
+  "author": "Jeya Kishan Karunanithy <k.jeyakishan@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"
@@ -51,10 +51,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/a-la-conquete-du-monde.git"
+    "url": "https://github.com/jeyakishandev/a-la-conquete-du-monde.git"
   },
   "bugs": {
-    "url": "https://github.com/username/a-la-conquete-du-monde/issues"
+    "url": "https://github.com/jeyakishandev/a-la-conquete-du-monde/issues"
   },
-  "homepage": "https://github.com/username/a-la-conquete-du-monde#readme"
+  "homepage": "https://github.com/jeyakishandev/a-la-conquete-du-monde#readme"
 }

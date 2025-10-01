@@ -264,17 +264,25 @@ POST   /api/comments          # Ajouter commentaire
 
 ## 🎨 Screenshots
 
-### Page d'accueil
+### 🏠 Page d'accueil - Landing Page
 ![Homepage](screenshots/homepage.png)
+*Interface moderne avec hero section, statistiques et articles récents*
 
-### Mode sombre
+### 🌙 Mode sombre
 ![Dark Mode](screenshots/dark-mode.png)
+*Thème sombre avec transitions fluides et couleurs cohérentes*
 
-### Page Blog
+### 📚 Page Blog
 ![Blog](screenshots/blog.png)
+*Interface complète avec recherche, filtres et pagination*
 
-### Destinations
+### 🌍 Destinations
 ![Destinations](screenshots/destinations.png)
+*Catalogue interactif avec filtres par continent*
+
+### 📱 Version Mobile
+![Mobile](screenshots/mobile.png)
+*Design responsive optimisé pour mobile*
 
 ## 🧪 Tests
 
@@ -390,9 +398,9 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 ## 👨‍💻 Auteur
 
 **Développeur Fullstack passionné par les technologies web**
-- GitHub: [@username](https://github.com/username)
-- LinkedIn: [Profil LinkedIn](https://linkedin.com/in/username)
-- Email: contact@example.com
+- GitHub: [@jeyakishandev](https://github.com/jeyakishandev)
+- LinkedIn: [Jeya Kishan Karunanithy](https://www.linkedin.com/in/jeya-kishan-karunanithy)
+- Email: k.jeyakishan@gmail.com
 
 *Ce projet a été développé avec passion pour explorer les dernières technologies web et créer une expérience utilisateur moderne.*
 
