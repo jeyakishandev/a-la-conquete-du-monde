@@ -317,12 +317,14 @@ npm run test:e2e
 # Backend
 NODE_ENV=production
 PORT=3001
-DATABASE_URL=postgresql://user:password@localhost:5432/conquete
-JWT_SECRET=your-super-secret-jwt-key
+DATABASE_URL=postgresql://username:password@localhost:5432/database_name
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
 
 # Frontend
 VITE_API_URL=http://localhost:3001/api
 ```
+
+> ⚠️ **Sécurité** : Remplacez toutes les valeurs par vos vraies données en production. Ne jamais commiter de vraies clés secrètes !
 
 ### Déploiement avec Docker
 
