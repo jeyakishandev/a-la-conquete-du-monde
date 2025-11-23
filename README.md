@@ -170,6 +170,16 @@ npm run build
 npm run test
 ```
 
+## 🔑 Compte de test
+
+Pour tester l'application, un compte utilisateur est créé automatiquement lors du seed de la base de données :
+
+- **Email :** `test@example.com`
+- **Username :** `testuser`
+- **Password :** `test123`
+
+> ⚠️ **Note :** Ce compte est uniquement destiné au développement et aux tests. Ne l'utilisez pas en production.
+
 ## 🐳 Docker
 
 ### Démarrage rapide avec Docker

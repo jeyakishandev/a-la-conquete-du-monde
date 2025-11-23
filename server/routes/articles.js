@@ -7,11 +7,14 @@ const prisma = new PrismaClient();
 // Obtenir tous les articles
 router.get('/', async (req, res) => {
   try {
-    const { category, search } = req.query;
+    const { category, search, userId } = req.query;
     
     const where = {};
     if (category && category !== 'all') {
       where.category = category;
+    }
+    if (userId) {
+      where.userId = parseInt(userId);
     }
     if (search) {
       where.OR = [
@@ -80,7 +83,15 @@ router.get('/:id', async (req, res) => {
 // Créer un article
 router.post('/', async (req, res) => {
   try {
-    const { title, description, content, category, image } = req.body;
+    const { title, description, content, category, image, userId } = req.body;
+
+    // Validation
+    if (!title || !description || !content || !category) {
+      return res.status(400).json({ error: 'Tous les champs sont requis' });
+    }
+
+    // Image par défaut si non fournie
+    const articleImage = image || '/assets/images/voyage.jpg';
 
     const article = await prisma.article.create({
       data: {
@@ -88,7 +99,17 @@ router.post('/', async (req, res) => {
         description,
         content,
         category,
-        image
+        image: articleImage,
+        userId: userId ? parseInt(userId) : null
+      },
+      include: {
+        _count: {
+          select: {
+            comments: true,
+            likes: true,
+            favorites: true
+          }
+        }
       }
     });
 

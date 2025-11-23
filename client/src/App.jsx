@@ -11,6 +11,10 @@ import Contact from './pages/Contact'
 import ArticleDetail from './pages/ArticleDetail'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Favorites from './pages/Favorites'
+import NotFound from './pages/NotFound'
+import CreateArticle from './pages/CreateArticle'
+import MyArticles from './pages/MyArticles'
 import './App.css'
 
 function App() {
@@ -45,16 +49,20 @@ function App() {
           <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           
           <main className="flex-grow mt-24 px-4 md:px-10">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/article/:id" element={<ArticleDetail />} />
-              <Route path="/destinations" element={<Destinations />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/article/:id" element={<ArticleDetail />} />
+            <Route path="/destinations" element={<Destinations />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/create-article" element={<CreateArticle />} />
+            <Route path="/my-articles" element={<MyArticles />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
           </main>
 
           <Footer darkMode={darkMode} toggleDarkMode={toggleDarkMode} />

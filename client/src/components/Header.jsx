@@ -116,12 +116,31 @@ export default function Header({ darkMode, toggleDarkMode }) {
               </Link>
             </li>
             <li>
-              <button className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition">
-                ⭐ Favoris (<span>{favoritesCount}</span>)
-              </button>
+              <Link 
+                to="/favorites" 
+                className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
+              >
+                ⭐ Favoris {favoritesCount > 0 && `(${favoritesCount})`}
+              </Link>
             </li>
             {user ? (
               <>
+                <li>
+                  <Link 
+                    to="/create-article" 
+                    className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition text-sm font-semibold"
+                  >
+                    ✍️ Écrire
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/my-articles" 
+                    className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
+                  >
+                    📝 Mes articles
+                  </Link>
+                </li>
                 <li>
                   <span className="text-gray-700 dark:text-gray-300">
                     👤 {user.username || user.name || user.email}

@@ -47,14 +47,22 @@ router.post('/toggle/:articleId', async (req, res) => {
 // Obtenir tous les favoris d'un utilisateur
 router.get('/user', async (req, res) => {
   try {
+    // Pour l'instant, on récupère tous les favoris
+    // TODO: Filtrer par userId quand l'authentification sera complète
+    const { userId } = req.query;
+    
+    const where = userId ? { userId: parseInt(userId) } : {};
+    
     const favorites = await prisma.favorite.findMany({
+      where,
       include: {
         article: {
           include: {
             _count: {
               select: {
                 comments: true,
-                likes: true
+                likes: true,
+                favorites: true
               }
             }
           }
