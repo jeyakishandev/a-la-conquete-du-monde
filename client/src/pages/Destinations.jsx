@@ -55,12 +55,12 @@ const Destinations = () => {
   ];
 
   const continents = [
-    { id: 'all', name: 'Tous', emoji: '🌍' },
-    { id: 'europe', name: 'Europe', emoji: '🇪🇺' },
-    { id: 'asia', name: 'Asie', emoji: '🌏' },
-    { id: 'america', name: 'Amériques', emoji: '🌎' },
-    { id: 'africa', name: 'Afrique', emoji: '🌍' },
-    { id: 'oceania', name: 'Océanie', emoji: '🌊' }
+    { id: 'all', name: 'Tous' },
+    { id: 'europe', name: 'Europe' },
+    { id: 'asia', name: 'Asie' },
+    { id: 'america', name: 'Amériques' },
+    { id: 'africa', name: 'Afrique' },
+    { id: 'oceania', name: 'Océanie' }
   ];
 
   const filteredDestinations = activeContinent === 'all' 
@@ -89,7 +89,7 @@ const Destinations = () => {
                     : 'bg-gray-200 text-gray-700 hover:bg-orange-500 hover:text-white'
                 }`}
               >
-                {continent.emoji} {continent.name}
+                {continent.name}
               </button>
             ))}
           </div>
@@ -108,7 +108,7 @@ const Destinations = () => {
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute top-4 right-4 bg-white bg-opacity-90 px-3 py-1 rounded-full text-sm font-semibold">
-                  {continents.find(c => c.id === destination.continent)?.emoji}
+                  {continents.find(c => c.id === destination.continent)?.name}
                 </div>
               </div>
               

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ArticleCard from '../components/ArticleCard'
 import { useToast } from '../context/ToastContext'
+import { FaArrowLeft } from 'react-icons/fa'
 
 export default function Favorites() {
   const navigate = useNavigate()
@@ -58,7 +59,7 @@ export default function Favorites() {
         {/* En-tête */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            ⭐ Mes Favoris
+            Mes Favoris
           </h1>
           <p className="text-gray-600 dark:text-gray-400 text-lg">
             {favorites.length === 0 
@@ -71,7 +72,7 @@ export default function Favorites() {
         {/* Liste des favoris */}
         {favorites.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4">⭐</div>
+            <div className="text-6xl mb-4"></div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Aucun favori pour le moment
             </h2>
@@ -99,7 +100,8 @@ export default function Favorites() {
             onClick={() => navigate(-1)}
             className="text-orange-500 hover:text-orange-600 flex items-center gap-2 mx-auto transition"
           >
-            ← Retour
+            <FaArrowLeft />
+            <span>Retour</span>
           </button>
         </div>
       </div>

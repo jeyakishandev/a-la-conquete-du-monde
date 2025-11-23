@@ -27,11 +27,11 @@ const Blog = () => {
   };
 
   const categories = [
-    { id: 'all', name: 'Tous', emoji: '📰' },
-    { id: 'destinations', name: 'Destinations', emoji: '🌍' },
-    { id: 'conseils', name: 'Conseils', emoji: '💡' },
-    { id: 'aventures', name: 'Aventures', emoji: '🏔️' },
-    { id: 'culture', name: 'Culture', emoji: '🎭' }
+    { id: 'all', name: 'Tous' },
+    { id: 'destinations', name: 'Destinations' },
+    { id: 'conseils', name: 'Conseils' },
+    { id: 'aventures', name: 'Aventures' },
+    { id: 'culture', name: 'Culture' }
   ];
 
   const filteredArticles = articles.filter(article => {
@@ -56,7 +56,7 @@ const Blog = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Section Héro */}
       <section className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-16 rounded-2xl mb-12 text-center mx-6 mt-6">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">📚 Notre Blog</h1>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">Notre Blog</h1>
         <p className="text-xl md:text-2xl opacity-90">Découvrez tous nos articles, récits de voyage et conseils pratiques</p>
         <div className="mt-6 text-sm opacity-80">
           {articles.length} articles disponibles • Mise à jour régulière
@@ -87,7 +87,7 @@ const Blog = () => {
                       : 'bg-gray-200 text-gray-700 hover:bg-orange-500 hover:text-white'
                   }`}
                 >
-                  {category.emoji} {category.name}
+                  {category.name}
                 </button>
               ))}
             </div>

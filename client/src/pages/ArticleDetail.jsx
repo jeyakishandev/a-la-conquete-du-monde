@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import { FaHeart, FaRegHeart, FaStar, FaRegStar, FaShare, FaFacebook, FaTwitter, FaWhatsapp, FaArrowLeft } from 'react-icons/fa'
 
 export default function ArticleDetail() {
   const { id } = useParams()
@@ -130,7 +131,8 @@ export default function ArticleDetail() {
           onClick={() => navigate(-1)}
           className="mb-6 text-orange-500 hover:text-orange-600 flex items-center gap-2 transition"
         >
-          ← Retour
+          <FaArrowLeft />
+          <span>Retour</span>
         </button>
 
         {/* Image principale */}
@@ -156,7 +158,7 @@ export default function ArticleDetail() {
               })}
             </span>
             <span className="text-gray-500 dark:text-gray-400 text-sm">
-              👁️ {article.views} vues
+              {article.views} vues
             </span>
           </div>
 
@@ -174,7 +176,8 @@ export default function ArticleDetail() {
               onClick={handleLike}
               className="flex items-center gap-2 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-4 py-2 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50 transition"
             >
-              ❤️ J'aime ({likes})
+              <FaHeart className="text-lg" />
+              <span>J'aime ({likes})</span>
             </button>
 
             <button
@@ -185,27 +188,31 @@ export default function ArticleDetail() {
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
               }`}
             >
-              ⭐ {isFavorite ? 'Favori' : 'Ajouter aux favoris'}
+              {isFavorite ? <FaStar className="text-lg" /> : <FaRegStar className="text-lg" />}
+              <span>{isFavorite ? 'Favori' : 'Ajouter aux favoris'}</span>
             </button>
 
             <div className="flex gap-2">
               <button
                 onClick={() => handleShare('facebook')}
-                className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition"
+                className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition"
               >
-                📘 Partager
+                <FaFacebook />
+                <span>Partager</span>
               </button>
               <button
                 onClick={() => handleShare('twitter')}
-                className="bg-blue-400 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-500 transition"
+                className="flex items-center gap-2 bg-blue-400 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-500 transition"
               >
-                🐦 Twitter
+                <FaTwitter />
+                <span>Twitter</span>
               </button>
               <button
                 onClick={() => handleShare('whatsapp')}
-                className="bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition"
+                className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition"
               >
-                📱 WhatsApp
+                <FaWhatsapp />
+                <span>WhatsApp</span>
               </button>
             </div>
           </div>
@@ -224,7 +231,7 @@ export default function ArticleDetail() {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              💬 Commentaires ({comments.length})
+              Commentaires ({comments.length})
             </h2>
             <button
               onClick={() => setShowComments(!showComments)}

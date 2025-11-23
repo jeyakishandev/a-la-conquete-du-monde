@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ArticleCard from '../components/ArticleCard'
 import { useToast } from '../context/ToastContext'
+import { FaTrash, FaArrowLeft } from 'react-icons/fa'
 
 export default function MyArticles() {
   const navigate = useNavigate()
@@ -66,7 +67,7 @@ export default function MyArticles() {
         {/* En-tête */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            📝 Mes Articles
+            Mes Articles
           </h1>
           <p className="text-gray-600 dark:text-gray-400 text-lg mb-6">
             {articles.length === 0 
@@ -78,14 +79,14 @@ export default function MyArticles() {
             to="/create-article"
             className="inline-block bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-8 rounded-lg hover:scale-105 transition-transform"
           >
-            ✍️ Créer un nouvel article
+            Créer un nouvel article
           </Link>
         </div>
 
         {/* Liste des articles */}
         {articles.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4">📝</div>
+            <div className="text-6xl mb-4"></div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Aucun article pour le moment
             </h2>
@@ -96,7 +97,7 @@ export default function MyArticles() {
               to="/create-article"
               className="inline-block bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-8 rounded-lg hover:scale-105 transition-transform"
             >
-              Créer mon premier article →
+              Créer mon premier article
             </Link>
           </div>
         ) : (
@@ -107,10 +108,11 @@ export default function MyArticles() {
                 <div className="absolute top-2 right-2 flex gap-2">
                   <button
                     onClick={() => handleDelete(article.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600 transition"
+                    className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600 transition flex items-center gap-1"
                     title="Supprimer"
                   >
-                    🗑️
+                    <FaTrash />
+                    <span>Supprimer</span>
                   </button>
                 </div>
               </div>
@@ -124,7 +126,8 @@ export default function MyArticles() {
             onClick={() => navigate(-1)}
             className="text-orange-500 hover:text-orange-600 flex items-center gap-2 mx-auto transition"
           >
-            ← Retour
+            <FaArrowLeft />
+            <span>Retour</span>
           </button>
         </div>
       </div>

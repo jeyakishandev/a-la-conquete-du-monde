@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useToast } from '../context/ToastContext'
+import { FaSave, FaTimes, FaArrowLeft } from 'react-icons/fa'
 
 export default function CreateArticle() {
   const navigate = useNavigate()
@@ -73,7 +74,7 @@ export default function CreateArticle() {
       <div className="max-w-4xl mx-auto px-4">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            ✍️ Créer un article
+            Créer un article
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             Partagez votre expérience de voyage avec la communauté
@@ -171,16 +172,18 @@ export default function CreateArticle() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                {loading ? 'Publication...' : 'Publier l\'article'}
+                <FaSave />
+                <span>{loading ? 'Publication...' : 'Publier l\'article'}</span>
               </button>
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold rounded-lg hover:scale-105 transition-transform"
+                className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold rounded-lg hover:scale-105 transition-transform flex items-center gap-2"
               >
-                Annuler
+                <FaTimes />
+                <span>Annuler</span>
               </button>
             </div>
           </form>

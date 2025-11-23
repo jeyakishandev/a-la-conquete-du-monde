@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useToast } from '../context/ToastContext'
+import { FaPaperPlane } from 'react-icons/fa'
 
 export default function Contact() {
   const { showToast } = useToast()
@@ -36,7 +37,7 @@ export default function Contact() {
   return (
     <div className="max-w-2xl mx-auto py-10 fade-in">
       <h1 className="text-4xl font-bold text-center mb-4">
-        Contactez-nous 📬
+        Contactez-nous
       </h1>
       <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
         Une question ? Une suggestion ? N'hésitez pas à nous écrire !
@@ -92,9 +93,10 @@ export default function Contact() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          {loading ? 'Envoi...' : 'Envoyer le message 📨'}
+          <FaPaperPlane />
+          <span>{loading ? 'Envoi...' : 'Envoyer le message'}</span>
         </button>
       </form>
 

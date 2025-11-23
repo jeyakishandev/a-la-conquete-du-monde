@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { FaSun, FaMoon, FaPaperPlane } from 'react-icons/fa'
 
 export default function Footer({ darkMode, toggleDarkMode }) {
   return (
@@ -33,8 +34,9 @@ export default function Footer({ darkMode, toggleDarkMode }) {
             placeholder="Votre email" 
             className="border border-gray-300 dark:border-gray-600 p-2 rounded-l bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
           />
-          <button className="bg-orange-500 text-white p-2 rounded-r hover:bg-orange-600 transition">
-            Envoyer
+          <button className="bg-orange-500 text-white p-2 rounded-r hover:bg-orange-600 transition flex items-center gap-1">
+            <FaPaperPlane />
+            <span>Envoyer</span>
           </button>
         </div>
 
@@ -52,9 +54,7 @@ export default function Footer({ darkMode, toggleDarkMode }) {
                 : 'bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-gray-800/30'
             }`}
           >
-            <span className="text-lg">
-              {darkMode ? '☀️' : '🌙'}
-            </span>
+            {darkMode ? <FaSun className="text-lg" /> : <FaMoon className="text-lg" />}
           </button>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function Footer({ darkMode, toggleDarkMode }) {
         &copy; 2025 À la Conquête du Monde. Tous droits réservés.
       </p>
       <p className="text-center mt-2 text-xs text-gray-500">
-        🚀 Version React + Node.js + Express + Prisma
+        Version React + Node.js + Express + Prisma
       </p>
     </footer>
   )

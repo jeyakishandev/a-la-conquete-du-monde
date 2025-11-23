@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useToast } from '../context/ToastContext'
+import { FaUserPlus, FaArrowLeft } from 'react-icons/fa'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -58,7 +59,7 @@ export default function Register() {
       <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Inscription ✨
+            Inscription
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
             Créez votre compte pour commencer
@@ -133,9 +134,10 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-4 rounded-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-4 rounded-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            {loading ? 'Inscription...' : 'S\'inscrire'}
+            <FaUserPlus />
+            <span>{loading ? 'Inscription...' : 'S\'inscrire'}</span>
           </button>
         </form>
 
@@ -149,8 +151,9 @@ export default function Register() {
         </div>
 
         <div className="mt-4 text-center">
-          <Link to="/" className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-            ← Retour à l'accueil
+          <Link to="/" className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 flex items-center justify-center gap-1">
+            <FaArrowLeft />
+            <span>Retour à l'accueil</span>
           </Link>
         </div>
       </div>

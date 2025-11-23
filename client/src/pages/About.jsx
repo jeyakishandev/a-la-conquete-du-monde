@@ -30,8 +30,8 @@ const About = () => {
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Notre Équipe</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="text-center">
-              <div className="w-32 h-32 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                👨‍💼
+              <div className="w-32 h-32 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-4xl font-bold text-white">A</span>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">Alexandre</h3>
               <p className="text-gray-600 mb-2">Fondateur & Rédacteur en chef</p>
@@ -41,8 +41,8 @@ const About = () => {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-32 h-32 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
-                👩‍💼
+              <div className="w-32 h-32 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-4xl">S</span>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">Sophie</h3>
               <p className="text-gray-600 mb-2">Photographe & Rédactrice</p>
@@ -59,21 +59,21 @@ const About = () => {
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Nos Valeurs</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-4">
-              <div className="text-4xl mb-4">🌍</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="text-lg font-bold text-gray-800 mb-2">Respect de l'environnement</h3>
               <p className="text-sm text-gray-600">
                 Nous prônons un tourisme responsable et respectueux de l'environnement.
               </p>
             </div>
             <div className="text-center p-4">
-              <div className="text-4xl mb-4">🤝</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="text-lg font-bold text-gray-800 mb-2">Authenticité</h3>
               <p className="text-sm text-gray-600">
                 Nous partageons des expériences authentiques et des conseils honnêtes.
               </p>
             </div>
             <div className="text-center p-4">
-              <div className="text-4xl mb-4">💡</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="text-lg font-bold text-gray-800 mb-2">Inspiration</h3>
               <p className="text-sm text-gray-600">
                 Notre objectif est de vous inspirer à découvrir de nouveaux horizons.

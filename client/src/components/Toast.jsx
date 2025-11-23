@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { FaCheckCircle, FaExclamationCircle, FaExclamationTriangle, FaInfoCircle, FaTimes } from 'react-icons/fa'
 
 export default function Toast({ message, type = 'info', onClose, duration = 5000 }) {
   useEffect(() => {
@@ -18,24 +19,24 @@ export default function Toast({ message, type = 'info', onClose, duration = 5000
   }
 
   const icon = {
-    success: '✅',
-    error: '❌',
-    warning: '⚠️',
-    info: 'ℹ️'
+    success: <FaCheckCircle className="text-2xl" />,
+    error: <FaExclamationCircle className="text-2xl" />,
+    warning: <FaExclamationTriangle className="text-2xl" />,
+    info: <FaInfoCircle className="text-2xl" />
   }
 
   return (
     <div className={`px-6 py-4 rounded-lg shadow-xl border ${bgColor[type]} animate-slide-in-right max-w-md`}>
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">{icon[type]}</span>
+          {icon[type]}
           <p className="font-semibold">{message}</p>
         </div>
         <button
           onClick={onClose}
           className="text-lg hover:opacity-70 transition"
         >
-          ✕
+          <FaTimes />
         </button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { FaBars, FaTimes, FaSignOutAlt, FaStar, FaUser, FaEdit, FaBook } from 'react-icons/fa'
 
 export default function Header({ darkMode, toggleDarkMode }) {
   const navigate = useNavigate()
@@ -68,7 +69,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
           className="md:hidden text-2xl text-gray-800 dark:text-white"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? '✖' : '☰'}
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
 
         <nav className={`${
@@ -118,9 +119,10 @@ export default function Header({ darkMode, toggleDarkMode }) {
             <li>
               <Link 
                 to="/favorites" 
-                className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
+                className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition flex items-center gap-1"
               >
-                ⭐ Favoris {favoritesCount > 0 && `(${favoritesCount})`}
+                <FaStar className="text-sm" />
+                <span>Favoris {favoritesCount > 0 && `(${favoritesCount})`}</span>
               </Link>
             </li>
             {user ? (
@@ -128,30 +130,34 @@ export default function Header({ darkMode, toggleDarkMode }) {
                 <li>
                   <Link 
                     to="/create-article" 
-                    className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition text-sm font-semibold"
+                    className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition text-sm font-semibold flex items-center gap-1"
                   >
-                    ✍️ Écrire
+                    <FaEdit />
+                    <span>Écrire</span>
                   </Link>
                 </li>
                 <li>
                   <Link 
                     to="/my-articles" 
-                    className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
+                    className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition flex items-center gap-1"
                   >
-                    📝 Mes articles
+                    <FaBook />
+                    <span>Mes articles</span>
                   </Link>
                 </li>
                 <li>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    👤 {user.username || user.name || user.email}
+                  <span className="text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                    <FaUser className="text-sm" />
+                    <span>{user.username || user.name || user.email}</span>
                   </span>
                 </li>
                 <li>
                   <button 
                     onClick={handleLogout}
-                    className="text-gray-700 dark:text-gray-300 hover:text-red-500 transition"
+                    className="text-gray-700 dark:text-gray-300 hover:text-red-500 transition flex items-center gap-1"
                   >
-                    Déconnexion
+                    <FaSignOutAlt />
+                    <span>Déconnexion</span>
                   </button>
                 </li>
               </>

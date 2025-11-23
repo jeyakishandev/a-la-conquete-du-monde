@@ -38,7 +38,8 @@ services:
       - /app/node_modules
     command: >
       sh -c "
-        npx prisma migrate deploy &&
+        sleep 5 &&
+        npx prisma db push --accept-data-loss &&
         npx prisma db seed &&
         npm start
       "
@@ -46,13 +47,14 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
       interval: 30s
       timeout: 10s
+      start_period: 40s
       retries: 3
 
   # Frontend
   frontend:
     build:
-      context: ./client
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./client/Dockerfile
       args:
         - VITE_API_URL=${VITE_API_URL:-http://localhost:3001/api}
     container_name: conquete-frontend
@@ -63,9 +65,10 @@ services:
     depends_on:
       - backend
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 30s
       timeout: 10s
+      start_period: 10s
       retries: 3
 
   # Redis (for caching and sessions)

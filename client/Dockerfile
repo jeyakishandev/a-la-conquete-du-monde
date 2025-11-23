@@ -1,4 +1,4 @@
-# Frontend Dockerfile
+# Frontend Dockerfile - Optimisé
 FROM node:18-alpine as builder
 
 # Set working directory
@@ -10,14 +10,17 @@ ARG VITE_API_URL=http://localhost:3001/api
 # Set environment variables for build
 ENV VITE_API_URL=$VITE_API_URL
 
-# Copy package files
-COPY package*.json ./
+# Copy package files first (pour cache Docker)
+COPY client/package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (avec cache optimisé)
+RUN npm ci --prefer-offline --no-audit
 
-# Copy source code
-COPY . .
+# Copy source code (sans public/assets qui est un lien symbolique)
+COPY client/ .
+# Supprimer le lien symbolique et copier le vrai dossier assets
+RUN rm -rf public/assets
+COPY server/assets ./public/assets
 
 # Build the application
 RUN npm run build
@@ -29,14 +32,14 @@ FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY client/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port
+# Expose port 3000 (as configured in nginx.conf)
 EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000 || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
