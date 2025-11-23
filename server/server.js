@@ -42,8 +42,8 @@ app.use((req, res, next) => {
 });
 
 // Servir les fichiers statiques (images, CSS, JS)
+// Les assets sont servis depuis la racine pour les images des articles en BDD
 app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
-app.use('/pages', express.static(path.join(__dirname, '..', 'pages')));
 
 // Routes API
 app.get('/api', (req, res) => {
