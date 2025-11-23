@@ -6,9 +6,9 @@ services:
     image: postgres:15-alpine
     container_name: conquete-db
     environment:
-      POSTGRES_DB: conquete
-      POSTGRES_USER: conquete_user
-      POSTGRES_PASSWORD: conquete_password
+      POSTGRES_DB: ${POSTGRES_DB:-conquete}
+      POSTGRES_USER: ${POSTGRES_USER:-conquete_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-conquete_password}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -27,8 +27,8 @@ services:
     container_name: conquete-backend
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://conquete_user:conquete_password@database:5432/conquete
-      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-conquete_user}:${POSTGRES_PASSWORD:-conquete_password}@database:5432/${POSTGRES_DB:-conquete}
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
       - PORT=3001
     ports:
       - "3001:3001"
@@ -42,7 +42,7 @@ services:
       sh -c "
         npx prisma migrate deploy &&
         npx prisma db seed &&
-        npm run dev
+        npm start
       "
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
@@ -55,7 +55,11 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:3001/api}
     container_name: conquete-frontend
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:3001/api}
     ports:
       - "3000:3000"
     depends_on:

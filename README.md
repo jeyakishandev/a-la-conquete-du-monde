@@ -313,6 +313,8 @@ npm run test:e2e
 
 ### Variables d'environnement
 
+> 📖 **Documentation complète** : Voir [ENV_SETUP.md](./ENV_SETUP.md) pour la configuration détaillée
+
 ```env
 # Backend
 NODE_ENV=production

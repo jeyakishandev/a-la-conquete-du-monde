@@ -18,10 +18,28 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Configuration CORS
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || process.env.NODE_ENV === 'production' 
+    ? false // En production, configurer les origines autorisées
+    : true, // En développement, autoriser toutes les origines
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
 
 // Servir les fichiers statiques (images, CSS, JS)
 app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
@@ -58,13 +76,14 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/favorites', favoriteRoutes);
 
-// Servir le frontend
-app.use(express.static(path.join(__dirname, '..')));
-
-// Route par défaut pour le frontend
+// Route par défaut pour l'API (404 si route API non trouvée)
 app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, '..', 'index_backup.html'));
+  if (req.path.startsWith('/api')) {
+    res.status(404).json({ error: 'Route API non trouvée' });
+  } else {
+    // En production, le frontend est servi par Nginx
+    // Cette route ne devrait pas être atteinte
+    res.status(404).json({ error: 'Route non trouvée' });
   }
 });
 
