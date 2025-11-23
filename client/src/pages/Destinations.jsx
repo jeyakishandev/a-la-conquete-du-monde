@@ -8,7 +8,7 @@ const Destinations = () => {
       id: 1,
       name: "Paris, France",
       continent: "europe",
-      image: "/images/cover.jpg",
+      image: "/assets/images/cover.jpg",
       description: "La ville lumière, capitale de la romance et de l'art de vivre à la française.",
       highlights: ["Tour Eiffel", "Louvre", "Champs-Élysées", "Montmartre"]
     },
@@ -16,7 +16,7 @@ const Destinations = () => {
       id: 2,
       name: "Tokyo, Japon",
       continent: "asia",
-      image: "/images/New-york.jpg",
+      image: "/assets/images/New-york.jpg",
       description: "Métropole futuriste où tradition et modernité se rencontrent.",
       highlights: ["Shibuya", "Temple Senso-ji", "Tsukiji", "Harajuku"]
     },
@@ -24,7 +24,7 @@ const Destinations = () => {
       id: 3,
       name: "New York, USA",
       continent: "america",
-      image: "/images/New-york.jpg",
+      image: "/assets/images/New-york.jpg",
       description: "La ville qui ne dort jamais, symbole du rêve américain.",
       highlights: ["Times Square", "Central Park", "Statue de la Liberté", "Brooklyn Bridge"]
     },
@@ -32,7 +32,7 @@ const Destinations = () => {
       id: 4,
       name: "Safari Kenya",
       continent: "africa",
-      image: "/images/Safari.jpg",
+      image: "/assets/images/Safari.jpg",
       description: "Aventure au cœur de la savane africaine avec les Big Five.",
       highlights: ["Masai Mara", "Amboseli", "Tsavo", "Lac Nakuru"]
     },
@@ -40,7 +40,7 @@ const Destinations = () => {
       id: 5,
       name: "Sydney, Australie",
       continent: "oceania",
-      image: "/images/plage.jpg",
+      image: "/assets/images/plage.jpg",
       description: "Ville cosmopolite entre océan et culture aborigène.",
       highlights: ["Opéra de Sydney", "Harbour Bridge", "Bondi Beach", "Blue Mountains"]
     },
@@ -48,7 +48,7 @@ const Destinations = () => {
       id: 6,
       name: "Rome, Italie",
       continent: "europe",
-      image: "/images/Pitoresque.jpg",
+      image: "/assets/images/Pitoresque.jpg",
       description: "Cité éternelle, berceau de la civilisation occidentale.",
       highlights: ["Colisée", "Vatican", "Forum Romain", "Trastevere"]
     }

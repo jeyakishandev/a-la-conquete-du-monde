@@ -400,6 +400,27 @@ npm run build
 vercel --prod
 ```
 
+### Déploiement Cloud Simple (Recommandé)
+
+#### Railway.app (Gratuit pour commencer)
+1. Créer un compte sur [Railway.app](https://railway.app)
+2. Connecter ton repo GitHub
+3. Railway détecte automatiquement Node.js
+4. Ajouter une base PostgreSQL
+5. Configurer les variables d'environnement
+6. Déployer automatiquement !
+
+#### Render.com (Gratuit)
+1. Créer un compte sur [Render.com](https://render.com)
+2. Créer un "Web Service" pour le backend
+3. Créer un "Static Site" pour le frontend
+4. Ajouter une base PostgreSQL
+5. Configurer les variables d'environnement
+
+#### Vercel (Frontend) + Railway (Backend)
+- **Frontend** : Déployer sur Vercel (gratuit, très rapide)
+- **Backend** : Déployer sur Railway ou Render
+
 ## 🏗️ Architecture
 
 ```
