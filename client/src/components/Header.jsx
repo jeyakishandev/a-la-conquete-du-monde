@@ -1,10 +1,27 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Header({ darkMode, toggleDarkMode }) {
+  const navigate = useNavigate()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [favoritesCount, setFavoritesCount] = useState(0)
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user')
+    if (userData) {
+      setUser(JSON.parse(userData))
+    }
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    setUser(null)
+    navigate('/')
+    window.location.reload()
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -103,6 +120,42 @@ export default function Header({ darkMode, toggleDarkMode }) {
                 ⭐ Favoris (<span>{favoritesCount}</span>)
               </button>
             </li>
+            {user ? (
+              <>
+                <li>
+                  <span className="text-gray-700 dark:text-gray-300">
+                    👤 {user.username || user.name || user.email}
+                  </span>
+                </li>
+                <li>
+                  <button 
+                    onClick={handleLogout}
+                    className="text-gray-700 dark:text-gray-300 hover:text-red-500 transition"
+                  >
+                    Déconnexion
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link 
+                    to="/login" 
+                    className="text-gray-700 dark:text-gray-300 hover:text-orange-500 transition"
+                  >
+                    Connexion
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/register" 
+                    className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition"
+                  >
+                    Inscription
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
 

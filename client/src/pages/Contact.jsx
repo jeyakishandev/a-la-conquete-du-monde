@@ -1,22 +1,29 @@
 import { useState } from 'react'
+import axios from 'axios'
+import { useToast } from '../context/ToastContext'
 
 export default function Contact() {
+  const { showToast } = useToast()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   })
-  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Ici vous pouvez ajouter l'envoi au backend
-    console.log('Formulaire envoyé:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
+    setLoading(true)
+    
+    try {
+      await axios.post('/api/contact', formData)
+      showToast('Votre message a été envoyé avec succès !', 'success')
       setFormData({ name: '', email: '', message: '' })
-    }, 3000)
+    } catch (error) {
+      showToast(error.response?.data?.error || 'Erreur lors de l\'envoi du message', 'error')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = (e) => {
@@ -35,11 +42,6 @@ export default function Contact() {
         Une question ? Une suggestion ? N'hésitez pas à nous écrire !
       </p>
 
-      {submitted && (
-        <div className="bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-600 text-green-700 dark:text-green-300 px-4 py-3 rounded mb-6 text-center">
-          ✅ Votre message a été envoyé avec succès !
-        </div>
-      )}
 
       <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
         <div className="mb-6">
@@ -89,9 +91,10 @@ export default function Contact() {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:scale-105 transition-transform"
+          disabled={loading}
+          className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Envoyer le message 📨
+          {loading ? 'Envoi...' : 'Envoyer le message 📨'}
         </button>
       </form>
 

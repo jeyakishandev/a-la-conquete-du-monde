@@ -9,6 +9,7 @@ import articleRoutes from './routes/articles.js';
 import commentRoutes from './routes/comments.js';
 import likeRoutes from './routes/likes.js';
 import favoriteRoutes from './routes/favorites.js';
+import contactRoutes from './routes/contact.js';
 
 dotenv.config();
 
@@ -20,9 +21,11 @@ const PORT = process.env.PORT || 3001;
 
 // Configuration CORS
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || process.env.NODE_ENV === 'production' 
-    ? false // En production, configurer les origines autorisées
-    : true, // En développement, autoriser toutes les origines
+  origin: process.env.FRONTEND_URL 
+    ? process.env.FRONTEND_URL.split(',') // Support plusieurs URLs séparées par virgule
+    : process.env.NODE_ENV === 'production' 
+      ? false // En production sans FRONTEND_URL, refuser toutes les origines
+      : true, // En développement, autoriser toutes les origines
   credentials: true,
   optionsSuccessStatus: 200
 };
@@ -42,8 +45,8 @@ app.use((req, res, next) => {
 });
 
 // Servir les fichiers statiques (images, CSS, JS)
-// Les assets sont servis depuis la racine pour les images des articles en BDD
-app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
+// Les assets sont servis depuis server/assets pour les images des articles en BDD
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Routes API
 app.get('/api', (req, res) => {
@@ -75,6 +78,7 @@ app.use('/api/articles', articleRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/favorites', favoriteRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Route par défaut pour l'API (404 si route API non trouvée)
 app.get('*', (req, res) => {

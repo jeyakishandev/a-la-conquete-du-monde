@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export default function ArticleCard({ article }) {
@@ -98,12 +99,20 @@ export default function ArticleCard({ article }) {
         {article.description}
       </p>
 
-      <button 
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105 transition mb-3"
-      >
-        {isExpanded ? 'Réduire' : 'Lire la suite'}
-      </button>
+      <div className="flex gap-2 mb-3">
+        <button 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2 px-4 rounded-full shadow-md hover:scale-105 transition"
+        >
+          {isExpanded ? 'Réduire' : 'Lire la suite'}
+        </button>
+        <Link
+          to={`/article/${article.id}`}
+          className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold py-2 px-4 rounded-full shadow-md hover:scale-105 transition"
+        >
+          Voir l'article complet →
+        </Link>
+      </div>
 
       <div className="flex justify-between items-center mb-3">
         <button 
