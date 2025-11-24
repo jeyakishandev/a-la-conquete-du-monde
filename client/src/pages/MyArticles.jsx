@@ -105,14 +105,14 @@ export default function MyArticles() {
             {articles.map((article) => (
               <div key={article.id} className="relative">
                 <ArticleCard article={article} />
-                <div className="absolute top-2 right-2 flex gap-2">
+                <div className="absolute top-4 right-4 z-20">
                   <button
                     onClick={() => handleDelete(article.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-600 transition flex items-center gap-1"
+                    className="bg-red-500 text-white px-3 py-2 rounded-full text-sm hover:bg-red-600 transition-all hover:scale-110 flex items-center gap-2 shadow-lg"
                     title="Supprimer"
                   >
                     <FaTrash />
-                    <span>Supprimer</span>
+                    <span className="hidden sm:inline">Supprimer</span>
                   </button>
                 </div>
               </div>

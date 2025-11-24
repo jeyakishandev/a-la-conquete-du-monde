@@ -101,7 +101,7 @@ const Blog = () => {
 
         {/* Articles */}
         {filteredArticles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredArticles.map(article => (
               <ArticleCard key={article.id} article={article} />
             ))}
