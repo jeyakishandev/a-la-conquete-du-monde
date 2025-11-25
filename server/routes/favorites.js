@@ -9,13 +9,20 @@ router.post('/toggle/:articleId', async (req, res) => {
   try {
     const articleId = parseInt(req.params.articleId);
     const { userId } = req.body;
+    const finalUserId = userId ? parseInt(userId) : null;
+
+    // Les favoris nécessitent un utilisateur connecté
+    if (!finalUserId) {
+      return res.status(401).json({ error: 'Vous devez être connecté pour ajouter aux favoris' });
+    }
 
     // Vérifier si le favori existe déjà
+    // Utiliser findUnique car userId ne sera jamais null ici
     const existingFavorite = await prisma.favorite.findUnique({
       where: {
         articleId_userId: {
           articleId,
-          userId: userId || null
+          userId: finalUserId
         }
       }
     });
@@ -32,15 +39,15 @@ router.post('/toggle/:articleId', async (req, res) => {
       await prisma.favorite.create({
         data: {
           articleId,
-          userId: userId || null
+          userId: finalUserId
         }
       });
 
       res.json({ favorited: true });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erreur lors de l\'ajout au favoris' });
+    console.error('Erreur lors du toggle favori:', error);
+    res.status(500).json({ error: 'Erreur lors de l\'ajout au favoris', details: error.message });
   }
 });
 
@@ -78,14 +85,47 @@ router.get('/user', async (req, res) => {
   }
 });
 
-// Compter les favoris
+// Compter les favoris d'un utilisateur
 router.get('/count', async (req, res) => {
   try {
-    const count = await prisma.favorite.count();
+    const { userId } = req.query;
+    if (!userId) {
+      return res.json({ count: 0 });
+    }
+    
+    const count = await prisma.favorite.count({
+      where: { userId: parseInt(userId) }
+    });
     res.json({ count });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erreur lors du comptage des favoris' });
+  }
+});
+
+// Vérifier si un article est en favoris pour un utilisateur
+router.get('/check/:articleId', async (req, res) => {
+  try {
+    const articleId = parseInt(req.params.articleId);
+    const { userId } = req.query;
+    
+    if (!userId) {
+      return res.json({ favorited: false });
+    }
+
+    const favorite = await prisma.favorite.findUnique({
+      where: {
+        articleId_userId: {
+          articleId,
+          userId: parseInt(userId)
+        }
+      }
+    });
+
+    res.json({ favorited: !!favorite });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erreur lors de la vérification du favori' });
   }
 });
 

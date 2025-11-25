@@ -37,11 +37,17 @@
 
 ## ✨ Fonctionnalités
 
-### 🔐 Authentification
-- [x] Inscription/Connexion utilisateur
-- [x] JWT Authentication
-- [x] Gestion des sessions
-- [x] Protection des routes
+### 🔐 Authentification & Sécurité
+- [x] Inscription/Connexion utilisateur sécurisée
+- [x] JWT Authentication avec expiration
+- [x] Hashage des mots de passe (bcrypt, 12 rounds)
+- [x] Validation stricte des données (email, username, password)
+- [x] Sanitisation de toutes les entrées
+- [x] Rate limiting contre les attaques par force brute
+- [x] Protection contre les attaques par timing
+- [x] Headers de sécurité (XSS, clickjacking, etc.)
+- [x] Middleware d'authentification pour protéger les routes
+- [x] Validation côté client et serveur (double validation)
 
 ### 📝 Gestion des Articles
 - [x] CRUD complet des articles
@@ -373,11 +379,74 @@ VITE_API_URL=http://backend:3001/api
 
 #### 🔐 Sécurité
 
-⚠️ **IMPORTANT** :
+Cette application implémente plusieurs mesures de sécurité pour protéger les utilisateurs et les données :
+
+##### ✅ Mesures de sécurité implémentées
+
+**Authentification & Autorisation**
+- ✅ **JWT (JSON Web Tokens)** pour l'authentification sécurisée
+- ✅ **Middleware d'authentification** pour protéger les routes
+- ✅ **Validation des tokens** avec gestion des erreurs (expiration, invalide)
+- ✅ **Hashage des mots de passe** avec bcrypt (12 rounds)
+- ✅ **Tokens avec expiration** (7 jours au lieu de 30 pour plus de sécurité)
+
+**Validation & Sanitisation**
+- ✅ **Validation stricte des emails** avec regex
+- ✅ **Validation des noms d'utilisateur** (3-20 caractères alphanumériques)
+- ✅ **Validation des mots de passe forts** (minimum 8 caractères, majuscule, minuscule, chiffre, caractère spécial)
+- ✅ **Sanitisation de toutes les entrées** utilisateur
+- ✅ **Validation côté client ET serveur** (double validation)
+
+**Protection contre les attaques**
+- ✅ **Rate limiting** personnalisé pour protéger contre les attaques par force brute
+  - 5 tentatives de connexion par 15 minutes
+  - 3 inscriptions par heure par IP
+- ✅ **Protection contre les attaques par timing** (délai aléatoire même en cas d'échec)
+- ✅ **Messages d'erreur génériques** pour ne pas révéler si un email existe
+
+**Headers de sécurité**
+- ✅ **X-Content-Type-Options: nosniff** - Protection contre le sniffing
+- ✅ **X-Frame-Options: DENY** - Protection contre le clickjacking
+- ✅ **X-XSS-Protection** - Protection XSS
+- ✅ **Referrer-Policy** - Contrôle des informations de référent
+- ✅ **Content-Security-Policy** (en production)
+- ✅ **Désactivation du cache** pour les routes d'authentification
+
+**CORS & Proxy**
+- ✅ **Configuration CORS** stricte avec origines autorisées
+- ✅ **Trust proxy** configuré pour obtenir les vraies IPs (important pour le rate limiting)
+
+##### ⚠️ Configuration de production
+
+**IMPORTANT** :
 - Ne jamais commiter le fichier `.env` avec de vraies valeurs
-- Utilisez des mots de passe forts (minimum 16 caractères)
-- Générez un JWT_SECRET aléatoire avec : `openssl rand -base64 32`
+- Utilisez des mots de passe forts (minimum 12 caractères avec complexité)
+- Générez un JWT_SECRET aléatoire avec : `openssl rand -base64 32` (minimum 32 caractères)
 - En production, utilisez un gestionnaire de secrets (AWS Secrets Manager, HashiCorp Vault, etc.)
+- Configurez des variables d'environnement différentes pour chaque environnement
+
+##### 📋 Variables d'environnement requises
+
+```bash
+# Base de données
+DATABASE_URL=postgresql://user:password@host:port/database
+
+# Sécurité
+JWT_SECRET=<générez-une-clé-aléatoire-forte-minimum-32-caractères>
+
+# Configuration
+NODE_ENV=production
+PORT=3001
+FRONTEND_URL=https://votre-domaine.com
+```
+
+##### 🔒 Bonnes pratiques
+
+1. **Mots de passe** : Utilisez un gestionnaire de mots de passe et des mots de passe uniques
+2. **JWT_SECRET** : Changez-le régulièrement et ne le partagez jamais
+3. **HTTPS** : Utilisez toujours HTTPS en production
+4. **Rate limiting** : Surveillez les tentatives d'attaque dans les logs
+5. **Logs** : Ne loguez jamais les mots de passe ou tokens en clair
 
 #### 📝 Génération de Clés
 

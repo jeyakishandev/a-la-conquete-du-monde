@@ -9,6 +9,16 @@ router.get('/article/:articleId', async (req, res) => {
   try {
     const comments = await prisma.comment.findMany({
       where: { articleId: parseInt(req.params.articleId) },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            username: true,
+            email: true
+          }
+        }
+      },
       orderBy: { createdAt: 'desc' }
     });
 
@@ -22,37 +32,75 @@ router.get('/article/:articleId', async (req, res) => {
 // Créer un commentaire
 router.post('/', async (req, res) => {
   try {
-    const { name, content, articleId } = req.body;
+    const { name, content, articleId, userId } = req.body;
 
-    if (!name || !content || !articleId) {
-      return res.status(400).json({ error: 'Données manquantes' });
+    if (!content || !articleId) {
+      return res.status(400).json({ error: 'Le contenu du commentaire est requis' });
+    }
+
+    if (!name && !userId) {
+      return res.status(400).json({ error: 'Le nom est requis pour les utilisateurs non connectés' });
+    }
+
+    // Validation de la longueur
+    if (content.trim().length < 3) {
+      return res.status(400).json({ error: 'Le commentaire doit contenir au moins 3 caractères' });
+    }
+
+    if (content.trim().length > 1000) {
+      return res.status(400).json({ error: 'Le commentaire ne peut pas dépasser 1000 caractères' });
     }
 
     const comment = await prisma.comment.create({
       data: {
-        name,
-        content,
-        articleId: parseInt(articleId)
+        name: name?.trim() || null,
+        content: content.trim(),
+        articleId: parseInt(articleId),
+        userId: userId ? parseInt(userId) : null
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            username: true,
+            email: true
+          }
+        }
       }
     });
 
     res.status(201).json(comment);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erreur lors de la création du commentaire' });
+    console.error('Erreur création commentaire:', error);
+    res.status(500).json({ error: 'Erreur lors de la création du commentaire', details: error.message });
   }
 });
 
 // Supprimer un commentaire
 router.delete('/:id', async (req, res) => {
   try {
+    const commentId = parseInt(req.params.id);
+    
+    // Vérifier si le commentaire existe
+    const comment = await prisma.comment.findUnique({
+      where: { id: commentId }
+    });
+
+    if (!comment) {
+      return res.status(404).json({ error: 'Commentaire non trouvé' });
+    }
+
+    // TODO: Vérifier que l'utilisateur est le propriétaire ou un admin
+    // Pour l'instant, on permet la suppression à tous
+
     await prisma.comment.delete({
-      where: { id: parseInt(req.params.id) }
+      where: { id: commentId }
     });
 
     res.json({ message: 'Commentaire supprimé avec succès' });
   } catch (error) {
-    console.error(error);
+    console.error('Erreur suppression commentaire:', error);
     res.status(500).json({ error: 'Erreur lors de la suppression du commentaire' });
   }
 });

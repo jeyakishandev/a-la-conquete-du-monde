@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useToast } from '../context/ToastContext'
-import { FaUserPlus, FaArrowLeft } from 'react-icons/fa'
+import { FaUserPlus, FaArrowLeft, FaCheck, FaTimes } from 'react-icons/fa'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -11,9 +11,59 @@ export default function Register() {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '',
     name: ''
   })
   const [loading, setLoading] = useState(false)
+  const [passwordStrength, setPasswordStrength] = useState(0)
+  const [passwordErrors, setPasswordErrors] = useState([])
+
+  // Validation du mot de passe en temps réel
+  useEffect(() => {
+    if (formData.password) {
+      const strength = calculatePasswordStrength(formData.password)
+      setPasswordStrength(strength)
+      setPasswordErrors(validatePasswordRequirements(formData.password))
+    } else {
+      setPasswordStrength(0)
+      setPasswordErrors([])
+    }
+  }, [formData.password])
+
+  const calculatePasswordStrength = (password) => {
+    let strength = 0
+    if (password.length >= 8) strength += 20
+    if (password.length >= 12) strength += 10
+    if (password.length >= 16) strength += 10
+    if (/[a-z]/.test(password)) strength += 10
+    if (/[A-Z]/.test(password)) strength += 10
+    if (/[0-9]/.test(password)) strength += 10
+    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) strength += 15
+    if (password.length >= 20) strength += 15
+    return Math.min(100, strength)
+  }
+
+  const validatePasswordRequirements = (password) => {
+    const errors = []
+    if (password.length < 8) errors.push('Au moins 8 caractères')
+    if (!/[a-z]/.test(password)) errors.push('Une lettre minuscule')
+    if (!/[A-Z]/.test(password)) errors.push('Une lettre majuscule')
+    if (!/[0-9]/.test(password)) errors.push('Un chiffre')
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) errors.push('Un caractère spécial')
+    return errors
+  }
+
+  const getStrengthColor = (strength) => {
+    if (strength < 40) return 'bg-red-500'
+    if (strength < 70) return 'bg-yellow-500'
+    return 'bg-green-500'
+  }
+
+  const getStrengthLabel = (strength) => {
+    if (strength < 40) return 'Faible'
+    if (strength < 70) return 'Moyen'
+    return 'Fort'
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -26,15 +76,29 @@ export default function Register() {
     e.preventDefault()
     setLoading(true)
 
-    // Validation
-    if (formData.password.length < 6) {
-      showToast('Le mot de passe doit contenir au moins 6 caractères', 'warning')
+    // Validation côté client
+    if (formData.password.length < 8) {
+      showToast('Le mot de passe doit contenir au moins 8 caractères', 'warning')
+      setLoading(false)
+      return
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      showToast('Les mots de passe ne correspondent pas', 'warning')
+      setLoading(false)
+      return
+    }
+
+    if (passwordErrors.length > 0) {
+      showToast('Le mot de passe ne respecte pas tous les critères requis', 'warning')
       setLoading(false)
       return
     }
 
     try {
-      const { data } = await axios.post('/api/auth/register', formData)
+      // Ne pas envoyer confirmPassword au serveur
+      const { confirmPassword, ...dataToSend } = formData
+      const { data } = await axios.post('/api/auth/register', dataToSend)
       
       // Sauvegarder le token
       localStorage.setItem('token', data.token)
@@ -48,7 +112,14 @@ export default function Register() {
         window.location.reload() // Recharger pour mettre à jour l'état
       }, 500)
     } catch (error) {
-      showToast(error.response?.data?.error || 'Erreur lors de l\'inscription', 'error')
+      const errorMessage = error.response?.data?.error || 'Erreur lors de l\'inscription'
+      const errorDetails = error.response?.data?.details
+      
+      if (errorDetails && Array.isArray(errorDetails)) {
+        showToast(`${errorMessage}: ${errorDetails.join(', ')}`, 'error')
+      } else {
+        showToast(errorMessage, 'error')
+      }
     } finally {
       setLoading(false)
     }
@@ -124,11 +195,92 @@ export default function Register() {
               className="w-full p-3 border dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               placeholder="••••••••"
               required
-              minLength={6}
+              minLength={8}
             />
+            
+            {/* Indicateur de force du mot de passe */}
+            {formData.password && (
+              <div className="mt-2">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs text-gray-600 dark:text-gray-400">
+                    Force: <span className={`font-semibold ${getStrengthColor(passwordStrength).replace('bg-', 'text-')}`}>
+                      {getStrengthLabel(passwordStrength)}
+                    </span>
+                  </span>
+                  <span className="text-xs text-gray-500">{passwordStrength}%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div 
+                    className={`h-2 rounded-full transition-all duration-300 ${getStrengthColor(passwordStrength)}`}
+                    style={{ width: `${passwordStrength}%` }}
+                  ></div>
+                </div>
+                
+                {/* Liste des exigences */}
+                {passwordErrors.length > 0 && (
+                  <ul className="mt-2 space-y-1">
+                    {passwordErrors.map((error, index) => (
+                      <li key={index} className="text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
+                        <FaTimes className="text-xs" />
+                        {error}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                
+                {passwordErrors.length === 0 && formData.password && (
+                  <p className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-1">
+                    <FaCheck />
+                    Mot de passe conforme
+                  </p>
+                )}
+              </div>
+            )}
+            
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              Minimum 6 caractères
+              Minimum 8 caractères avec majuscule, minuscule, chiffre et caractère spécial
             </p>
+          </div>
+
+          <div>
+            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">
+              Confirmer le mot de passe *
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className={`w-full p-3 border dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent ${
+                formData.confirmPassword && formData.password !== formData.confirmPassword 
+                  ? 'border-red-500 dark:border-red-500' 
+                  : formData.confirmPassword && formData.password === formData.confirmPassword
+                  ? 'border-green-500 dark:border-green-500'
+                  : ''
+              }`}
+              placeholder="••••••••"
+              required
+              minLength={8}
+            />
+            {formData.confirmPassword && (
+              <p className={`text-xs mt-1 flex items-center gap-1 ${
+                formData.password === formData.confirmPassword 
+                  ? 'text-green-600 dark:text-green-400' 
+                  : 'text-red-600 dark:text-red-400'
+              }`}>
+                {formData.password === formData.confirmPassword ? (
+                  <>
+                    <FaCheck />
+                    Les mots de passe correspondent
+                  </>
+                ) : (
+                  <>
+                    <FaTimes />
+                    Les mots de passe ne correspondent pas
+                  </>
+                )}
+              </p>
+            )}
           </div>
 
           <button
