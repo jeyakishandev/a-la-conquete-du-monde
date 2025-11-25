@@ -235,7 +235,13 @@ export default function ArticleDetail() {
         {/* Image principale */}
         <div className="mb-8 sm:mb-12">
           <img
-            src={article.image?.startsWith('/') ? article.image : `/${article.image}`}
+            src={
+              article.image?.startsWith('http://') || article.image?.startsWith('https://')
+                ? article.image
+                : article.image?.startsWith('/')
+                  ? article.image
+                  : `/${article.image}`
+            }
             alt={article.title}
             className="w-full h-64 sm:h-96 lg:h-[500px] object-cover rounded-3xl sm:rounded-[2.5rem] shadow-2xl"
             onError={(e) => {

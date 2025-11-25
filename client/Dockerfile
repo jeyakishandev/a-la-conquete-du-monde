@@ -5,7 +5,7 @@ FROM node:18-alpine as builder
 WORKDIR /app
 
 # Accept build arguments
-ARG VITE_API_URL=http://localhost:3001/api
+ARG VITE_API_URL=/api
 
 # Set environment variables for build
 ENV VITE_API_URL=$VITE_API_URL
@@ -22,7 +22,7 @@ COPY client/ .
 RUN rm -rf public/assets
 COPY server/assets ./public/assets
 
-# Build the application
+# Build the application (forced rebuild for VITE_API_URL fix v2)
 RUN npm run build
 
 # Production stage

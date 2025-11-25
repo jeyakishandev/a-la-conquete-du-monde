@@ -142,3 +142,127 @@ export const isValidName = (name) => {
   return nameRegex.test(name.trim());
 };
 
+/**
+ * Valide un titre d'article
+ */
+export const validateArticleTitle = (title) => {
+  if (!title || typeof title !== 'string') {
+    return {
+      isValid: false,
+      error: 'Le titre est requis'
+    };
+  }
+
+  const trimmed = title.trim();
+  
+  if (trimmed.length < 3) {
+    return {
+      isValid: false,
+      error: 'Le titre doit contenir au moins 3 caractères'
+    };
+  }
+
+  if (trimmed.length > 100) {
+    return {
+      isValid: false,
+      error: 'Le titre ne peut pas dépasser 100 caractères'
+    };
+  }
+
+  return {
+    isValid: true,
+    sanitized: sanitizeString(trimmed, 100)
+  };
+};
+
+/**
+ * Valide une description d'article
+ */
+export const validateArticleDescription = (description) => {
+  if (!description || typeof description !== 'string') {
+    return {
+      isValid: false,
+      error: 'La description est requise'
+    };
+  }
+
+  const trimmed = description.trim();
+  
+  if (trimmed.length < 10) {
+    return {
+      isValid: false,
+      error: 'La description doit contenir au moins 10 caractères'
+    };
+  }
+
+  if (trimmed.length > 200) {
+    return {
+      isValid: false,
+      error: 'La description ne peut pas dépasser 200 caractères'
+    };
+  }
+
+  return {
+    isValid: true,
+    sanitized: sanitizeString(trimmed, 200)
+  };
+};
+
+/**
+ * Valide le contenu d'un article
+ */
+export const validateArticleContent = (content) => {
+  if (!content || typeof content !== 'string') {
+    return {
+      isValid: false,
+      error: 'Le contenu est requis'
+    };
+  }
+
+  const trimmed = content.trim();
+  
+  if (trimmed.length < 50) {
+    return {
+      isValid: false,
+      error: 'Le contenu doit contenir au moins 50 caractères'
+    };
+  }
+
+  if (trimmed.length > 10000) {
+    return {
+      isValid: false,
+      error: 'Le contenu ne peut pas dépasser 10000 caractères'
+    };
+  }
+
+  return {
+    isValid: true,
+    sanitized: sanitizeString(trimmed, 10000)
+  };
+};
+
+/**
+ * Valide une catégorie d'article
+ */
+export const isValidCategory = (category) => {
+  const validCategories = ['destinations', 'culture', 'aventure', 'conseils'];
+  return validCategories.includes(category);
+};
+
+/**
+ * Valide une URL d'image
+ */
+export const isValidImageUrl = (url) => {
+  if (!url || url.trim() === '') {
+    return true; // URL optionnelle
+  }
+
+  if (typeof url !== 'string') {
+    return false;
+  }
+
+  // Vérifier que c'est une URL valide ou un chemin relatif
+  const urlRegex = /^(https?:\/\/|\.?\/)/;
+  return urlRegex.test(url) && url.length <= 500;
+};
+

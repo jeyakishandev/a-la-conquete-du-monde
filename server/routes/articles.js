@@ -1,5 +1,13 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
+import { authenticateToken } from '../middleware/auth.js';
+import {
+  validateArticleTitle,
+  validateArticleDescription,
+  validateArticleContent,
+  isValidCategory,
+  isValidImageUrl
+} from '../utils/validation.js';
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -80,27 +88,57 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Créer un article
-router.post('/', async (req, res) => {
+// Créer un article (nécessite authentification)
+router.post('/', authenticateToken, async (req, res) => {
   try {
-    const { title, description, content, category, image, userId } = req.body;
+    console.log('📝 Création article - Body reçu:', req.body);
+    console.log('📝 Création article - UserId:', req.userId);
+    
+    const { title, description, content, category, image } = req.body;
+    const userId = req.userId; // Récupéré depuis le middleware d'authentification
 
-    // Validation
-    if (!title || !description || !content || !category) {
-      return res.status(400).json({ error: 'Tous les champs sont requis' });
+    console.log('📝 Création article - Données extraites:', { title, description: description?.substring(0, 50), content: content?.substring(0, 50), category, image });
+
+    // Validation du titre
+    const titleValidation = validateArticleTitle(title);
+    if (!titleValidation.isValid) {
+      console.log('❌ Validation titre échouée:', titleValidation.error);
+      return res.status(400).json({ error: titleValidation.error });
+    }
+
+    // Validation de la description
+    const descriptionValidation = validateArticleDescription(description);
+    if (!descriptionValidation.isValid) {
+      return res.status(400).json({ error: descriptionValidation.error });
+    }
+
+    // Validation du contenu
+    const contentValidation = validateArticleContent(content);
+    if (!contentValidation.isValid) {
+      return res.status(400).json({ error: contentValidation.error });
+    }
+
+    // Validation de la catégorie
+    if (!category || !isValidCategory(category)) {
+      return res.status(400).json({ error: 'Catégorie invalide. Catégories valides: destinations, culture, aventure, conseils' });
+    }
+
+    // Validation de l'URL d'image
+    if (image && !isValidImageUrl(image)) {
+      return res.status(400).json({ error: 'URL d\'image invalide' });
     }
 
     // Image par défaut si non fournie
-    const articleImage = image || '/assets/images/voyage.jpg';
+    const articleImage = image && image.trim() !== '' ? image.trim() : '/assets/images/voyage.jpg';
 
     const article = await prisma.article.create({
       data: {
-        title,
-        description,
-        content,
+        title: titleValidation.sanitized,
+        description: descriptionValidation.sanitized,
+        content: contentValidation.sanitized,
         category,
         image: articleImage,
-        userId: userId ? parseInt(userId) : null
+        userId: parseInt(userId)
       },
       include: {
         _count: {
@@ -115,7 +153,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json(article);
   } catch (error) {
-    console.error(error);
+    console.error('Erreur création article:', error);
     res.status(500).json({ error: 'Erreur lors de la création de l\'article' });
   }
 });
