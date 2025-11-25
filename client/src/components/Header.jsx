@@ -108,12 +108,12 @@ export default function Header({ darkMode, toggleDarkMode }) {
             : 'bg-white/95 backdrop-blur-md border-b border-gray-200/50'
     }`}>
       {/* Barre de navigation principale */}
-      <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+      <nav className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20 gap-3 sm:gap-4 lg:gap-6">
           {/* Logo et Titre */}
           <Link 
             to="/" 
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-2 sm:gap-3 group flex-shrink-0"
           >
             <div className="relative">
               <img 
@@ -124,7 +124,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full animate-pulse"></div>
             </div>
             <div className="hidden sm:block">
-              <h1 className={`text-lg sm:text-xl font-bold transition-colors ${
+              <h1 className={`text-base sm:text-lg lg:text-xl font-bold transition-colors leading-tight ${
                 isHomePage && !isScrolled
                   ? 'text-white drop-shadow-lg'
                   : darkMode ? 'text-white' : 'text-gray-900'
@@ -141,11 +141,117 @@ export default function Header({ darkMode, toggleDarkMode }) {
             </div>
           </Link>
 
-          {/* Menu Desktop */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Menu Tablette - Icônes uniquement */}
+          <div className="hidden md:flex lg:hidden items-center gap-2 flex-1 justify-center">
             <Link 
               to="/" 
-              className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${
+              className={`p-2.5 rounded-full transition-all duration-300 ${
+                isActive('/')
+                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                  : isHomePage && !isScrolled
+                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                    : darkMode
+                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+              }`}
+              title="Accueil"
+            >
+              <FaHome className="text-base" />
+            </Link>
+
+            <Link 
+              to="/blog" 
+              className={`p-2.5 rounded-full transition-all duration-300 ${
+                isActive('/blog')
+                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                  : isHomePage && !isScrolled
+                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                    : darkMode
+                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+              }`}
+              title="Blog"
+            >
+              <FaBook className="text-base" />
+            </Link>
+
+            <Link 
+              to="/destinations" 
+              className={`p-2.5 rounded-full transition-all duration-300 ${
+                isActive('/destinations')
+                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                  : isHomePage && !isScrolled
+                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                    : darkMode
+                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+              }`}
+              title="Destinations"
+            >
+              <FaMapMarkedAlt className="text-base" />
+            </Link>
+
+            <Link 
+              to="/about" 
+              className={`p-2.5 rounded-full transition-all duration-300 ${
+                isActive('/about')
+                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                  : isHomePage && !isScrolled
+                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                    : darkMode
+                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+              }`}
+              title="À propos"
+            >
+              <FaInfoCircle className="text-base" />
+            </Link>
+
+            <Link 
+              to="/contact" 
+              className={`p-2.5 rounded-full transition-all duration-300 ${
+                isActive('/contact')
+                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                  : isHomePage && !isScrolled
+                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                    : darkMode
+                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+              }`}
+              title="Contact"
+            >
+              <FaEnvelope className="text-base" />
+            </Link>
+
+            {user && (
+              <Link 
+                to="/favorites" 
+                className={`p-2.5 rounded-full transition-all duration-300 relative ${
+                  isActive('/favorites')
+                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                    : isHomePage && !isScrolled
+                      ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                      : darkMode
+                        ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                        : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                }`}
+                title="Favoris"
+              >
+                <FaStar className="text-base" />
+                {favoritesCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {favoritesCount}
+                  </span>
+                )}
+              </Link>
+            )}
+          </div>
+
+          {/* Menu Desktop - Centré avec espacement optimal */}
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-1 justify-center max-w-2xl mx-4">
+            <Link 
+              to="/" 
+              className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                   : isHomePage && !isScrolled
@@ -161,7 +267,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
 
             <Link 
               to="/blog" 
-              className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${
+              className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/blog')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                   : isHomePage && !isScrolled
@@ -177,7 +283,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
 
             <Link 
               to="/destinations" 
-              className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${
+              className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/destinations')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                   : isHomePage && !isScrolled
@@ -193,7 +299,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
 
             <Link 
               to="/about" 
-              className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${
+              className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/about')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                   : isHomePage && !isScrolled
@@ -209,7 +315,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
 
             <Link 
               to="/contact" 
-              className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 ${
+              className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/contact')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                   : isHomePage && !isScrolled
@@ -226,7 +332,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
             {user && (
               <Link 
                 to="/favorites" 
-                className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 flex items-center gap-1.5 md:gap-2 relative ${
+                className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 relative whitespace-nowrap ${
                   isActive('/favorites')
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                     : isHomePage && !isScrolled
@@ -248,21 +354,30 @@ export default function Header({ darkMode, toggleDarkMode }) {
           </div>
 
           {/* Actions utilisateur et menu mobile */}
-          <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0">
             {user ? (
               <>
                 {/* Bouton Écrire - Desktop */}
                 <Link 
                   to="/create-article" 
-                  className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 text-sm font-semibold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
+                  className="hidden lg:flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 text-sm font-semibold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 whitespace-nowrap"
                 >
                   <FaEdit />
                   <span>Écrire</span>
                 </Link>
 
+                {/* Bouton Écrire - Tablette (icône uniquement) */}
+                <Link 
+                  to="/create-article" 
+                  className="hidden md:flex lg:hidden items-center justify-center w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
+                  title="Écrire"
+                >
+                  <FaEdit />
+                </Link>
+
                 {/* Menu utilisateur - Desktop */}
-                <div className="hidden md:flex items-center gap-2">
-                  <div className={`px-3 py-1.5 rounded-full text-sm font-medium ${
+                <div className="hidden lg:flex items-center gap-2">
+                  <div className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
                     isHomePage && !isScrolled
                       ? 'bg-white/10 backdrop-blur-md text-white/90'
                       : darkMode 
@@ -270,11 +385,11 @@ export default function Header({ darkMode, toggleDarkMode }) {
                         : 'bg-gray-100 text-gray-700'
                   }`}>
                     <FaUser className="inline mr-2" />
-                    {user.username || user.name || user.email.split('@')[0]}
+                    <span>{user.username || user.name || user.email.split('@')[0]}</span>
                   </div>
                   <button 
                     onClick={handleLogout}
-                    className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${
+                    className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
                       isHomePage && !isScrolled
                         ? 'text-white/80 hover:bg-white/10'
                         : darkMode 
@@ -282,6 +397,36 @@ export default function Header({ darkMode, toggleDarkMode }) {
                           : 'text-red-600 hover:bg-gray-100'
                     }`}
                     aria-label="Déconnexion"
+                    title="Déconnexion"
+                  >
+                    <FaSignOutAlt />
+                  </button>
+                </div>
+
+                {/* Menu utilisateur - Tablette (icônes uniquement) */}
+                <div className="hidden md:flex lg:hidden items-center gap-2">
+                  <div className={`p-2 rounded-full ${
+                    isHomePage && !isScrolled
+                      ? 'bg-white/10 backdrop-blur-md text-white/90'
+                      : darkMode 
+                        ? 'bg-gray-800 text-gray-300' 
+                        : 'bg-gray-100 text-gray-700'
+                  }`}
+                  title={user.username || user.name || user.email.split('@')[0]}
+                  >
+                    <FaUser />
+                  </div>
+                  <button 
+                    onClick={handleLogout}
+                    className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
+                      isHomePage && !isScrolled
+                        ? 'text-white/80 hover:bg-white/10'
+                        : darkMode 
+                          ? 'text-red-400 hover:bg-gray-800' 
+                          : 'text-red-600 hover:bg-gray-100'
+                    }`}
+                    aria-label="Déconnexion"
+                    title="Déconnexion"
                   >
                     <FaSignOutAlt />
                   </button>
