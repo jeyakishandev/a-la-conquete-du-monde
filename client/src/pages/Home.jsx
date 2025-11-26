@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import api from '../services/api'
 import ArticleCard from '../components/ArticleCard'
 import { FaGlobe, FaBook, FaMapMarkedAlt, FaEye, FaCalendarAlt, FaCompass, FaMountain } from 'react-icons/fa'
 
@@ -16,7 +16,7 @@ export default function Home() {
 
   const loadArticles = async () => {
     try {
-      const { data } = await axios.get('/api/articles')
+      const { data } = await api.get('/articles')
       setArticles(data.slice(0, 3))
     } catch (error) {
       console.error('Erreur chargement articles:', error)
@@ -27,7 +27,7 @@ export default function Home() {
 
   const loadStats = async () => {
     try {
-      const { data } = await axios.get('/api/articles/stats/all')
+      const { data } = await api.get('/articles/stats/all')
       setStats(data)
     } catch (error) {
       console.error('Erreur stats:', error)

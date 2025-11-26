@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../services/api'
 import ArticleCard from '../components/ArticleCard'
 import { useToast } from '../context/ToastContext'
 import { FaArrowLeft, FaStar, FaCompass, FaHeart } from 'react-icons/fa'
@@ -14,25 +14,28 @@ export default function Favorites() {
 
   useEffect(() => {
     const userData = localStorage.getItem('user')
-    if (userData) {
-      setUser(JSON.parse(userData))
-      loadFavorites()
+    if (userData && userData !== 'undefined' && userData !== 'null') {
+      try {
+        const user = JSON.parse(userData)
+        setUser(user)
+        loadFavorites(user)
+      } catch (e) {
+        console.error('Erreur parsing user:', e)
+        showToast('Vous devez être connecté pour voir vos favoris', 'warning')
+        navigate('/login')
+      }
     } else {
       showToast('Vous devez être connecté pour voir vos favoris', 'warning')
       navigate('/login')
     }
   }, [])
 
-  const loadFavorites = async () => {
+  const loadFavorites = async (userParam = null) => {
     try {
-      const userData = localStorage.getItem('user')
-      const user = userData ? JSON.parse(userData) : null
+      const currentUser = userParam || user
+      if (!currentUser?.id) return
       
-      const url = user?.id 
-        ? `/api/favorites/user?userId=${user.id}`
-        : '/api/favorites/user'
-      
-      const { data } = await axios.get(url)
+      const { data } = await api.get(`/favorites/user?userId=${currentUser.id}`)
       setFavorites(data)
     } catch (error) {
       console.error('Erreur chargement favoris:', error)

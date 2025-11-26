@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import api from '../services/api'
 import { useToast } from '../context/ToastContext'
 import { FaPaperPlane } from 'react-icons/fa'
 
@@ -17,7 +17,7 @@ export default function Contact() {
     setLoading(true)
     
     try {
-      await axios.post('/api/contact', formData)
+      await api.post('/contact', formData)
       showToast('Votre message a été envoyé avec succès !', 'success')
       setFormData({ name: '', email: '', message: '' })
     } catch (error) {

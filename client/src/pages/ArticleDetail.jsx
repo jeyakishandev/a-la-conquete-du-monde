@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
+import api from '../services/api'
 import { useToast } from '../context/ToastContext'
 import { FaHeart, FaRegHeart, FaStar, FaRegStar, FaShare, FaFacebook, FaTwitter, FaWhatsapp, FaArrowLeft, FaPaperPlane, FaTrash, FaTimes } from 'react-icons/fa'
 
@@ -21,8 +21,12 @@ export default function ArticleDetail() {
 
   useEffect(() => {
     const userData = localStorage.getItem('user')
-    if (userData) {
-      setUser(JSON.parse(userData))
+    if (userData && userData !== 'undefined' && userData !== 'null') {
+      try {
+        setUser(JSON.parse(userData))
+      } catch (e) {
+        console.error('Erreur parsing user:', e)
+      }
     }
   }, [])
 
@@ -35,7 +39,7 @@ export default function ArticleDetail() {
 
   const loadArticle = async () => {
     try {
-      const { data } = await axios.get(`/api/articles/${id}`)
+      const { data } = await api.get(`/articles/${id}`)
       setArticle(data)
       setLikes(data._count?.likes || 0)
       
@@ -55,7 +59,7 @@ export default function ArticleDetail() {
   const checkUserLike = async () => {
     try {
       if (!user?.id) return
-      const { data } = await axios.get(`/api/likes/${id}?userId=${user.id}`)
+      const { data } = await api.get(`/likes/${id}?userId=${user.id}`)
       setIsLiked(data.liked || false)
     } catch (error) {
       // Ignorer l'erreur
@@ -66,7 +70,7 @@ export default function ArticleDetail() {
   const checkUserFavorite = async () => {
     try {
       if (!user?.id) return
-      const { data } = await axios.get(`/api/favorites/check/${id}?userId=${user.id}`)
+      const { data } = await api.get(`/favorites/check/${id}?userId=${user.id}`)
       setIsFavorite(data.favorited || false)
     } catch (error) {
       // Ignorer l'erreur
@@ -76,7 +80,7 @@ export default function ArticleDetail() {
 
   const loadComments = async () => {
     try {
-      const { data } = await axios.get(`/api/comments/article/${id}`)
+      const { data } = await api.get(`/comments/article/${id}`)
       setComments(data)
     } catch (error) {
       console.error('Erreur commentaires:', error)
@@ -86,9 +90,9 @@ export default function ArticleDetail() {
   const handleLike = async () => {
     try {
       const userData = localStorage.getItem('user')
-      const currentUser = userData ? JSON.parse(userData) : null
+      const currentUser = (userData && userData !== 'undefined' && userData !== 'null') ? JSON.parse(userData) : null
       
-      const { data } = await axios.post(`/api/likes/toggle/${id}`, { 
+      const { data } = await api.post(`/likes/toggle/${id}`, { 
         userId: currentUser?.id || null 
       })
       
@@ -109,7 +113,7 @@ export default function ArticleDetail() {
   const handleFavorite = async () => {
     try {
       const userData = localStorage.getItem('user')
-      const currentUser = userData ? JSON.parse(userData) : null
+      const currentUser = (userData && userData !== 'undefined' && userData !== 'null') ? JSON.parse(userData) : null
       
       if (!currentUser?.id) {
         showToast('Vous devez être connecté pour ajouter aux favoris', 'warning')
@@ -117,7 +121,7 @@ export default function ArticleDetail() {
         return
       }
       
-      const { data } = await axios.post(`/api/favorites/toggle/${id}`, { 
+      const { data } = await api.post(`/favorites/toggle/${id}`, { 
         userId: currentUser.id 
       })
       setIsFavorite(data.favorited)
@@ -155,9 +159,9 @@ export default function ArticleDetail() {
 
     try {
       const userData = localStorage.getItem('user')
-      const currentUser = userData ? JSON.parse(userData) : null
+      const currentUser = (userData && userData !== 'undefined' && userData !== 'null') ? JSON.parse(userData) : null
       
-      await axios.post('/api/comments', {
+      await api.post('/comments', {
         name: currentUser?.name || currentUser?.username || commentForm.name.trim(),
         content: commentForm.content.trim(),
         articleId: parseInt(id),
@@ -516,7 +520,7 @@ export default function ArticleDetail() {
                               onClick={async () => {
                                 if (window.confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?')) {
                                   try {
-                                    await axios.delete(`/api/comments/${comment.id}`)
+                                    await api.delete(`/comments/${comment.id}`)
                                     showToast('Commentaire supprimé avec succès', 'success')
                                     loadComments()
                                   } catch (error) {

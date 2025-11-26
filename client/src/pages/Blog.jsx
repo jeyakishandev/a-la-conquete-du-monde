@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import api from '../services/api';
 import ArticleCard from '../components/ArticleCard';
 import { FaCompass, FaSearch, FaBook } from 'react-icons/fa';
 
@@ -27,11 +28,8 @@ const Blog = () => {
 
   const fetchArticles = async () => {
     try {
-      const response = await fetch('/api/articles');
-      if (response.ok) {
-        const data = await response.json();
-        setArticles(data);
-      }
+      const { data } = await api.get('/articles');
+      setArticles(data);
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);
     } finally {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../services/api'
 import { useToast } from '../context/ToastContext'
 import { FaUserPlus, FaArrowLeft, FaCheck, FaTimes } from 'react-icons/fa'
 
@@ -98,7 +98,7 @@ export default function Register() {
     try {
       // Ne pas envoyer confirmPassword au serveur
       const { confirmPassword, ...dataToSend } = formData
-      const { data } = await axios.post('/api/auth/register', dataToSend)
+      const { data } = await api.post('/auth/register', dataToSend)
       
       // Sauvegarder le token
       localStorage.setItem('token', data.token)

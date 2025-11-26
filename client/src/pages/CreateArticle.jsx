@@ -70,7 +70,8 @@ export default function CreateArticle() {
     }
 
     try {
-      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      const userStr = localStorage.getItem('user');
+      const user = (userStr && userStr !== 'undefined' && userStr !== 'null') ? JSON.parse(userStr) : {};
       if (!user.id) {
         showToast('Vous devez être connecté pour créer un article', 'warning')
         navigate('/login')

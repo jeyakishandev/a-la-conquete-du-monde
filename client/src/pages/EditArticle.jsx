@@ -34,7 +34,8 @@ export default function EditArticle() {
       const { data } = await api.get(`/articles/${id}`)
       
       // Vérifier que l'utilisateur est le propriétaire
-      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      const userStr = localStorage.getItem('user');
+      const user = (userStr && userStr !== 'undefined' && userStr !== 'null') ? JSON.parse(userStr) : {};
       if (data.userId !== user.id) {
         showToast('Vous n\'êtes pas autorisé à modifier cet article', 'error')
         navigate('/my-articles')

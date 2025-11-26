@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../services/api'
 import { useToast } from '../context/ToastContext'
 import { FaSignInAlt, FaArrowLeft } from 'react-icons/fa'
 
@@ -25,7 +25,7 @@ export default function Login() {
     setLoading(true)
 
     try {
-      const { data } = await axios.post('/api/auth/login', formData)
+      const { data } = await api.post('/auth/login', formData)
       
       // Sauvegarder le token
       localStorage.setItem('token', data.token)
