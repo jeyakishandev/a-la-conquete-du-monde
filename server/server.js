@@ -11,6 +11,7 @@ import likeRoutes from './routes/likes.js';
 import favoriteRoutes from './routes/favorites.js';
 import contactRoutes from './routes/contact.js';
 import userRoutes from './routes/users.js';
+import seedRoutes from './routes/seed.js';
 
 dotenv.config();
 
@@ -99,6 +100,7 @@ app.use('/api/likes', likeRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api', seedRoutes);
 
 // Route par défaut pour l'API (404 si route API non trouvée)
 app.get('*', (req, res) => {
