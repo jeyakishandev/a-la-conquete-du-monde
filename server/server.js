@@ -10,6 +10,7 @@ import commentRoutes from './routes/comments.js';
 import likeRoutes from './routes/likes.js';
 import favoriteRoutes from './routes/favorites.js';
 import contactRoutes from './routes/contact.js';
+import userRoutes from './routes/users.js';
 
 dotenv.config();
 
@@ -70,12 +71,13 @@ app.get('/api', (req, res) => {
   res.json({
     message: '🌍 API À la Conquête du Monde',
     version: '1.0.0',
-    endpoints: {
+      endpoints: {
       auth: '/api/auth',
       articles: '/api/articles',
       comments: '/api/comments',
       likes: '/api/likes',
-      favorites: '/api/favorites'
+      favorites: '/api/favorites',
+      users: '/api/users'
     }
   });
 });
@@ -96,6 +98,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/favorites', favoriteRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/users', userRoutes);
 
 // Route par défaut pour l'API (404 si route API non trouvée)
 app.get('*', (req, res) => {

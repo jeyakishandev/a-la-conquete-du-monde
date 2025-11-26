@@ -16,6 +16,7 @@ import NotFound from './pages/NotFound'
 import CreateArticle from './pages/CreateArticle'
 import EditArticle from './pages/EditArticle'
 import MyArticles from './pages/MyArticles'
+import Profile from './pages/Profile'
 import './App.css'
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
             <Route path="/create-article" element={<CreateArticle />} />
             <Route path="/edit-article/:id" element={<EditArticle />} />
             <Route path="/my-articles" element={<MyArticles />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </main>

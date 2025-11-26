@@ -386,17 +386,23 @@ export default function Header({ darkMode, toggleDarkMode }) {
                     <span>Écrire</span>
                   </Link>
 
-                  {/* Nom utilisateur */}
-                  <div className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
-                    isHomePage && !isScrolled
-                      ? 'bg-white/10 backdrop-blur-md text-white/90'
-                      : darkMode 
-                        ? 'bg-gray-800 text-gray-300' 
-                        : 'bg-gray-100 text-gray-700'
-                  }`}>
+                  {/* Nom utilisateur - Lien vers profil */}
+                  <Link
+                    to="/profile"
+                    className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all hover:scale-105 ${
+                      isActive('/profile')
+                        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                        : isHomePage && !isScrolled
+                          ? 'bg-white/10 backdrop-blur-md text-white/90 hover:bg-white/20'
+                          : darkMode 
+                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                    title="Mon profil"
+                  >
                     <FaUser className="inline mr-2" />
                     <span className="truncate max-w-[120px]">{user.username || user.name || user.email.split('@')[0]}</span>
-                  </div>
+                  </Link>
                   
                   {/* Bouton déconnexion */}
                   <button 
@@ -426,17 +432,21 @@ export default function Header({ darkMode, toggleDarkMode }) {
 
                 {/* Menu utilisateur - Tablette (icônes uniquement) */}
                 <div className="hidden md:flex lg:hidden items-center gap-2">
-                  <div className={`p-2 rounded-full ${
-                    isHomePage && !isScrolled
-                      ? 'bg-white/10 backdrop-blur-md text-white/90'
-                      : darkMode 
-                        ? 'bg-gray-800 text-gray-300' 
-                        : 'bg-gray-100 text-gray-700'
-                  }`}
-                  title={user.username || user.name || user.email.split('@')[0]}
+                  <Link
+                    to="/profile"
+                    className={`p-2 rounded-full transition-all hover:scale-110 ${
+                      isActive('/profile')
+                        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                        : isHomePage && !isScrolled
+                          ? 'bg-white/10 backdrop-blur-md text-white/90 hover:bg-white/20'
+                          : darkMode 
+                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                    title="Mon profil"
                   >
                     <FaUser />
-                  </div>
+                  </Link>
                   <button 
                     onClick={handleLogout}
                     className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
@@ -627,14 +637,18 @@ export default function Header({ darkMode, toggleDarkMode }) {
                   <span>Mes articles</span>
                 </Link>
 
-                <div className={`px-4 py-3 rounded-xl ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
-                  <div className="flex items-center gap-2 text-sm">
-                    <FaUser className="text-orange-500" />
-                    <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
-                      {user.username || user.name || user.email}
-                    </span>
-                  </div>
-                </div>
+                <Link
+                  to="/profile"
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
+                    isActive('/profile')
+                      ? 'bg-orange-500 text-white shadow-lg'
+                      : darkMode ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <FaUser />
+                  <span>Mon profil</span>
+                </Link>
 
                 <button 
                   onClick={handleLogout}
