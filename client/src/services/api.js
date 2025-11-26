@@ -5,6 +5,12 @@ import axios from 'axios';
 // En production : utilise VITE_API_URL ou l'URL par défaut
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
+// Debug en production
+if (import.meta.env.PROD) {
+  console.log('🔧 API_URL configurée:', API_URL);
+  console.log('🔧 VITE_API_URL depuis env:', import.meta.env.VITE_API_URL);
+}
+
 // Créer une instance axios avec configuration par défaut
 const api = axios.create({
   baseURL: API_URL,
