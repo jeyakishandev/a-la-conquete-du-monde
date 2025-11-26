@@ -114,14 +114,18 @@ const articles = [
 async function main() {
   console.log('🌱 Début du seed de la base de données...');
 
-  // Supprimer les données existantes
-  await prisma.favorite.deleteMany();
-  await prisma.like.deleteMany();
-  await prisma.comment.deleteMany();
-  await prisma.article.deleteMany();
-  await prisma.user.deleteMany();
-
-  console.log('✅ Données existantes supprimées');
+  // Supprimer les données existantes avec gestion d'erreur
+  try {
+    await prisma.favorite.deleteMany();
+    await prisma.like.deleteMany();
+    await prisma.comment.deleteMany();
+    await prisma.article.deleteMany();
+    await prisma.user.deleteMany();
+    console.log('✅ Données existantes supprimées');
+  } catch (error) {
+    // Si erreur (ex: tables n'existent pas encore), on continue
+    console.log('⚠️ Aucune donnée à supprimer, on continue...');
+  }
 
   // Créer un utilisateur système pour les articles de démonstration
   const systemHashedPassword = await bcrypt.hash('system123', 10);
