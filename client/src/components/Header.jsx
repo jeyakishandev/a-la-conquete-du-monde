@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import api from '../services/api'
 import { 
   FaBars, 
   FaTimes, 
@@ -28,8 +29,13 @@ export default function Header({ darkMode, toggleDarkMode }) {
 
   useEffect(() => {
     const userData = localStorage.getItem('user')
-    if (userData) {
-      setUser(JSON.parse(userData))
+    if (userData && userData !== 'undefined' && userData !== 'null') {
+      try {
+        setUser(JSON.parse(userData))
+      } catch (e) {
+        console.error('Erreur parsing user:', e)
+        localStorage.removeItem('user')
+      }
     }
   }, [])
 
@@ -45,17 +51,12 @@ export default function Header({ darkMode, toggleDarkMode }) {
   useEffect(() => {
     // Charger le compteur de favoris
     const token = localStorage.getItem('token')
-    if (token) {
-      fetch('/api/favorites/count', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-        .then(res => res.json())
-        .then(data => setFavoritesCount(data.count || 0))
+    if (token && user) {
+      api.get('/favorites/count')
+        .then(res => setFavoritesCount(res.data.count || 0))
         .catch(err => console.error('Erreur favoris:', err))
     }
-  }, [location.pathname])
+  }, [location.pathname, user])
 
   useEffect(() => {
     // Fermer le menu mobile quand on change de page
@@ -401,7 +402,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
                     title="Mon profil"
                   >
                     <FaUser className="inline mr-2" />
-                    <span className="truncate max-w-[120px]">{user.username || user.name || user.email.split('@')[0]}</span>
+                    <span className="truncate max-w-[120px]">{user.username || user.name || (user.email ? user.email.split('@')[0] : 'Utilisateur')}</span>
                   </Link>
                   
                   {/* Bouton déconnexion */}

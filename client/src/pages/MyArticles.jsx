@@ -14,10 +14,17 @@ export default function MyArticles() {
 
   useEffect(() => {
     const userData = localStorage.getItem('user')
-    if (userData) {
-      const parsedUser = JSON.parse(userData)
-      setUser(parsedUser)
-      loadArticles(parsedUser.id)
+    if (userData && userData !== 'undefined' && userData !== 'null') {
+      try {
+        const parsedUser = JSON.parse(userData)
+        setUser(parsedUser)
+        loadArticles(parsedUser.id)
+      } catch (e) {
+        console.error('Erreur parsing user:', e)
+        localStorage.removeItem('user')
+        showToast('Vous devez être connecté pour voir vos articles', 'warning')
+        navigate('/login')
+      }
     } else {
       showToast('Vous devez être connecté pour voir vos articles', 'warning')
       navigate('/login')

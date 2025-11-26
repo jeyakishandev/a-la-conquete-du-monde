@@ -40,7 +40,7 @@ export default function Profile() {
 
   useEffect(() => {
     const userData = localStorage.getItem('user')
-    if (!userData) {
+    if (!userData || userData === 'undefined' || userData === 'null') {
       showToast('Vous devez être connecté pour accéder à votre profil', 'warning')
       navigate('/login')
       return
