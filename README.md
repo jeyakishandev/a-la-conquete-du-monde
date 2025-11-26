@@ -14,7 +14,9 @@
 
 ## 🎯 Aperçu
 
-Application web fullstack moderne permettant aux utilisateurs de découvrir et partager des récits de voyage. Plateforme complète avec authentification sécurisée, gestion de contenu, et interactions sociales.
+Application web fullstack moderne de blog de voyage. Ce projet démontre la mise en place d'une architecture complète frontend/backend avec déploiement en production, gestion de base de données, et bonnes pratiques de développement.
+
+**Focus technique** : Architecture scalable, sécurité renforcée, gestion optimisée des connexions base de données, et déploiement cloud.
 
 ### 🚀 Déployé et en ligne
 
