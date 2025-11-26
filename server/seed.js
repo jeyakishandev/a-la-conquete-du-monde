@@ -200,10 +200,12 @@ async function main() {
   // On laisse le serveur gérer la connexion
 }
 
+// Exporter la fonction main pour pouvoir l'utiliser ailleurs
+export { main as seedDatabase };
+
 // Si le script est exécuté directement (node seed.js), exécuter main
-if (import.meta.url === `file://${process.argv[1]}`) {
-// Si le script est exécuté directement (node seed.js)
-if (process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/'))) {
+const isMainModule = process.argv[1] && import.meta.url.includes(process.argv[1].replace(/\\/g, '/'));
+if (isMainModule) {
   main()
     .catch((e) => {
       console.error(e);
@@ -213,11 +215,4 @@ if (process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '
       await prisma.$disconnect();
     });
 }
-
-// Exporter la fonction main pour pouvoir l'utiliser ailleurs
-export { main as seedDatabase };
-}
-
-// Exporter la fonction main pour pouvoir l'utiliser ailleurs
-export { main as seedDatabase };
 
