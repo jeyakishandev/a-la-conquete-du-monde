@@ -14,11 +14,11 @@ router.get('/article/:articleId', async (req, res) => {
             id: true,
             name: true,
             username: true,
-            email: true
-          }
-        }
+            email: true,
+          },
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     });
 
     res.json(comments);
@@ -38,7 +38,9 @@ router.post('/', async (req, res) => {
     }
 
     if (!name && !userId) {
-      return res.status(400).json({ error: 'Le nom est requis pour les utilisateurs non connectés' });
+      return res
+        .status(400)
+        .json({ error: 'Le nom est requis pour les utilisateurs non connectés' });
     }
 
     // Validation de la longueur
@@ -55,7 +57,7 @@ router.post('/', async (req, res) => {
         name: name?.trim() || null,
         content: content.trim(),
         articleId: parseInt(articleId),
-        userId: userId ? parseInt(userId) : null
+        userId: userId ? parseInt(userId) : null,
       },
       include: {
         user: {
@@ -63,16 +65,18 @@ router.post('/', async (req, res) => {
             id: true,
             name: true,
             username: true,
-            email: true
-          }
-        }
-      }
+            email: true,
+          },
+        },
+      },
     });
 
     res.status(201).json(comment);
   } catch (error) {
     console.error('Erreur création commentaire:', error);
-    res.status(500).json({ error: 'Erreur lors de la création du commentaire', details: error.message });
+    res
+      .status(500)
+      .json({ error: 'Erreur lors de la création du commentaire', details: error.message });
   }
 });
 
@@ -80,10 +84,10 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const commentId = parseInt(req.params.id);
-    
+
     // Vérifier si le commentaire existe
     const comment = await prisma.comment.findUnique({
-      where: { id: commentId }
+      where: { id: commentId },
     });
 
     if (!comment) {
@@ -93,7 +97,7 @@ router.delete('/:id', async (req, res) => {
     // Note: La vérification de propriété est gérée côté client
 
     await prisma.comment.delete({
-      where: { id: commentId }
+      where: { id: commentId },
     });
 
     res.json({ message: 'Commentaire supprimé avec succès' });
@@ -104,4 +108,3 @@ router.delete('/:id', async (req, res) => {
 });
 
 export default router;
-

@@ -21,15 +21,15 @@ router.post('/toggle/:articleId', async (req, res) => {
       where: {
         articleId_userId: {
           articleId,
-          userId: finalUserId
-        }
-      }
+          userId: finalUserId,
+        },
+      },
     });
 
     if (existingFavorite) {
       // Supprimer le favori
       await prisma.favorite.delete({
-        where: { id: existingFavorite.id }
+        where: { id: existingFavorite.id },
       });
 
       res.json({ favorited: false });
@@ -38,15 +38,15 @@ router.post('/toggle/:articleId', async (req, res) => {
       await prisma.favorite.create({
         data: {
           articleId,
-          userId: finalUserId
-        }
+          userId: finalUserId,
+        },
       });
 
       res.json({ favorited: true });
     }
   } catch (error) {
     console.error('Erreur lors du toggle favori:', error);
-    res.status(500).json({ error: 'Erreur lors de l\'ajout au favoris', details: error.message });
+    res.status(500).json({ error: "Erreur lors de l'ajout au favoris", details: error.message });
   }
 });
 
@@ -55,9 +55,9 @@ router.get('/user', async (req, res) => {
   try {
     // Récupération des favoris avec filtre par userId
     const { userId } = req.query;
-    
+
     const where = userId ? { userId: parseInt(userId) } : {};
-    
+
     const favorites = await prisma.favorite.findMany({
       where,
       include: {
@@ -67,13 +67,13 @@ router.get('/user', async (req, res) => {
               select: {
                 comments: true,
                 likes: true,
-                favorites: true
-              }
-            }
-          }
-        }
+                favorites: true,
+              },
+            },
+          },
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     });
 
     res.json(favorites.map(f => f.article));
@@ -90,9 +90,9 @@ router.get('/count', async (req, res) => {
     if (!userId) {
       return res.json({ count: 0 });
     }
-    
+
     const count = await prisma.favorite.count({
-      where: { userId: parseInt(userId) }
+      where: { userId: parseInt(userId) },
     });
     res.json({ count });
   } catch (error) {
@@ -106,7 +106,7 @@ router.get('/check/:articleId', async (req, res) => {
   try {
     const articleId = parseInt(req.params.articleId);
     const { userId } = req.query;
-    
+
     if (!userId) {
       return res.json({ favorited: false });
     }
@@ -115,9 +115,9 @@ router.get('/check/:articleId', async (req, res) => {
       where: {
         articleId_userId: {
           articleId,
-          userId: parseInt(userId)
-        }
-      }
+          userId: parseInt(userId),
+        },
+      },
     });
 
     res.json({ favorited: !!favorite });
@@ -128,4 +128,3 @@ router.get('/check/:articleId', async (req, res) => {
 });
 
 export default router;
-

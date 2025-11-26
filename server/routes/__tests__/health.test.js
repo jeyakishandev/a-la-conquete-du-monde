@@ -10,12 +10,9 @@ app.get('/api/health', (req, res) => {
 
 describe('Health Check Endpoint', () => {
   it('should return 200 and status OK', async () => {
-    const response = await request(app)
-      .get('/api/health')
-      .expect(200);
+    const response = await request(app).get('/api/health').expect(200);
 
     expect(response.body.status).toBe('OK');
     expect(response.body.timestamp).toBeDefined();
   });
 });
-

@@ -7,14 +7,17 @@
 const attempts = new Map();
 
 // Nettoyage périodique des entrées expirées (toutes les 5 minutes)
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, data] of attempts.entries()) {
-    if (data.resetTime < now) {
-      attempts.delete(ip);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [ip, data] of attempts.entries()) {
+      if (data.resetTime < now) {
+        attempts.delete(ip);
+      }
     }
-  }
-}, 5 * 60 * 1000);
+  },
+  5 * 60 * 1000
+);
 
 /**
  * Crée un middleware de rate limiting
@@ -27,15 +30,16 @@ export const createRateLimiter = (options = {}) => {
   const {
     windowMs = 15 * 60 * 1000, // 15 minutes
     maxAttempts = 5,
-    message = 'Trop de tentatives. Veuillez réessayer plus tard.'
+    message = 'Trop de tentatives. Veuillez réessayer plus tard.',
   } = options;
 
   return (req, res, next) => {
     // Récupérer l'IP réelle (prendre en compte les proxies)
-    const ip = req.ip || 
-               req.connection.remoteAddress || 
-               req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
-               'unknown';
+    const ip =
+      req.ip ||
+      req.connection.remoteAddress ||
+      req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+      'unknown';
 
     const now = Date.now();
     const attempt = attempts.get(ip);
@@ -44,7 +48,7 @@ export const createRateLimiter = (options = {}) => {
     if (!attempt || attempt.resetTime < now) {
       attempts.set(ip, {
         count: 1,
-        resetTime: now + windowMs
+        resetTime: now + windowMs,
       });
       return next();
     }
@@ -55,7 +59,7 @@ export const createRateLimiter = (options = {}) => {
       return res.status(429).json({
         error: message,
         retryAfter,
-        resetTime: new Date(attempt.resetTime).toISOString()
+        resetTime: new Date(attempt.resetTime).toISOString(),
       });
     }
 
@@ -80,7 +84,7 @@ export const createRateLimiter = (options = {}) => {
 export const authRateLimiter = createRateLimiter({
   windowMs: 15 * 60 * 1000, // 15 minutes
   maxAttempts: 5,
-  message: 'Trop de tentatives de connexion. Veuillez réessayer dans 15 minutes.'
+  message: 'Trop de tentatives de connexion. Veuillez réessayer dans 15 minutes.',
 });
 
 /**
@@ -90,7 +94,7 @@ export const authRateLimiter = createRateLimiter({
 export const registerRateLimiter = createRateLimiter({
   windowMs: 60 * 60 * 1000, // 1 heure
   maxAttempts: 3,
-  message: 'Trop de tentatives d\'inscription. Veuillez réessayer plus tard.'
+  message: "Trop de tentatives d'inscription. Veuillez réessayer plus tard.",
 });
 
 /**
@@ -100,5 +104,5 @@ export const registerRateLimiter = createRateLimiter({
 export const apiRateLimiter = createRateLimiter({
   windowMs: 15 * 60 * 1000,
   maxAttempts: 100,
-  message: 'Trop de requêtes. Veuillez ralentir.'
+  message: 'Trop de requêtes. Veuillez ralentir.',
 });

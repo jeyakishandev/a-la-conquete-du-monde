@@ -22,13 +22,13 @@ const PORT = process.env.PORT || 3001;
 
 // Configuration CORS
 const corsOptions = {
-  origin: process.env.FRONTEND_URL 
+  origin: process.env.FRONTEND_URL
     ? process.env.FRONTEND_URL.split(',') // Support plusieurs URLs séparées par virgule
-    : process.env.NODE_ENV === 'production' 
+    : process.env.NODE_ENV === 'production'
       ? false // En production sans FRONTEND_URL, refuser toutes les origines
       : true, // En développement, autoriser toutes les origines
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 // Trust proxy pour obtenir la vraie IP (important pour le rate limiting)
@@ -71,14 +71,14 @@ app.get('/api', (req, res) => {
   res.json({
     message: '🌍 API À la Conquête du Monde',
     version: '1.0.0',
-      endpoints: {
+    endpoints: {
       auth: '/api/auth',
       articles: '/api/articles',
       comments: '/api/comments',
       likes: '/api/likes',
       favorites: '/api/favorites',
-      users: '/api/users'
-    }
+      users: '/api/users',
+    },
   });
 });
 
@@ -88,7 +88,7 @@ app.get('/api/health', (req, res) => {
     status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
   });
 });
 
@@ -116,7 +116,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
     error: 'Une erreur est survenue',
-    message: process.env.NODE_ENV === 'development' ? err.message : undefined
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined,
   });
 });
 
@@ -124,10 +124,10 @@ app.use((err, req, res, next) => {
 async function checkAndSeed() {
   try {
     const prisma = (await import('./db.js')).default;
-    
+
     // Vérifier si des articles existent
     const articleCount = await prisma.article.count();
-    
+
     if (articleCount === 0) {
       console.log('🌱 Aucun article trouvé. Exécution du seed...');
       try {
@@ -153,7 +153,7 @@ app.listen(PORT, async () => {
   console.log(`🚀 Serveur démarré sur le port ${PORT}`);
   console.log(`📍 http://localhost:${PORT}`);
   console.log(`📍 API: http://localhost:${PORT}/api`);
-  
+
   // Vérifier la connexion à la base de données
   try {
     const prisma = (await import('./db.js')).default;
@@ -162,10 +162,9 @@ app.listen(PORT, async () => {
   } catch (error) {
     console.error('❌ Erreur de connexion à la base de données:', error.message);
   }
-  
+
   // Vérifier et exécuter le seed si nécessaire (en arrière-plan)
   checkAndSeed().catch(err => {
     console.error('Erreur lors du check seed:', err);
   });
 });
-

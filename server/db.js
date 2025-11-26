@@ -25,4 +25,3 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 // Note: Prisma utilise automatiquement des requêtes directes si nécessaire
 
 export default prisma;
-

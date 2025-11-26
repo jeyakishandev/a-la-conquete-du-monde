@@ -18,28 +18,28 @@ router.post('/toggle/:articleId', async (req, res) => {
         where: {
           articleId_userId: {
             articleId,
-            userId: finalUserId
-          }
-        }
+            userId: finalUserId,
+          },
+        },
       });
     } else {
       // Pour les likes anonymes (userId null), utiliser findFirst
       existingLike = await prisma.like.findFirst({
         where: {
           articleId,
-          userId: null
-        }
+          userId: null,
+        },
       });
     }
 
     if (existingLike) {
       // Supprimer le like
       await prisma.like.delete({
-        where: { id: existingLike.id }
+        where: { id: existingLike.id },
       });
 
       const count = await prisma.like.count({
-        where: { articleId }
+        where: { articleId },
       });
 
       res.json({ liked: false, count });
@@ -48,12 +48,12 @@ router.post('/toggle/:articleId', async (req, res) => {
       await prisma.like.create({
         data: {
           articleId,
-          userId: finalUserId
-        }
+          userId: finalUserId,
+        },
       });
 
       const count = await prisma.like.count({
-        where: { articleId }
+        where: { articleId },
       });
 
       res.json({ liked: true, count });
@@ -71,7 +71,7 @@ router.get('/:articleId', async (req, res) => {
     const userId = req.query.userId ? parseInt(req.query.userId) : null;
 
     const count = await prisma.like.count({
-      where: { articleId }
+      where: { articleId },
     });
 
     // Vérifier si l'utilisateur a liké cet article
@@ -81,9 +81,9 @@ router.get('/:articleId', async (req, res) => {
         where: {
           articleId_userId: {
             articleId,
-            userId: parseInt(userId)
-          }
-        }
+            userId: parseInt(userId),
+          },
+        },
       });
       liked = !!userLike;
     }
@@ -96,4 +96,3 @@ router.get('/:articleId', async (req, res) => {
 });
 
 export default router;
-

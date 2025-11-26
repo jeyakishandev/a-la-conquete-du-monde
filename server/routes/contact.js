@@ -21,19 +21,18 @@ router.post('/', async (req, res) => {
 
     // Ici tu pourrais sauvegarder dans une table Contact si tu veux
     // Pour l'instant, on simule juste l'envoi
-    
+
     // Note: En production, intégrer un service d'email (SendGrid, Resend, etc.)
     console.log('Nouveau message de contact:', { name, email, message });
 
     res.status(200).json({
       message: 'Votre message a été envoyé avec succès ! Nous vous répondrons bientôt.',
-      success: true
+      success: true,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Erreur lors de l\'envoi du message' });
+    res.status(500).json({ error: "Erreur lors de l'envoi du message" });
   }
 });
 
 export default router;
-

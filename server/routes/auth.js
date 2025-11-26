@@ -2,13 +2,13 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../db.js';
-import { 
-  isValidEmail, 
-  isValidUsername, 
-  validatePassword, 
-  sanitizeString, 
+import {
+  isValidEmail,
+  isValidUsername,
+  validatePassword,
+  sanitizeString,
   isValidName,
-  passwordsMatch 
+  passwordsMatch,
 } from '../utils/validation.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { authRateLimiter, registerRateLimiter } from '../middleware/rateLimiter.js';
@@ -27,88 +27,86 @@ router.post('/register', registerRateLimiter, async (req, res) => {
 
     // Validation de l'email
     if (!email) {
-      return res.status(400).json({ 
-        error: 'L\'email est requis',
-        field: 'email'
+      return res.status(400).json({
+        error: "L'email est requis",
+        field: 'email',
       });
     }
 
     if (!isValidEmail(email)) {
-      return res.status(400).json({ 
-        error: 'Format d\'email invalide',
-        field: 'email'
+      return res.status(400).json({
+        error: "Format d'email invalide",
+        field: 'email',
       });
     }
 
     // Validation du nom d'utilisateur
     if (!username) {
-      return res.status(400).json({ 
-        error: 'Le nom d\'utilisateur est requis',
-        field: 'username'
+      return res.status(400).json({
+        error: "Le nom d'utilisateur est requis",
+        field: 'username',
       });
     }
 
     if (!isValidUsername(username)) {
-      return res.status(400).json({ 
-        error: 'Le nom d\'utilisateur doit contenir entre 3 et 20 caractères alphanumériques ou underscore',
-        field: 'username'
+      return res.status(400).json({
+        error:
+          "Le nom d'utilisateur doit contenir entre 3 et 20 caractères alphanumériques ou underscore",
+        field: 'username',
       });
     }
 
     // Validation du mot de passe
     if (!password) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Le mot de passe est requis',
-        field: 'password'
+        field: 'password',
       });
     }
 
     const passwordValidation = validatePassword(password);
     if (!passwordValidation.isValid) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Le mot de passe ne respecte pas les critères de sécurité',
         field: 'password',
-        details: passwordValidation.errors
+        details: passwordValidation.errors,
       });
     }
 
     // Vérifier la confirmation du mot de passe
     if (confirmPassword && !passwordsMatch(password, confirmPassword)) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Les mots de passe ne correspondent pas',
-        field: 'confirmPassword'
+        field: 'confirmPassword',
       });
     }
 
     // Validation du nom (optionnel mais doit être valide si fourni)
     if (name && !isValidName(name)) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Le nom contient des caractères invalides',
-        field: 'name'
+        field: 'name',
       });
     }
 
     // Vérifier si l'utilisateur existe déjà
     const existingUser = await prisma.user.findFirst({
-      where: { 
-        OR: [
-          { email },
-          { username }
-        ]
-      }
+      where: {
+        OR: [{ email }, { username }],
+      },
     });
 
     if (existingUser) {
       if (existingUser.email === email) {
-        return res.status(400).json({ 
+        return res.status(400).json({
           error: 'Cet email est déjà utilisé',
-          field: 'email'
+          field: 'email',
         });
       }
       if (existingUser.username === username) {
-        return res.status(400).json({ 
-          error: 'Ce nom d\'utilisateur est déjà utilisé',
-          field: 'username'
+        return res.status(400).json({
+          error: "Ce nom d'utilisateur est déjà utilisé",
+          field: 'username',
         });
       }
     }
@@ -122,21 +120,23 @@ router.post('/register', registerRateLimiter, async (req, res) => {
         email,
         username,
         password: hashedPassword,
-        name: name || username
+        name: name || username,
       },
       select: {
         id: true,
         email: true,
         username: true,
         name: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     });
 
     // Générer le token avec un secret sécurisé
     const JWT_SECRET = process.env.JWT_SECRET;
     if (!JWT_SECRET || JWT_SECRET === 'secret') {
-      console.error('⚠️  ATTENTION: JWT_SECRET utilise la valeur par défaut ! Configurer une variable d\'environnement.');
+      console.error(
+        "⚠️  ATTENTION: JWT_SECRET utilise la valeur par défaut ! Configurer une variable d'environnement."
+      );
     }
 
     const token = jwt.sign(
@@ -152,23 +152,23 @@ router.post('/register', registerRateLimiter, async (req, res) => {
         id: user.id,
         email: user.email,
         username: user.username,
-        name: user.name
-      }
+        name: user.name,
+      },
     });
   } catch (error) {
     console.error('Erreur inscription:', error);
-    
+
     // Erreurs Prisma spécifiques
     if (error.code === 'P2002') {
-      return res.status(400).json({ 
-        error: 'Cet email ou nom d\'utilisateur est déjà utilisé',
-        field: error.meta?.target?.[0] || 'unknown'
+      return res.status(400).json({
+        error: "Cet email ou nom d'utilisateur est déjà utilisé",
+        field: error.meta?.target?.[0] || 'unknown',
       });
     }
 
-    res.status(500).json({ 
-      error: 'Erreur lors de l\'inscription',
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+    res.status(500).json({
+      error: "Erreur lors de l'inscription",
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined,
     });
   }
 });
@@ -183,20 +183,20 @@ router.post('/login', authRateLimiter, async (req, res) => {
 
     // Validation
     if (!email || !password) {
-      return res.status(400).json({ 
-        error: 'Email et mot de passe requis'
+      return res.status(400).json({
+        error: 'Email et mot de passe requis',
       });
     }
 
     if (!isValidEmail(email)) {
-      return res.status(400).json({ 
-        error: 'Format d\'email invalide',
-        field: 'email'
+      return res.status(400).json({
+        error: "Format d'email invalide",
+        field: 'email',
       });
     }
 
     // Rechercher l'utilisateur par email
-    const user = await prisma.user.findUnique({ 
+    const user = await prisma.user.findUnique({
       where: { email },
       select: {
         id: true,
@@ -204,8 +204,8 @@ router.post('/login', authRateLimiter, async (req, res) => {
         username: true,
         name: true,
         password: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     });
 
     // Message d'erreur générique pour ne pas révéler si l'email existe
@@ -244,13 +244,13 @@ router.post('/login', authRateLimiter, async (req, res) => {
     res.json({
       message: 'Connexion réussie',
       token,
-      user: userWithoutPassword
+      user: userWithoutPassword,
     });
   } catch (error) {
     console.error('Erreur connexion:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Erreur lors de la connexion',
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined,
     });
   }
 });
@@ -265,8 +265,8 @@ router.get('/me', authenticateToken, async (req, res) => {
         email: true,
         username: true,
         name: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     });
 
     if (!user) {
@@ -276,7 +276,7 @@ router.get('/me', authenticateToken, async (req, res) => {
     res.json({ user });
   } catch (error) {
     console.error('Erreur récupération utilisateur:', error);
-    res.status(500).json({ error: 'Erreur lors de la récupération de l\'utilisateur' });
+    res.status(500).json({ error: "Erreur lors de la récupération de l'utilisateur" });
   }
 });
 
@@ -286,4 +286,3 @@ router.post('/logout', authenticateToken, (req, res) => {
 });
 
 export default router;
-

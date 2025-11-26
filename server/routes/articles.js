@@ -6,7 +6,7 @@ import {
   validateArticleDescription,
   validateArticleContent,
   isValidCategory,
-  isValidImageUrl
+  isValidImageUrl,
 } from '../utils/validation.js';
 
 const router = express.Router();
@@ -15,9 +15,9 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const { category, search, userId } = req.query;
-    
+
     const where = {};
-    
+
     // Filtre par userId (prioritaire - si présent, on filtre strictement)
     if (userId) {
       const parsedUserId = parseInt(userId);
@@ -25,18 +25,18 @@ router.get('/', async (req, res) => {
         where.userId = parsedUserId;
       }
     }
-    
+
     // Filtre par catégorie (uniquement si userId n'est pas spécifié ou en combinaison)
     if (category && category !== 'all') {
       where.category = category;
     }
-    
+
     // Filtre par recherche (uniquement si userId n'est pas spécifié ou en combinaison)
     if (search) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
-        { content: { contains: search, mode: 'insensitive' } }
+        { content: { contains: search, mode: 'insensitive' } },
       ];
     }
 
@@ -47,11 +47,11 @@ router.get('/', async (req, res) => {
           select: {
             comments: true,
             likes: true,
-            favorites: true
-          }
-        }
+            favorites: true,
+          },
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     });
 
     res.json(articles);
@@ -68,16 +68,16 @@ router.get('/:id', async (req, res) => {
       where: { id: parseInt(req.params.id) },
       include: {
         comments: {
-          orderBy: { createdAt: 'desc' }
+          orderBy: { createdAt: 'desc' },
         },
         _count: {
           select: {
             comments: true,
             likes: true,
-            favorites: true
-          }
-        }
-      }
+            favorites: true,
+          },
+        },
+      },
     });
 
     if (!article) {
@@ -87,13 +87,13 @@ router.get('/:id', async (req, res) => {
     // Incrémenter les vues
     await prisma.article.update({
       where: { id: parseInt(req.params.id) },
-      data: { views: { increment: 1 } }
+      data: { views: { increment: 1 } },
     });
 
     res.json(article);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Erreur lors de la récupération de l\'article' });
+    res.status(500).json({ error: "Erreur lors de la récupération de l'article" });
   }
 });
 
@@ -103,7 +103,13 @@ router.post('/', authenticateToken, async (req, res) => {
     const { title, description, content, category, image } = req.body;
     const userId = req.userId; // Récupéré depuis le middleware d'authentification
 
-    console.log('📝 Création article - Données extraites:', { title, description: description?.substring(0, 50), content: content?.substring(0, 50), category, image });
+    console.log('📝 Création article - Données extraites:', {
+      title,
+      description: description?.substring(0, 50),
+      content: content?.substring(0, 50),
+      category,
+      image,
+    });
 
     // Validation du titre
     const titleValidation = validateArticleTitle(title);
@@ -126,12 +132,17 @@ router.post('/', authenticateToken, async (req, res) => {
 
     // Validation de la catégorie
     if (!category || !isValidCategory(category)) {
-      return res.status(400).json({ error: 'Catégorie invalide. Catégories valides: destinations, culture, aventure, conseils' });
+      return res
+        .status(400)
+        .json({
+          error:
+            'Catégorie invalide. Catégories valides: destinations, culture, aventure, conseils',
+        });
     }
 
     // Validation de l'URL d'image
     if (image && !isValidImageUrl(image)) {
-      return res.status(400).json({ error: 'URL d\'image invalide' });
+      return res.status(400).json({ error: "URL d'image invalide" });
     }
 
     // Image par défaut si non fournie
@@ -144,23 +155,23 @@ router.post('/', authenticateToken, async (req, res) => {
         content: contentValidation.sanitized,
         category,
         image: articleImage,
-        userId: parseInt(userId)
+        userId: parseInt(userId),
       },
       include: {
         _count: {
           select: {
             comments: true,
             likes: true,
-            favorites: true
-          }
-        }
-      }
+            favorites: true,
+          },
+        },
+      },
     });
 
     res.status(201).json(article);
   } catch (error) {
     console.error('Erreur création article:', error);
-    res.status(500).json({ error: 'Erreur lors de la création de l\'article' });
+    res.status(500).json({ error: "Erreur lors de la création de l'article" });
   }
 });
 
@@ -173,7 +184,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
 
     // Vérifier que l'article existe et appartient à l'utilisateur
     const existingArticle = await prisma.article.findUnique({
-      where: { id: articleId }
+      where: { id: articleId },
     });
 
     if (!existingArticle) {
@@ -181,7 +192,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
     }
 
     if (existingArticle.userId !== userId) {
-      return res.status(403).json({ error: 'Vous n\'êtes pas autorisé à modifier cet article' });
+      return res.status(403).json({ error: "Vous n'êtes pas autorisé à modifier cet article" });
     }
 
     // Validation des champs
@@ -211,7 +222,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
     }
 
     if (image && !isValidImageUrl(image)) {
-      return res.status(400).json({ error: 'URL d\'image invalide' });
+      return res.status(400).json({ error: "URL d'image invalide" });
     }
 
     // Sanitisation
@@ -230,16 +241,16 @@ router.put('/:id', authenticateToken, async (req, res) => {
           select: {
             comments: true,
             likes: true,
-            favorites: true
-          }
-        }
-      }
+            favorites: true,
+          },
+        },
+      },
     });
 
     res.json(article);
   } catch (error) {
     console.error('Erreur mise à jour article:', error);
-    res.status(500).json({ error: 'Erreur lors de la mise à jour de l\'article' });
+    res.status(500).json({ error: "Erreur lors de la mise à jour de l'article" });
   }
 });
 
@@ -247,13 +258,13 @@ router.put('/:id', authenticateToken, async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     await prisma.article.delete({
-      where: { id: parseInt(req.params.id) }
+      where: { id: parseInt(req.params.id) },
     });
 
     res.json({ message: 'Article supprimé avec succès' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Erreur lors de la suppression de l\'article' });
+    res.status(500).json({ error: "Erreur lors de la suppression de l'article" });
   }
 });
 
@@ -262,7 +273,7 @@ router.get('/stats/all', async (req, res) => {
   try {
     const totalArticles = await prisma.article.count();
     const totalViews = await prisma.article.aggregate({
-      _sum: { views: true }
+      _sum: { views: true },
     });
     const totalComments = await prisma.comment.count();
     const totalLikes = await prisma.like.count();
@@ -271,7 +282,7 @@ router.get('/stats/all', async (req, res) => {
       totalArticles,
       totalViews: totalViews._sum.views || 0,
       totalComments,
-      totalLikes
+      totalLikes,
     });
   } catch (error) {
     console.error(error);
@@ -280,4 +291,3 @@ router.get('/stats/all', async (req, res) => {
 });
 
 export default router;
-

@@ -1,12 +1,12 @@
 import express from 'express';
 import prisma from '../db.js';
 import { authenticateToken } from '../middleware/auth.js';
-import { 
-  isValidEmail, 
-  isValidUsername, 
+import {
+  isValidEmail,
+  isValidUsername,
   isValidName,
   validatePassword,
-  sanitizeString 
+  sanitizeString,
 } from '../utils/validation.js';
 import bcrypt from 'bcryptjs';
 
@@ -23,8 +23,8 @@ router.get('/profile', authenticateToken, async (req, res) => {
         username: true,
         name: true,
         createdAt: true,
-        updatedAt: true
-      }
+        updatedAt: true,
+      },
     });
 
     if (!user) {
@@ -53,10 +53,10 @@ router.get('/stats', authenticateToken, async (req, res) => {
           select: {
             likes: true,
             favorites: true,
-            comments: true
-          }
-        }
-      }
+            comments: true,
+          },
+        },
+      },
     });
 
     const totalArticles = articles.length;
@@ -67,17 +67,17 @@ router.get('/stats', authenticateToken, async (req, res) => {
 
     // Statistiques des commentaires de l'utilisateur
     const userComments = await prisma.comment.count({
-      where: { userId }
+      where: { userId },
     });
 
     // Favoris de l'utilisateur
     const userFavorites = await prisma.favorite.count({
-      where: { userId }
+      where: { userId },
     });
 
     // Likes de l'utilisateur
     const userLikes = await prisma.like.count({
-      where: { userId }
+      where: { userId },
     });
 
     res.json({
@@ -86,18 +86,19 @@ router.get('/stats', authenticateToken, async (req, res) => {
         totalViews,
         totalLikes,
         totalFavorites,
-        totalComments
+        totalComments,
       },
       engagement: {
         commentsWritten: userComments,
         articlesFavorited: userFavorites,
-        articlesLiked: userLikes
+        articlesLiked: userLikes,
       },
-      mostPopularArticle: articles.length > 0 
-        ? articles.reduce((max, article) => 
-            article._count.likes > max._count.likes ? article : max
-          )
-        : null
+      mostPopularArticle:
+        articles.length > 0
+          ? articles.reduce((max, article) =>
+              article._count.likes > max._count.likes ? article : max
+            )
+          : null,
     });
   } catch (error) {
     console.error('Erreur statistiques utilisateur:', error);
@@ -113,7 +114,7 @@ router.put('/profile', authenticateToken, async (req, res) => {
 
     // Récupérer l'utilisateur actuel
     const currentUser = await prisma.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!currentUser) {
@@ -136,12 +137,12 @@ router.put('/profile', authenticateToken, async (req, res) => {
     if (email !== undefined && email !== currentUser.email) {
       const sanitizedEmail = sanitizeString(email.toLowerCase(), 255);
       if (!isValidEmail(sanitizedEmail)) {
-        return res.status(400).json({ error: 'Format d\'email invalide' });
+        return res.status(400).json({ error: "Format d'email invalide" });
       }
 
       // Vérifier si l'email est déjà utilisé
       const existingUser = await prisma.user.findUnique({
-        where: { email: sanitizedEmail }
+        where: { email: sanitizedEmail },
       });
 
       if (existingUser && existingUser.id !== userId) {
@@ -155,16 +156,16 @@ router.put('/profile', authenticateToken, async (req, res) => {
     if (username !== undefined && username !== currentUser.username) {
       const sanitizedUsername = sanitizeString(username, 20);
       if (!isValidUsername(sanitizedUsername)) {
-        return res.status(400).json({ error: 'Nom d\'utilisateur invalide' });
+        return res.status(400).json({ error: "Nom d'utilisateur invalide" });
       }
 
       // Vérifier si le username est déjà utilisé
       const existingUser = await prisma.user.findUnique({
-        where: { username: sanitizedUsername }
+        where: { username: sanitizedUsername },
       });
 
       if (existingUser && existingUser.id !== userId) {
-        return res.status(400).json({ error: 'Ce nom d\'utilisateur est déjà utilisé' });
+        return res.status(400).json({ error: "Ce nom d'utilisateur est déjà utilisé" });
       }
 
       updateData.username = sanitizedUsername;
@@ -173,7 +174,9 @@ router.put('/profile', authenticateToken, async (req, res) => {
     // Mise à jour du mot de passe
     if (newPassword) {
       if (!currentPassword) {
-        return res.status(400).json({ error: 'Le mot de passe actuel est requis pour changer le mot de passe' });
+        return res
+          .status(400)
+          .json({ error: 'Le mot de passe actuel est requis pour changer le mot de passe' });
       }
 
       // Vérifier le mot de passe actuel
@@ -185,9 +188,9 @@ router.put('/profile', authenticateToken, async (req, res) => {
       // Valider le nouveau mot de passe
       const passwordValidation = validatePassword(newPassword);
       if (!passwordValidation.isValid) {
-        return res.status(400).json({ 
+        return res.status(400).json({
           error: 'Le nouveau mot de passe ne respecte pas les critères de sécurité',
-          details: passwordValidation.errors
+          details: passwordValidation.errors,
         });
       }
 
@@ -205,13 +208,13 @@ router.put('/profile', authenticateToken, async (req, res) => {
         username: true,
         name: true,
         createdAt: true,
-        updatedAt: true
-      }
+        updatedAt: true,
+      },
     });
 
-    res.json({ 
+    res.json({
       message: 'Profil mis à jour avec succès',
-      user: updatedUser
+      user: updatedUser,
     });
   } catch (error) {
     console.error('Erreur mise à jour profil:', error);
@@ -220,4 +223,3 @@ router.put('/profile', authenticateToken, async (req, res) => {
 });
 
 export default router;
-

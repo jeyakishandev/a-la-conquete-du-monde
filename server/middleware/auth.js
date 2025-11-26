@@ -12,9 +12,9 @@ export const authenticateToken = async (req, res, next) => {
     const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer TOKEN"
 
     if (!token) {
-      return res.status(401).json({ 
-        error: 'Token d\'authentification manquant',
-        code: 'AUTH_TOKEN_MISSING'
+      return res.status(401).json({
+        error: "Token d'authentification manquant",
+        code: 'AUTH_TOKEN_MISSING',
       });
     }
 
@@ -25,7 +25,7 @@ export const authenticateToken = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, JWT_SECRET || 'secret');
-    
+
     // Récupérer l'utilisateur depuis la base de données
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
@@ -34,41 +34,41 @@ export const authenticateToken = async (req, res, next) => {
         email: true,
         username: true,
         name: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     });
 
     if (!user) {
-      return res.status(401).json({ 
+      return res.status(401).json({
         error: 'Utilisateur non trouvé',
-        code: 'USER_NOT_FOUND'
+        code: 'USER_NOT_FOUND',
       });
     }
 
     // Ajouter l'utilisateur à la requête
     req.user = user;
     req.userId = user.id;
-    
+
     next();
   } catch (error) {
     if (error.name === 'JsonWebTokenError') {
-      return res.status(401).json({ 
+      return res.status(401).json({
         error: 'Token invalide',
-        code: 'INVALID_TOKEN'
+        code: 'INVALID_TOKEN',
       });
     }
-    
+
     if (error.name === 'TokenExpiredError') {
-      return res.status(401).json({ 
+      return res.status(401).json({
         error: 'Token expiré',
-        code: 'TOKEN_EXPIRED'
+        code: 'TOKEN_EXPIRED',
       });
     }
 
     console.error('Erreur authentification:', error);
-    return res.status(500).json({ 
-      error: 'Erreur lors de l\'authentification',
-      code: 'AUTH_ERROR'
+    return res.status(500).json({
+      error: "Erreur lors de l'authentification",
+      code: 'AUTH_ERROR',
     });
   }
 };
@@ -85,15 +85,15 @@ export const optionalAuth = async (req, res, next) => {
     if (token) {
       const JWT_SECRET = process.env.JWT_SECRET || 'secret';
       const decoded = jwt.verify(token, JWT_SECRET);
-      
+
       const user = await prisma.user.findUnique({
         where: { id: decoded.userId },
         select: {
           id: true,
           email: true,
           username: true,
-          name: true
-        }
+          name: true,
+        },
       });
 
       if (user) {
@@ -101,7 +101,7 @@ export const optionalAuth = async (req, res, next) => {
         req.userId = user.id;
       }
     }
-    
+
     next();
   } catch (error) {
     // Ignorer les erreurs pour l'auth optionnelle
@@ -120,16 +120,15 @@ export const requireOwnership = (resourceIdField = 'userId') => {
     }
 
     const resourceId = req.params.id || req.params[resourceIdField];
-    
+
     // Si l'utilisateur est authentifié et est le propriétaire
     if (req.userId && req.userId === resourceId) {
       return next();
     }
 
-    return res.status(403).json({ 
-      error: 'Accès refusé : vous n\'êtes pas autorisé à accéder à cette ressource',
-      code: 'FORBIDDEN'
+    return res.status(403).json({
+      error: "Accès refusé : vous n'êtes pas autorisé à accéder à cette ressource",
+      code: 'FORBIDDEN',
     });
   };
 };
-
