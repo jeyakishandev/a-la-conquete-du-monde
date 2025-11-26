@@ -197,12 +197,21 @@ async function main() {
   console.log('🎉 Seed terminé avec succès !');
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
+// Si le script est exécuté directement (node seed.js), exécuter main
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main()
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    })
   .finally(async () => {
-    await prisma.$disconnect();
+    // Ne pas fermer la connexion si appelé depuis server.js
+    if (import.meta.url === `file://${process.argv[1]}`) {
+      await prisma.$disconnect();
+    }
   });
+}
+
+// Exporter la fonction main pour pouvoir l'utiliser ailleurs
+export { main as seedDatabase };
 

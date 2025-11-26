@@ -120,6 +120,36 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Fonction pour vérifier et exécuter le seed si nécessaire
+async function checkAndSeed() {
+  try {
+    const { PrismaClient } = await import('@prisma/client');
+    const prisma = new PrismaClient();
+    
+    // Vérifier si des articles existent
+    const articleCount = await prisma.article.count();
+    await prisma.$disconnect();
+    
+    if (articleCount === 0) {
+      console.log('🌱 Aucun article trouvé. Exécution du seed...');
+      try {
+        // Importer et exécuter la fonction seed
+        const { seedDatabase } = await import('./seed.js');
+        await seedDatabase();
+        console.log('✅ Seed exécuté avec succès');
+      } catch (error) {
+        console.error('❌ Erreur lors du seed automatique:', error.message);
+        // On continue - le serveur démarrera quand même
+      }
+    } else {
+      console.log(`✅ Base de données déjà initialisée (${articleCount} articles)`);
+    }
+  } catch (error) {
+    console.error('⚠️ Erreur lors de la vérification du seed:', error.message);
+    // On continue quand même - le serveur démarrera
+  }
+}
+
 // Démarrer le serveur
 app.listen(PORT, async () => {
   console.log(`🚀 Serveur démarré sur le port ${PORT}`);
@@ -136,5 +166,10 @@ app.listen(PORT, async () => {
   } catch (error) {
     console.error('❌ Erreur de connexion à la base de données:', error.message);
   }
+  
+  // Vérifier et exécuter le seed si nécessaire (en arrière-plan)
+  checkAndSeed().catch(err => {
+    console.error('Erreur lors du check seed:', err);
+  });
 });
 
