@@ -5,7 +5,7 @@ services:
     env: node
     plan: starter
     rootDir: server
-    buildCommand: npm install && npx prisma generate && npx prisma db push --accept-data-loss && npm run prisma:db:seed || npx prisma db seed || true
+    buildCommand: npm install && npx prisma generate
     startCommand: npm start
     envVars:
       - key: NODE_ENV
