@@ -195,21 +195,27 @@ async function main() {
 
   console.log('✅ Commentaires de test ajoutés');
   console.log('🎉 Seed terminé avec succès !');
+  
+  // Ne pas fermer Prisma si appelé depuis server.js (la connexion sera réutilisée)
+  // On laisse le serveur gérer la connexion
 }
 
 // Si le script est exécuté directement (node seed.js), exécuter main
 if (import.meta.url === `file://${process.argv[1]}`) {
+// Si le script est exécuté directement (node seed.js)
+if (process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/'))) {
   main()
     .catch((e) => {
       console.error(e);
       process.exit(1);
     })
-  .finally(async () => {
-    // Ne pas fermer la connexion si appelé depuis server.js
-    if (import.meta.url === `file://${process.argv[1]}`) {
+    .finally(async () => {
       await prisma.$disconnect();
-    }
-  });
+    });
+}
+
+// Exporter la fonction main pour pouvoir l'utiliser ailleurs
+export { main as seedDatabase };
 }
 
 // Exporter la fonction main pour pouvoir l'utiliser ailleurs
