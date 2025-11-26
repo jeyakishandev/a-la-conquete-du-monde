@@ -103,7 +103,7 @@ export const optionalAuth = async (req, res, next) => {
     }
 
     next();
-  } catch (error) {
+  } catch {
     // Ignorer les erreurs pour l'auth optionnelle
     next();
   }

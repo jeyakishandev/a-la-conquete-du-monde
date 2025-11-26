@@ -65,7 +65,7 @@ export const validatePassword = password => {
     errors.push('Le mot de passe doit contenir au moins un chiffre');
   }
 
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+  if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
     errors.push('Le mot de passe doit contenir au moins un caractère spécial');
   }
 
@@ -94,7 +94,7 @@ export const calculatePasswordStrength = password => {
   if (/[a-z]/.test(password)) strength += 10;
   if (/[A-Z]/.test(password)) strength += 10;
   if (/[0-9]/.test(password)) strength += 10;
-  if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) strength += 15;
+  if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) strength += 15;
   if (password.length >= 20) strength += 15;
 
   return Math.min(100, strength);
@@ -117,8 +117,9 @@ export const sanitizeString = (str, maxLength = 255) => {
     sanitized = sanitized.substring(0, maxLength);
   }
 
-  // Supprimer les caractères de contrôle
-  sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
+  // Supprimer les caractères de contrôle (sauf espaces)
+  // eslint-disable-next-line no-control-regex
+  sanitized = sanitized.replace(/[\x00-\x1F\x7F-\x9F]/g, '');
 
   return sanitized;
 };

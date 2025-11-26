@@ -152,7 +152,7 @@ async function main() {
     await prisma.article.deleteMany();
     await prisma.user.deleteMany();
     console.log('✅ Données existantes supprimées');
-  } catch (error) {
+  } catch {
     // Si erreur (ex: tables n'existent pas encore), on continue
     console.log('⚠️ Aucune donnée à supprimer, on continue...');
   }
