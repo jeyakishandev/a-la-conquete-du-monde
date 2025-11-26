@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../services/api'
 import ArticleCard from '../components/ArticleCard'
-import { FaGlobe, FaBook, FaMapMarkedAlt, FaEye, FaCalendarAlt, FaCompass, FaMountain } from 'react-icons/fa'
+import { FaGlobe, FaBook, FaMapMarkedAlt, FaEye, FaCompass, FaMountain } from 'react-icons/fa'
 
 export default function Home() {
   const [articles, setArticles] = useState([])

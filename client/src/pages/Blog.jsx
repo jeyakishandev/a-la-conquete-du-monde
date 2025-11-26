@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import api from '../services/api';
 import ArticleCard from '../components/ArticleCard';
 import { FaCompass, FaSearch, FaBook } from 'react-icons/fa';

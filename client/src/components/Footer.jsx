@@ -18,7 +18,7 @@ import {
 } from 'react-icons/fa'
 import { useToast } from '../context/ToastContext'
 
-export default function Footer({ darkMode, toggleDarkMode }) {
+export default function Footer({ darkMode }) {
   const [email, setEmail] = useState('')
   const { showToast } = useToast()
 

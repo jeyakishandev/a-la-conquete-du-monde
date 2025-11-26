@@ -38,7 +38,7 @@ export default function Register() {
     if (/[a-z]/.test(password)) strength += 10
     if (/[A-Z]/.test(password)) strength += 10
     if (/[0-9]/.test(password)) strength += 10
-    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) strength += 15
+    if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) strength += 15
     if (password.length >= 20) strength += 15
     return Math.min(100, strength)
   }
@@ -49,7 +49,7 @@ export default function Register() {
     if (!/[a-z]/.test(password)) errors.push('Une lettre minuscule')
     if (!/[A-Z]/.test(password)) errors.push('Une lettre majuscule')
     if (!/[0-9]/.test(password)) errors.push('Un chiffre')
-    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) errors.push('Un caractère spécial')
+    if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) errors.push('Un caractère spécial')
     return errors
   }
 
@@ -97,6 +97,7 @@ export default function Register() {
 
     try {
       // Ne pas envoyer confirmPassword au serveur
+      // eslint-disable-next-line no-unused-vars
       const { confirmPassword, ...dataToSend } = formData
       const { data } = await api.post('/auth/register', dataToSend)
       

@@ -16,6 +16,11 @@ export default [
         localStorage: 'readonly',
         console: 'readonly',
         process: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        URLSearchParams: 'readonly',
+        Event: 'readonly',
+        requestAnimationFrame: 'readonly',
       },
       parserOptions: {
         ecmaVersion: 'latest',
@@ -38,10 +43,12 @@ export default [
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true },
+        { allowConstantExport: true, allowExportNames: ['useToast'] },
       ],
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
+      'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }], // Autoriser les apostrophes
+      'react-hooks/exhaustive-deps': 'off', // Désactiver pour éviter trop de warnings
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },

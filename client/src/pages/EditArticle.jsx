@@ -49,7 +49,7 @@ export default function EditArticle() {
         category: data.category || 'destinations',
         image: data.image || ''
       })
-    } catch (error) {
+    } catch {
       showToast('Erreur lors du chargement de l\'article', 'error')
       navigate('/my-articles')
     } finally {

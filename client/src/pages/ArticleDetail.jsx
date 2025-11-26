@@ -523,7 +523,7 @@ export default function ArticleDetail() {
                                     await api.delete(`/comments/${comment.id}`)
                                     showToast('Commentaire supprimé avec succès', 'success')
                                     loadComments()
-                                  } catch (error) {
+                                  } catch {
                                     showToast('Erreur lors de la suppression', 'error')
                                   }
                                 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCompass, FaMapMarkedAlt, FaGlobe, FaMountain, FaUmbrellaBeach, FaSearch, FaTree } from 'react-icons/fa';
 

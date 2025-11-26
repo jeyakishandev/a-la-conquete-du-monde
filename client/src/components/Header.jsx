@@ -16,7 +16,7 @@ import {
   FaCompass
 } from 'react-icons/fa'
 
-export default function Header({ darkMode, toggleDarkMode }) {
+export default function Header({ darkMode }) {
   const navigate = useNavigate()
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -75,26 +75,6 @@ export default function Header({ darkMode, toggleDarkMode }) {
     return location.pathname === path
   }
 
-  // Déterminer la couleur du texte selon le contexte
-  const getTextColor = (isMenu = false) => {
-    // Si on est sur la page d'accueil et pas scrolled, texte blanc (sur fond orange)
-    if (isHomePage && !isScrolled) {
-      return 'text-white'
-    }
-    // Sinon, couleur selon le mode dark/light
-    if (isMenu) {
-      return darkMode ? 'text-gray-300' : 'text-gray-700'
-    }
-    return darkMode ? 'text-white' : 'text-gray-900'
-  }
-
-  // Déterminer la couleur hover
-  const getHoverColor = () => {
-    if (isHomePage && !isScrolled) {
-      return 'hover:text-white hover:bg-white/10'
-    }
-    return darkMode ? 'hover:text-orange-400 hover:bg-gray-800' : 'hover:text-orange-600 hover:bg-gray-100'
-  }
 
   return (
     <header className={`fixed w-full top-0 left-0 z-50 transition-all duration-500 ${

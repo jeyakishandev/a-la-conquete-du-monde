@@ -1,5 +1,4 @@
-import React from 'react';
-import { FaCompass, FaHeart, FaGlobe, FaMountain, FaLeaf, FaLightbulb, FaBook, FaEye, FaUsers, FaCalendarAlt } from 'react-icons/fa';
+import { FaCompass, FaHeart, FaGlobe, FaLeaf, FaLightbulb, FaBook, FaEye, FaUsers, FaCalendarAlt } from 'react-icons/fa';
 
 const About = () => {
   return (
