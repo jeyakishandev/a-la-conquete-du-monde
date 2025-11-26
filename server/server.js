@@ -120,9 +120,21 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+// Démarrer le serveur
+app.listen(PORT, async () => {
   console.log(`🚀 Serveur démarré sur le port ${PORT}`);
   console.log(`📍 http://localhost:${PORT}`);
   console.log(`📍 API: http://localhost:${PORT}/api`);
+  
+  // Vérifier la connexion à la base de données
+  try {
+    const { PrismaClient } = await import('@prisma/client');
+    const prisma = new PrismaClient();
+    await prisma.$connect();
+    console.log('✅ Connexion à la base de données réussie');
+    await prisma.$disconnect();
+  } catch (error) {
+    console.error('❌ Erreur de connexion à la base de données:', error.message);
+  }
 });
 
