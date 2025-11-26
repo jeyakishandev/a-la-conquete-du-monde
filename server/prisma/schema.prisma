@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
@@ -23,6 +24,7 @@ model User {
   comments  Comment[]
   likes     Like[]
   favorites Favorite[]
+  
 }
 
 model Article {
@@ -42,6 +44,7 @@ model Article {
   comments    Comment[]
   likes       Like[]
   favorites   Favorite[]
+  
 }
 
 model Comment {
@@ -55,6 +58,7 @@ model Comment {
   
   userId    Int?
   user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
 }
 
 model Like {
