@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
     // Ici tu pourrais sauvegarder dans une table Contact si tu veux
     // Pour l'instant, on simule juste l'envoi
     
-    // Log pour debug (en production, tu enverrais un email)
+    // Note: En production, intégrer un service d'email (SendGrid, Resend, etc.)
     console.log('Nouveau message de contact:', { name, email, message });
 
     res.status(200).json({

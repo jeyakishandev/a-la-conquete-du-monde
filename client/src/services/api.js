@@ -13,11 +13,6 @@ if (API_URL && typeof API_URL === 'string') {
   }
 }
 
-// Debug en production
-if (import.meta.env.PROD) {
-  console.log('🔧 API_URL configurée:', API_URL);
-  console.log('🔧 VITE_API_URL depuis env:', import.meta.env.VITE_API_URL);
-}
 
 // Créer une instance axios avec configuration par défaut
 const api = axios.create({

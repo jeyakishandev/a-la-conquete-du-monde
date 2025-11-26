@@ -29,7 +29,6 @@ const Blog = () => {
   const fetchArticles = async () => {
     try {
       const { data } = await api.get('/articles');
-      console.log('Articles chargés:', data?.length || 0, data);
       setArticles(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);

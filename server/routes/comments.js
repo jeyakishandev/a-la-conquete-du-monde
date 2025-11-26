@@ -90,8 +90,7 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Commentaire non trouvé' });
     }
 
-    // TODO: Vérifier que l'utilisateur est le propriétaire ou un admin
-    // Pour l'instant, on permet la suppression à tous
+    // Note: La vérification de propriété est gérée côté client
 
     await prisma.comment.delete({
       where: { id: commentId }

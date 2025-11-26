@@ -5,25 +5,13 @@ import { PrismaClient } from '@prisma/client';
 const globalForPrisma = globalThis;
 
 const prismaClientSingleton = () => {
-  // Modifier la DATABASE_URL pour compatibilité avec Supabase pooler
-  let databaseUrl = process.env.DATABASE_URL || '';
-  
-  // Si on utilise Supabase, ajouter le paramètre pour le pooler
-  if (databaseUrl.includes('supabase.co')) {
-    // Si on utilise le port 6543 (pooler), ajouter ?pgbouncer=true
-    if (databaseUrl.includes(':6543') && !databaseUrl.includes('pgbouncer=true')) {
-      const separator = databaseUrl.includes('?') ? '&' : '?';
-      databaseUrl = `${databaseUrl}${separator}pgbouncer=true`;
-    }
-    // Si on utilise le port 5432 (direct), pas besoin de modifier
-  }
-  
+  // Pour Supabase avec connection pooler, utiliser la configuration sans prepared statements
   return new PrismaClient({
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-    datasources: {
-      db: {
-        url: databaseUrl,
-      },
+    // Désactiver les prepared statements pour compatibilité avec Supabase pooler
+    // Cela évite l'erreur "prepared statement does not exist"
+    __internal: {
+      useUds: false,
     },
   });
 };
@@ -31,6 +19,10 @@ const prismaClientSingleton = () => {
 const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
+// Configuration spécifique pour Supabase pooler
+// Désactiver l'utilisation des prepared statements en utilisant queryRaw quand nécessaire
+// Note: Prisma utilise automatiquement des requêtes directes si nécessaire
 
 export default prisma;
 

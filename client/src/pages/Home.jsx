@@ -17,7 +17,6 @@ export default function Home() {
   const loadArticles = async () => {
     try {
       const { data } = await api.get('/articles')
-      console.log('Articles chargés (Home):', data?.length || 0, data)
       setArticles(Array.isArray(data) ? data.slice(0, 3) : [])
     } catch (error) {
       console.error('Erreur chargement articles:', error)

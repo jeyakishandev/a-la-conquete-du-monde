@@ -24,9 +24,21 @@
 
 ## 🎯 Aperçu
 
-**À la Conquête du Monde** est une application web fullstack moderne qui permet aux utilisateurs de découvrir et partager des récits de voyage. 
+**À la Conquête du Monde** est une application web fullstack moderne permettant aux utilisateurs de découvrir et partager des récits de voyage authentiques. Cette plateforme offre une expérience complète de blog de voyage avec authentification, gestion de contenu, et interactions sociales.
 
-*J'ai développé cette application pour mettre en pratique mes compétences en React, Node.js et les technologies modernes. L'objectif était de créer une expérience utilisateur fluide avec un design responsive et un mode sombre/clair qui s'adapte aux préférences de chaque utilisateur.*
+### 🚀 Déployé et en ligne
+
+- **Frontend** : Déployé sur Render
+- **Backend API** : Déployé sur Render
+- **Base de données** : PostgreSQL via Supabase
+
+### 💡 Objectif du projet
+
+Cette application a été développée pour démontrer mes compétences en développement fullstack moderne, en mettant l'accent sur :
+- Architecture scalable et maintenable
+- Expérience utilisateur optimale (UX/UI)
+- Sécurité et bonnes pratiques
+- Performance et optimisation
 
 ### 🎨 Design Features
 - **Interface moderne** avec Tailwind CSS
@@ -73,30 +85,25 @@
 - [x] Statistiques d'engagement
 - [x] Métriques de performance
 
-## 🧠 Défis techniques rencontrés
+## 🏆 Points forts techniques
 
-### Gestion de l'état global
-*Le plus gros défi a été de gérer l'état entre les composants React sans utiliser Redux. J'ai opté pour une approche avec des hooks personnalisés et du localStorage pour persister certaines données.*
+### Architecture
+- ✅ **Monorepo** bien structuré (client/server)
+- ✅ **API RESTful** avec routes modulaires
+- ✅ **Instance PrismaClient singleton** pour éviter les conflits de connexion
+- ✅ **Middleware personnalisés** pour authentification et validation
 
-### Optimisation des performances
-*L'implémentation de la pagination côté client et serveur a nécessité plusieurs itérations pour trouver le bon équilibre entre performance et expérience utilisateur.*
+### Expérience utilisateur
+- ✅ **Design responsive** mobile-first
+- ✅ **Mode sombre/clair** avec persistance
+- ✅ **Animations fluides** et micro-interactions
+- ✅ **Feedback utilisateur** avec système de toasts
 
-### Mode sombre/clair
-*La transition entre les modes a été complexe à implémenter proprement. J'ai dû créer un système de classes CSS dynamiques avec Tailwind pour gérer les transitions fluides.*
-
-## 📈 Apprentissages et améliorations futures
-
-### Ce que j'ai appris
-- **Prisma ORM** : Excellente alternative à Sequelize, plus moderne et type-safe
-- **Docker** : Containerisation qui simplifie énormément le déploiement
-- **Tailwind CSS** : Framework CSS qui accélère le développement une fois maîtrisé
-- **React Router v6** : Nouvelle API plus intuitive que la v5
-
-### Améliorations prévues
-- [ ] **Tests E2E** avec Playwright pour une couverture complète
-- [ ] **PWA** pour une expérience mobile native
-- [ ] **WebSockets** pour les notifications en temps réel
-- [ ] **Microservices** pour une architecture plus scalable
+### Performance
+- ✅ **Lazy loading** des composants
+- ✅ **Optimisation des images**
+- ✅ **Code splitting** avec Vite
+- ✅ **Cache des requêtes API**
 
 ## 🛠️ Technologies
 
@@ -117,10 +124,10 @@
 - **express-validator** - Validation des données
 
 ### Base de données
-- **SQLite** (développement)
-- **PostgreSQL** (production)
-- **Prisma Migrate** - Migrations
-- **Prisma Studio** - Interface admin
+- **PostgreSQL** - Base de données relationnelle
+- **Supabase** - Hosting PostgreSQL (production)
+- **Prisma ORM** - ORM moderne et type-safe
+- **Prisma Migrate** - Migrations de schéma
 
 ### DevOps & Déploiement
 - **Docker** - Containerisation
@@ -493,12 +500,10 @@ vercel --prod
 1. Créer un compte sur [Render.com](https://render.com)
 2. Créer un "Web Service" pour le backend
 3. Créer un "Static Site" pour le frontend
-4. Ajouter une base PostgreSQL
+4. Ajouter une base PostgreSQL (ou utiliser Supabase)
 5. Configurer les variables d'environnement
 
-#### Vercel (Frontend) + Railway (Backend)
-- **Frontend** : Déployer sur Vercel (gratuit, très rapide)
-- **Backend** : Déployer sur Railway ou Render
+**Note** : L'application est actuellement déployée sur Render avec Supabase comme base de données PostgreSQL.
 
 ## 🏗️ Architecture
 
