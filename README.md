@@ -8,12 +8,17 @@
 [![Prisma](https://img.shields.io/badge/Prisma-5.x-2D3748.svg)](https://prisma.io/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC.svg)](https://tailwindcss.com/)
 
+## 🚀 Application en ligne
+
+🌐 **Site déployé** : [https://conquete-frontend.onrender.com](https://conquete-frontend.onrender.com)
+
 ## 🎯 Aperçu
 
 Application web fullstack moderne permettant aux utilisateurs de découvrir et partager des récits de voyage. Plateforme complète avec authentification sécurisée, gestion de contenu, et interactions sociales.
 
 ### 🚀 Déployé et en ligne
 
+- **Site web** : [https://conquete-frontend.onrender.com](https://conquete-frontend.onrender.com)
 - **Frontend** : Déployé sur Render
 - **Backend API** : Déployé sur Render  
 - **Base de données** : PostgreSQL via Supabase
