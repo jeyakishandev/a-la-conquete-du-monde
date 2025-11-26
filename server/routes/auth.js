@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../db.js';
 import { 
   isValidEmail, 
   isValidUsername, 
@@ -14,7 +14,6 @@ import { authenticateToken } from '../middleware/auth.js';
 import { authRateLimiter, registerRateLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 // Inscription avec rate limiting
 router.post('/register', registerRateLimiter, async (req, res) => {

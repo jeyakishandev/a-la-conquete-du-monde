@@ -1,8 +1,7 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../db.js';
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 // Toggle favori sur un article
 router.post('/toggle/:articleId', async (req, res) => {

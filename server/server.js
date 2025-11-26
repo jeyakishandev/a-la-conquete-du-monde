@@ -123,12 +123,10 @@ app.use((err, req, res, next) => {
 // Fonction pour vérifier et exécuter le seed si nécessaire
 async function checkAndSeed() {
   try {
-    const { PrismaClient } = await import('@prisma/client');
-    const prisma = new PrismaClient();
+    const prisma = (await import('./db.js')).default;
     
     // Vérifier si des articles existent
     const articleCount = await prisma.article.count();
-    await prisma.$disconnect();
     
     if (articleCount === 0) {
       console.log('🌱 Aucun article trouvé. Exécution du seed...');
@@ -158,11 +156,9 @@ app.listen(PORT, async () => {
   
   // Vérifier la connexion à la base de données
   try {
-    const { PrismaClient } = await import('@prisma/client');
-    const prisma = new PrismaClient();
+    const prisma = (await import('./db.js')).default;
     await prisma.$connect();
     console.log('✅ Connexion à la base de données réussie');
-    await prisma.$disconnect();
   } catch (error) {
     console.error('❌ Erreur de connexion à la base de données:', error.message);
   }

@@ -1,8 +1,7 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../db.js';
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 // Obtenir les commentaires d'un article
 router.get('/article/:articleId', async (req, res) => {

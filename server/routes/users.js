@@ -1,5 +1,5 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../db.js';
 import { authenticateToken } from '../middleware/auth.js';
 import { 
   isValidEmail, 
@@ -11,7 +11,6 @@ import {
 import bcrypt from 'bcryptjs';
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 // Obtenir le profil de l'utilisateur connecté
 router.get('/profile', authenticateToken, async (req, res) => {
