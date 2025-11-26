@@ -27,7 +27,10 @@
     "lint:frontend": "cd client && npm run lint",
     "format": "npm run format:backend && npm run format:frontend",
     "format:backend": "cd server && npm run format",
-    "format:frontend": "cd client && npm run format"
+    "format:frontend": "cd client && npm run format",
+    "format:check": "npm run format:check:backend && npm run format:check:frontend",
+    "format:check:backend": "cd server && npm run format:check",
+    "format:check:frontend": "cd client && npm run format:check"
   },
   "keywords": [
     "react",
