@@ -3,7 +3,15 @@ import axios from 'axios';
 // Configuration de l'URL de l'API
 // En développement : utilise le proxy Vite
 // En production : utilise VITE_API_URL ou l'URL par défaut
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+let API_URL = import.meta.env.VITE_API_URL || '/api';
+
+// Correction automatique des URLs mal formées (ex: hthttps:// -> https://)
+if (API_URL && typeof API_URL === 'string') {
+  API_URL = API_URL.replace(/^ht+tp/, 'http').replace(/^ht+tp/, 'http'); // Corriger hthttps -> https
+  if (API_URL.startsWith('http://http')) {
+    API_URL = API_URL.replace('http://http', 'https');
+  }
+}
 
 // Debug en production
 if (import.meta.env.PROD) {
