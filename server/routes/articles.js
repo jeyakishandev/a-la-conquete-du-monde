@@ -18,16 +18,26 @@ router.get('/', async (req, res) => {
     const { category, search, userId } = req.query;
     
     const where = {};
+    
+    // Filtre par userId (prioritaire - si présent, on filtre strictement)
+    if (userId) {
+      const parsedUserId = parseInt(userId);
+      if (!isNaN(parsedUserId)) {
+        where.userId = parsedUserId;
+      }
+    }
+    
+    // Filtre par catégorie (uniquement si userId n'est pas spécifié ou en combinaison)
     if (category && category !== 'all') {
       where.category = category;
     }
-    if (userId) {
-      where.userId = parseInt(userId);
-    }
+    
+    // Filtre par recherche (uniquement si userId n'est pas spécifié ou en combinaison)
     if (search) {
       where.OR = [
         { title: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } }
+        { description: { contains: search, mode: 'insensitive' } },
+        { content: { contains: search, mode: 'insensitive' } }
       ];
     }
 
@@ -91,9 +101,6 @@ router.get('/:id', async (req, res) => {
 // Créer un article (nécessite authentification)
 router.post('/', authenticateToken, async (req, res) => {
   try {
-    console.log('📝 Création article - Body reçu:', req.body);
-    console.log('📝 Création article - UserId:', req.userId);
-    
     const { title, description, content, category, image } = req.body;
     const userId = req.userId; // Récupéré depuis le middleware d'authentification
 
@@ -158,25 +165,81 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 });
 
-// Mettre à jour un article
-router.put('/:id', async (req, res) => {
+// Mettre à jour un article (nécessite authentification)
+router.put('/:id', authenticateToken, async (req, res) => {
   try {
     const { title, description, content, category, image } = req.body;
+    const userId = req.userId;
+    const articleId = parseInt(req.params.id);
+
+    // Vérifier que l'article existe et appartient à l'utilisateur
+    const existingArticle = await prisma.article.findUnique({
+      where: { id: articleId }
+    });
+
+    if (!existingArticle) {
+      return res.status(404).json({ error: 'Article non trouvé' });
+    }
+
+    if (existingArticle.userId !== userId) {
+      return res.status(403).json({ error: 'Vous n\'êtes pas autorisé à modifier cet article' });
+    }
+
+    // Validation des champs
+    if (title !== undefined) {
+      const titleValidation = validateArticleTitle(title);
+      if (!titleValidation.isValid) {
+        return res.status(400).json({ error: titleValidation.error });
+      }
+    }
+
+    if (description !== undefined) {
+      const descriptionValidation = validateArticleDescription(description);
+      if (!descriptionValidation.isValid) {
+        return res.status(400).json({ error: descriptionValidation.error });
+      }
+    }
+
+    if (content !== undefined) {
+      const contentValidation = validateArticleContent(content);
+      if (!contentValidation.isValid) {
+        return res.status(400).json({ error: contentValidation.error });
+      }
+    }
+
+    if (category && !isValidCategory(category)) {
+      return res.status(400).json({ error: 'Catégorie invalide' });
+    }
+
+    if (image && !isValidImageUrl(image)) {
+      return res.status(400).json({ error: 'URL d\'image invalide' });
+    }
+
+    // Sanitisation
+    const updateData = {};
+    if (title !== undefined) updateData.title = title.trim();
+    if (description !== undefined) updateData.description = description.trim();
+    if (content !== undefined) updateData.content = content.trim();
+    if (category) updateData.category = category;
+    if (image !== undefined) updateData.image = image ? image.trim() : '/assets/images/voyage.jpg';
 
     const article = await prisma.article.update({
-      where: { id: parseInt(req.params.id) },
-      data: {
-        ...(title && { title }),
-        ...(description !== undefined && { description }),
-        ...(content && { content }),
-        ...(category && { category }),
-        ...(image && { image })
+      where: { id: articleId },
+      data: updateData,
+      include: {
+        _count: {
+          select: {
+            comments: true,
+            likes: true,
+            favorites: true
+          }
+        }
       }
     });
 
     res.json(article);
   } catch (error) {
-    console.error(error);
+    console.error('Erreur mise à jour article:', error);
     res.status(500).json({ error: 'Erreur lors de la mise à jour de l\'article' });
   }
 });

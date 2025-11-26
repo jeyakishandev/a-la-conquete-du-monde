@@ -5,12 +5,6 @@ import axios from 'axios';
 // En production : utilise VITE_API_URL ou l'URL par défaut
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
-// Log pour déboguer
-console.log('🔍 API Configuration Debug:');
-console.log('  - VITE_API_URL from env:', import.meta.env.VITE_API_URL);
-console.log('  - API_URL used:', API_URL);
-console.log('  - import.meta.env:', import.meta.env);
-
 // Créer une instance axios avec configuration par défaut
 const api = axios.create({
   baseURL: API_URL,
@@ -23,24 +17,14 @@ const api = axios.create({
 // Intercepteur pour les requêtes
 api.interceptors.request.use(
   (config) => {
-    // Log pour déboguer
-    console.log('🚀 API Request Debug:');
-    console.log('  - Full URL:', config.url);
-    console.log('  - Base URL:', config.baseURL);
-    console.log('  - Complete URL:', (config.baseURL || '') + (config.url || ''));
-    
     // Ajouter le token JWT si disponible
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log('  - Token present: Yes');
-    } else {
-      console.log('  - Token present: No');
     }
     return config;
   },
   (error) => {
-    console.error('❌ API Request Error:', error);
     return Promise.reject(error);
   }
 );

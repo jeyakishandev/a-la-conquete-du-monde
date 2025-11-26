@@ -14,6 +14,7 @@ import Register from './pages/Register'
 import Favorites from './pages/Favorites'
 import NotFound from './pages/NotFound'
 import CreateArticle from './pages/CreateArticle'
+import EditArticle from './pages/EditArticle'
 import MyArticles from './pages/MyArticles'
 import './App.css'
 
@@ -60,6 +61,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/create-article" element={<CreateArticle />} />
+            <Route path="/edit-article/:id" element={<EditArticle />} />
             <Route path="/my-articles" element={<MyArticles />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

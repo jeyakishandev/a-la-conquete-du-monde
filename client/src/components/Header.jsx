@@ -328,55 +328,65 @@ export default function Header({ darkMode, toggleDarkMode }) {
               <FaEnvelope className="text-sm" />
               <span>Contact</span>
             </Link>
-
-            {user && (
-              <Link 
-                to="/favorites" 
-                className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 relative whitespace-nowrap ${
-                  isActive('/favorites')
-                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                    : isHomePage && !isScrolled
-                      ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                      : darkMode
-                        ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
-                }`}
-              >
-                <FaStar className="text-sm" />
-                <span>Favoris</span>
-                {favoritesCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                    {favoritesCount}
-                  </span>
-                )}
-              </Link>
-            )}
           </div>
 
           {/* Actions utilisateur et menu mobile */}
-          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 lg:gap-2 flex-shrink-0">
             {user ? (
               <>
-                {/* Bouton Écrire - Desktop */}
-                <Link 
-                  to="/create-article" 
-                  className="hidden lg:flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 text-sm font-semibold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 whitespace-nowrap"
-                >
-                  <FaEdit />
-                  <span>Écrire</span>
-                </Link>
-
-                {/* Bouton Écrire - Tablette (icône uniquement) */}
-                <Link 
-                  to="/create-article" 
-                  className="hidden md:flex lg:hidden items-center justify-center w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
-                  title="Écrire"
-                >
-                  <FaEdit />
-                </Link>
-
                 {/* Menu utilisateur - Desktop */}
                 <div className="hidden lg:flex items-center gap-2">
+                  {/* Mes articles - Desktop */}
+                  <Link 
+                    to="/my-articles" 
+                    className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
+                      isActive('/my-articles')
+                        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                        : isHomePage && !isScrolled
+                          ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                          : darkMode
+                            ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                            : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                    }`}
+                    title="Mes articles"
+                  >
+                    <FaBook className="text-sm" />
+                    <span>Mes articles</span>
+                  </Link>
+
+                  {/* Favoris - Desktop */}
+                  <Link 
+                    to="/favorites" 
+                    className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 relative whitespace-nowrap ${
+                      isActive('/favorites')
+                        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
+                        : isHomePage && !isScrolled
+                          ? 'text-white/90 hover:bg-white/10 hover:text-white'
+                          : darkMode
+                            ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                            : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                    }`}
+                    title="Favoris"
+                  >
+                    <FaStar className="text-sm" />
+                    <span>Favoris</span>
+                    {favoritesCount > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                        {favoritesCount}
+                      </span>
+                    )}
+                  </Link>
+
+                  {/* Bouton Écrire - Desktop */}
+                  <Link 
+                    to="/create-article" 
+                    className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 text-sm font-semibold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 whitespace-nowrap"
+                  >
+                    <FaEdit />
+                    <span>Écrire</span>
+                  </Link>
+
+                  {/* Nom utilisateur */}
                   <div className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap ${
                     isHomePage && !isScrolled
                       ? 'bg-white/10 backdrop-blur-md text-white/90'
@@ -385,8 +395,10 @@ export default function Header({ darkMode, toggleDarkMode }) {
                         : 'bg-gray-100 text-gray-700'
                   }`}>
                     <FaUser className="inline mr-2" />
-                    <span>{user.username || user.name || user.email.split('@')[0]}</span>
+                    <span className="truncate max-w-[120px]">{user.username || user.name || user.email.split('@')[0]}</span>
                   </div>
+                  
+                  {/* Bouton déconnexion */}
                   <button 
                     onClick={handleLogout}
                     className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
@@ -402,6 +414,15 @@ export default function Header({ darkMode, toggleDarkMode }) {
                     <FaSignOutAlt />
                   </button>
                 </div>
+
+                {/* Bouton Écrire - Tablette (icône uniquement) */}
+                <Link 
+                  to="/create-article" 
+                  className="hidden md:flex lg:hidden items-center justify-center w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
+                  title="Écrire"
+                >
+                  <FaEdit />
+                </Link>
 
                 {/* Menu utilisateur - Tablette (icônes uniquement) */}
                 <div className="hidden md:flex lg:hidden items-center gap-2">

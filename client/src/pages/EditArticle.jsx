@@ -1,13 +1,15 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import api from '../services/api'
 import { useToast } from '../context/ToastContext'
 import { FaSave, FaTimes, FaEdit, FaGlobe, FaBook, FaMountain, FaLightbulb, FaImage } from 'react-icons/fa'
 
-export default function CreateArticle() {
+export default function EditArticle() {
   const navigate = useNavigate()
+  const { id } = useParams()
   const { showToast } = useToast()
   const [loading, setLoading] = useState(false)
+  const [loadingArticle, setLoadingArticle] = useState(true)
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -22,6 +24,37 @@ export default function CreateArticle() {
     { value: 'aventure', label: 'Aventure', icon: FaMountain },
     { value: 'conseils', label: 'Conseils', icon: FaLightbulb }
   ]
+
+  useEffect(() => {
+    loadArticle()
+  }, [id])
+
+  const loadArticle = async () => {
+    try {
+      const { data } = await api.get(`/articles/${id}`)
+      
+      // Vérifier que l'utilisateur est le propriétaire
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      if (data.userId !== user.id) {
+        showToast('Vous n\'êtes pas autorisé à modifier cet article', 'error')
+        navigate('/my-articles')
+        return
+      }
+
+      setFormData({
+        title: data.title || '',
+        description: data.description || '',
+        content: data.content || '',
+        category: data.category || 'destinations',
+        image: data.image || ''
+      })
+    } catch (error) {
+      showToast('Erreur lors du chargement de l\'article', 'error')
+      navigate('/my-articles')
+    } finally {
+      setLoadingArticle(false)
+    }
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -70,28 +103,12 @@ export default function CreateArticle() {
     }
 
     try {
-      const user = JSON.parse(localStorage.getItem('user') || '{}')
-      if (!user.id) {
-        showToast('Vous devez être connecté pour créer un article', 'warning')
-        navigate('/login')
-        return
-      }
-
-      // Ajouter l'image par défaut si vide
-      const articleData = {
-        ...formData,
-        image: formData.image || '/assets/images/voyage.jpg',
-        userId: user.id
-      }
-
-      await api.post('/articles', articleData)
-
-      showToast('Article créé avec succès !', 'success')
+      await api.put(`/articles/${id}`, formData)
+      showToast('Article modifié avec succès !', 'success')
       setTimeout(() => {
-        navigate('/blog')
+        navigate(`/article/${id}`)
       }, 1000)
     } catch (error) {
-      // Gérer les erreurs d'authentification
       if (error.response?.status === 401) {
         showToast('Votre session a expiré. Veuillez vous reconnecter.', 'warning')
         localStorage.removeItem('token')
@@ -102,17 +119,32 @@ export default function CreateArticle() {
         return
       }
       
-      // Gérer les erreurs de validation (400)
-      if (error.response?.status === 400) {
-        const errorMessage = error.response?.data?.error || error.response?.data?.message || 'Données invalides. Veuillez vérifier les champs.'
+      if (error.response?.status === 403) {
+        showToast('Vous n\'êtes pas autorisé à modifier cet article', 'error')
+      } else if (error.response?.status === 400) {
+        const errorMessage = error.response?.data?.error || 'Données invalides'
         showToast(errorMessage, 'error')
       } else {
-        const errorMessage = error.response?.data?.error || error.message || 'Erreur lors de la création de l\'article'
-        showToast(errorMessage, 'error')
+        showToast('Erreur lors de la modification de l\'article', 'error')
       }
     } finally {
       setLoading(false)
     }
+  }
+
+  const isAbsoluteUrl = (url) => {
+    return url && (url.startsWith('http://') || url.startsWith('https://'))
+  }
+
+  if (loadingArticle) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-orange-50 to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-400 border-t-transparent mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Chargement de l'article...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -135,15 +167,15 @@ export default function CreateArticle() {
           <div className="inline-block mb-4 sm:mb-6">
             <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-semibold border border-white/30 shadow-lg">
               <FaEdit className="animate-pulse" />
-              <span>Création d'article</span>
+              <span>Modification d'article</span>
             </span>
           </div>
           
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight text-white drop-shadow-2xl">
-            Partagez votre aventure
+            Modifier votre article
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">
-            Racontez votre expérience de voyage et inspirez la communauté
+            Mettez à jour votre récit de voyage
           </p>
         </div>
       </section>
@@ -244,12 +276,14 @@ export default function CreateArticle() {
               {formData.image && (
                 <div className="mt-3 rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-600">
                   <img 
-                    src={formData.image} 
+                    src={isAbsoluteUrl(formData.image) ? formData.image : `/${formData.image}`}
                     alt="Aperçu" 
                     className="w-full h-48 object-cover"
                     onError={(e) => {
                       e.target.style.display = 'none'
-                      e.target.nextSibling.style.display = 'block'
+                      if (e.target.nextSibling) {
+                        e.target.nextSibling.style.display = 'block'
+                      }
                     }}
                   />
                   <div className="hidden p-4 bg-gray-100 dark:bg-gray-700 text-center text-gray-500 dark:text-gray-400">
@@ -295,7 +329,7 @@ export default function CreateArticle() {
                 className="flex-1 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 sm:py-4 px-6 rounded-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
               >
                 <FaSave />
-                <span>{loading ? 'Publication...' : 'Publier l\'article'}</span>
+                <span>{loading ? 'Enregistrement...' : 'Enregistrer les modifications'}</span>
               </button>
               <button
                 type="button"

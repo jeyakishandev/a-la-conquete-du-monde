@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import ArticleCard from '../components/ArticleCard';
 import { FaCompass, FaSearch, FaBook } from 'react-icons/fa';
 
 const Blog = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all');
 
   useEffect(() => {
     fetchArticles();
   }, []);
+
+  // Mettre à jour les paramètres d'URL quand les filtres changent (mais pas au premier chargement)
+  useEffect(() => {
+    // Ne pas mettre à jour l'URL au premier rendu pour éviter les conflits
+    if (articles.length === 0) return;
+    
+    const params = new URLSearchParams();
+    if (searchTerm) params.set('search', searchTerm);
+    if (selectedCategory && selectedCategory !== 'all') params.set('category', selectedCategory);
+    setSearchParams(params, { replace: true });
+  }, [searchTerm, selectedCategory, setSearchParams, articles.length]);
 
   const fetchArticles = async () => {
     try {
@@ -31,13 +43,18 @@ const Blog = () => {
     { id: 'all', name: 'Tous' },
     { id: 'destinations', name: 'Destinations' },
     { id: 'conseils', name: 'Conseils' },
-    { id: 'aventures', name: 'Aventures' },
+    { id: 'aventure', name: 'Aventure' },
     { id: 'culture', name: 'Culture' }
   ];
 
   const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.content.toLowerCase().includes(searchTerm.toLowerCase());
+    if (!article) return false;
+    
+    const searchLower = searchTerm.toLowerCase();
+    const matchesSearch = searchTerm === '' || 
+      article.title?.toLowerCase().includes(searchLower) ||
+      article.description?.toLowerCase().includes(searchLower) ||
+      article.content?.toLowerCase().includes(searchLower);
     const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -84,9 +101,9 @@ const Blog = () => {
             </span>
           </h1>
           
-          <p className="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 leading-relaxed drop-shadow-lg">
-            Découvrez tous nos articles, récits de voyage et conseils pratiques pour transformer vos rêves en réalité.
-          </p>
+              <p className="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 leading-relaxed drop-shadow-lg">
+                Découvrez tous les récits de voyage, guides pratiques et expériences partagés par notre communauté de voyageurs passionnés.
+              </p>
 
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm">
             <FaBook />
@@ -102,8 +119,21 @@ const Blog = () => {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 -mt-6 sm:-mt-8 lg:-mt-12 relative z-10">
-        {/* Barre de recherche et filtres - Design Organique */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 -mt-6 sm:-mt-8 lg:-mt-12 relative z-10">
+            {/* Section explicative */}
+            <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 rounded-r-lg p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <FaBook className="text-blue-500 text-xl mt-0.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-1">Qu'est-ce que le Blog ?</h3>
+                  <p className="text-sm text-blue-800 dark:text-blue-300">
+                    Le <strong>Blog</strong> contient tous les articles créés par notre communauté : récits de voyage personnels, guides pratiques, conseils d'aventure, et bien plus encore. C'est l'endroit où vous pouvez lire et partager vos expériences de voyage !
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Barre de recherche et filtres - Design Organique */}
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl sm:rounded-[3rem] p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/50 dark:border-gray-700/50 relative overflow-hidden mb-8 sm:mb-12">
           {/* Effet de lumière */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-200/30 to-yellow-200/30 rounded-full blur-3xl"></div>

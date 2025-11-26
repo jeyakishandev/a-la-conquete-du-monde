@@ -45,6 +45,69 @@ const articles = [
     content: "Chicago surprend par sa richesse culturelle et architecturale. La Willis Tower (ex-Sears Tower) offre une vue panoramique exceptionnelle sur la ville et le lac Michigan. L'Art Institute of Chicago abrite l'une des plus belles collections d'art au monde. Le Millennium Park, avec sa Cloud Gate (The Bean), est un lieu de rencontre incontournable. La Navy Pier propose des attractions familiales et une vue magnifique sur le lac. La gastronomie chicagoane est réputée : deep-dish pizza, hot dogs et steaks de qualité. Les quartiers comme Wicker Park et Lincoln Park offrent une ambiance bohème et des boutiques uniques.",
     category: "culture",
     image: "assets/images/Grandetours.jpg"
+  },
+  {
+    title: "Paris : Guide complet de la ville lumière",
+    description: "Découvrez Paris, la capitale française aux mille facettes. De la Tour Eiffel au Louvre, en passant par les Champs-Élysées et Montmartre, explorez tous les incontournables de la plus belle ville du monde.",
+    content: "Paris, la ville lumière, est une destination qui ne cesse de fasciner. La Tour Eiffel, symbole emblématique, offre une vue panoramique exceptionnelle sur la capitale. Le musée du Louvre abrite des œuvres d'art parmi les plus prestigieuses au monde, dont la Joconde. Les Champs-Élysées vous mènent de la place de la Concorde à l'Arc de Triomphe. Montmartre, avec sa basilique du Sacré-Cœur, conserve son charme d'antan. Le quartier du Marais mêle histoire et modernité avec ses hôtels particuliers et boutiques tendance. Ne manquez pas Notre-Dame, même après l'incendie, son histoire continue de marquer la ville. Les croisières sur la Seine offrent un autre point de vue sur les monuments parisiens. La gastronomie parisienne, des boulangeries traditionnelles aux restaurants étoilés, est un véritable régal.",
+    category: "destinations",
+    image: "assets/images/cover.jpg"
+  },
+  {
+    title: "Tokyo : Immersion dans la culture japonaise",
+    description: "Tokyo, métropole futuriste où se mêlent tradition et modernité. Explorez Shibuya, les temples historiques, les marchés et découvrez l'incroyable effervescence de cette mégapole unique.",
+    content: "Tokyo est une ville de contrastes saisissants. Shibuya Crossing, le carrefour le plus fréquenté au monde, symbolise le rythme effréné de la ville. Le temple Senso-ji à Asakusa offre un moment de sérénité dans le cœur historique. Le marché aux poissons de Tsukiji, bien que déménagé, reste une expérience culinaire inoubliable. Harajuku est le quartier de la mode alternative et de la culture kawaii. Shinjuku abrite le plus grand quartier de divertissement au monde. Les jardins impériaux offrent une oasis de verdure en plein cœur de la ville. La cuisine japonaise, des sushis aux ramens en passant par les izakayas, est une expérience gustative exceptionnelle. Les onsens, bains thermaux traditionnels, permettent de se détendre après une journée d'exploration. Ne manquez pas une visite au mont Fuji, visible depuis Tokyo par beau temps.",
+    category: "destinations",
+    image: "assets/images/New-york.jpg"
+  },
+  {
+    title: "Rome : Voyage dans l'histoire italienne",
+    description: "Rome, la cité éternelle, berceau de la civilisation occidentale. Découvrez le Colisée, le Vatican, le Forum Romain et tous les trésors de cette ville chargée d'histoire.",
+    content: "Rome est un musée à ciel ouvert. Le Colisée, amphithéâtre emblématique, témoigne de la grandeur de l'Empire romain. Le Forum Romain permet de se promener parmi les ruines de la Rome antique. Le Vatican, État indépendant au cœur de Rome, abrite la basilique Saint-Pierre et les musées du Vatican, dont la chapelle Sixtine. Le Panthéon, remarquablement préservé, montre la maîtrise architecturale romaine. Le quartier de Trastevere conserve son charme authentique avec ses ruelles pavées et ses trattorias. La fontaine de Trevi, avec son rituel de la pièce, attire des millions de visiteurs. La place Navone, avec ses fontaines baroques, est un lieu de vie animé. La cuisine romaine, carbonara, amatriciana et supplì, est un délice pour les papilles. Les glaces artisanales romaines sont réputées dans le monde entier.",
+    category: "destinations",
+    image: "assets/images/Pitoresque.jpg"
+  },
+  {
+    title: "Sydney : Perle de l'Océanie",
+    description: "Sydney, ville cosmopolite entre océan Pacifique et culture aborigène. Explorez l'Opéra de Sydney, le Harbour Bridge, les plages légendaires et découvrez l'art de vivre australien.",
+    content: "Sydney est une ville où la nature et l'urbanisme se rencontrent harmonieusement. L'Opéra de Sydney, chef-d'œuvre architectural, est un symbole mondial de l'Australie. Le Harbour Bridge offre une vue imprenable et la possibilité de grimper sur son arche. Bondi Beach est la plage la plus célèbre d'Australie, parfaite pour le surf et la détente. Les Blue Mountains, à quelques heures de Sydney, offrent des paysages naturels spectaculaires. Le quartier de The Rocks, berceau historique de Sydney, mêle histoire et modernité. Le Royal Botanic Garden permet de se promener avec vue sur l'opéra et la baie. La cuisine australienne, du fish and chips aux barbecues, reflète la diversité culturelle du pays. L'art aborigène est présent dans les galeries et musées. Ne manquez pas une croisière dans la baie pour admirer Sydney sous tous les angles.",
+    category: "destinations",
+    image: "assets/images/plage.jpg"
+  },
+  {
+    title: "Rio de Janeiro : La ville merveilleuse",
+    description: "Rio de Janeiro, ville vibrante entre montagnes, océan et samba. Découvrez le Corcovado, Copacabana, le Pain de Sucre et plongez dans l'ambiance brésilienne.",
+    content: "Rio de Janeiro est une ville qui respire la joie de vivre. Le Christ Rédempteur au sommet du Corcovado domine la ville et offre une vue panoramique exceptionnelle. La plage de Copacabana, longue de 4 kilomètres, est le cœur battant de Rio. Le Pain de Sucre, accessible par téléphérique, offre un autre point de vue spectaculaire. Le quartier de Lapa, avec son escalier Selarón, est un lieu de vie nocturne animé. Le Sambadrome accueille le carnaval le plus célèbre au monde. Les favelas, malgré leur réputation, offrent une expérience culturelle unique avec des visites guidées responsables. Le Jardin botanique abrite une flore tropicale exceptionnelle. La cuisine brésilienne, feijoada, churrasco et caipirinhas, est un véritable régal. Les plages d'Ipanema et de Leblon sont des alternatives plus calmes à Copacabana.",
+    category: "destinations",
+    image: "assets/images/Pitoresque.jpg"
+  },
+  {
+    title: "Marrakech : Perle du Maroc",
+    description: "Marrakech, cité impériale aux souks animés et palais magnifiques. Explorez la place Jemaa el-Fna, la médina, les jardins majestueux et découvrez la magie orientale.",
+    content: "Marrakech envoûte par son atmosphère unique. La place Jemaa el-Fna, classée au patrimoine de l'UNESCO, s'anime le soir avec ses conteurs, charmeurs de serpents et stands de nourriture. La médina, labyrinthe de ruelles étroites, abrite des souks colorés où l'artisanat marocain s'exprime. Le palais Bahia, avec ses cours ornées et jardins, montre la grandeur de l'architecture marocaine. Le Jardin Majorelle, créé par Yves Saint Laurent, est une oasis de paix et de couleurs. Les hammams traditionnels offrent un moment de détente et de purification. La cuisine marocaine, tagines, couscous et pastilla, est une explosion de saveurs. Les riads, maisons traditionnelles avec jardin intérieur, offrent un hébergement authentique. Le désert du Sahara, accessible depuis Marrakech, promet une aventure inoubliable.",
+    category: "destinations",
+    image: "assets/images/cover.jpg"
+  },
+  {
+    title: "Londres : Capitale historique et moderne",
+    description: "Londres, ville où histoire et modernité se rencontrent. Découvrez Big Ben, Tower Bridge, les musées prestigieux et plongez dans la culture britannique.",
+    content: "Londres est une ville qui allie tradition et innovation. Big Ben et le Palais de Westminster symbolisent la grandeur britannique. Tower Bridge, pont basculant emblématique, offre une vue unique sur la Tamise. Le British Museum abrite des trésors du monde entier, dont les marbres d'Elgin. Hyde Park, l'un des plus grands parcs de Londres, est un lieu de détente prisé. Buckingham Palace, résidence de la reine, attire des millions de visiteurs. Covent Garden, avec ses artistes de rue et boutiques, est un quartier animé. Les pubs traditionnels offrent une ambiance chaleureuse et une cuisine britannique authentique. Camden Town est le quartier alternatif et créatif de Londres. Ne manquez pas une pièce de théâtre dans le West End, le quartier des théâtres le plus réputé au monde. Les marchés de Borough et Portobello sont des expériences culinaires et culturelles.",
+    category: "destinations",
+    image: "assets/images/New-york.jpg"
+  },
+  {
+    title: "Barcelone : Art et Méditerranée",
+    description: "Barcelone, ville moderne aux œuvres de Gaudí et plages méditerranéennes. Explorez la Sagrada Familia, Park Güell, Las Ramblas et découvrez l'art de vivre catalan.",
+    content: "Barcelone séduit par son architecture unique et sa vie culturelle intense. La Sagrada Familia, œuvre inachevée de Gaudí, est un chef-d'œuvre architectural qui défie l'imagination. Park Güell, avec ses formes organiques et mosaïques colorées, est un joyau de l'art moderniste. Las Ramblas, artère principale, est le cœur animé de la ville avec ses marchands de fleurs et artistes. Le quartier gothique, avec ses ruelles médiévales, offre un voyage dans le temps. La plage de Barceloneta permet de se détendre après une journée de visite. La cuisine catalane, tapas, paella et crème catalane, est un délice. Le Camp Nou, stade du FC Barcelone, est un pèlerinage pour les amateurs de football. Montjuïc, colline surplombant la ville, offre des vues spectaculaires et des musées de qualité. Le marché de la Boqueria est une expérience sensorielle avec ses couleurs et saveurs.",
+    category: "destinations",
+    image: "assets/images/Pitoresque.jpg"
+  },
+  {
+    title: "Dubai : Modernité et luxe au désert",
+    description: "Dubai, ville ultramoderne aux gratte-ciels futuristes et îles artificielles. Découvrez Burj Khalifa, Palm Jumeirah, les centres commerciaux et l'opulence émiratie.",
+    content: "Dubai impressionne par son audace architecturale. Burj Khalifa, plus haut gratte-ciel du monde, offre une vue à couper le souffle sur la ville et le désert. Palm Jumeirah, île artificielle en forme de palmier, abrite des hôtels de luxe et résidences prestigieuses. Dubai Mall, l'un des plus grands centres commerciaux au monde, combine shopping et divertissements. Burj Al Arab, hôtel en forme de voile, est un symbole du luxe dubaiote. Le désert offre des expériences inoubliables : safaris, dîners sous les étoiles et promenades à dos de chameau. Les souks traditionnels, comme le Souk de l'Or, contrastent avec la modernité de la ville. La cuisine émiratie et internationale est variée et raffinée. Les fontaines de Dubai, spectacle aquatique synchronisé, sont un régal pour les yeux. Les plages artificielles et clubs de plage offrent détente et divertissement.",
+    category: "destinations",
+    image: "assets/images/cover.jpg"
   }
 ];
 
@@ -60,7 +123,18 @@ async function main() {
 
   console.log('✅ Données existantes supprimées');
 
-  // Créer un utilisateur de test
+  // Créer un utilisateur système pour les articles de démonstration
+  const systemHashedPassword = await bcrypt.hash('system123', 10);
+  const systemUser = await prisma.user.create({
+    data: {
+      email: 'system@example.com',
+      username: 'system',
+      password: systemHashedPassword,
+      name: 'Système (Démonstration)'
+    }
+  });
+
+  // Créer un utilisateur de test pour les tests
   const hashedPassword = await bcrypt.hash('test123', 10);
   const testUser = await prisma.user.create({
     data: {
@@ -71,15 +145,24 @@ async function main() {
     }
   });
 
+  console.log('✅ Utilisateur système créé');
+  console.log('   Email: system@example.com');
+  console.log('   Username: system');
+  console.log('   Password: system123');
+  console.log('');
   console.log('✅ Utilisateur de test créé');
   console.log('   Email: test@example.com');
   console.log('   Username: testuser');
   console.log('   Password: test123');
 
-  // Créer les articles
+  // Créer les articles avec l'utilisateur système (pas l'utilisateur de test)
+  // Ainsi, l'utilisateur de test ne verra pas tous ces articles dans "Mes articles"
   for (const article of articles) {
     await prisma.article.create({
-      data: article
+      data: {
+        ...article,
+        userId: systemUser.id
+      }
     });
   }
 
@@ -92,7 +175,8 @@ async function main() {
     data: {
       name: "Marie Dupont",
       content: "Article très intéressant ! Merci pour ces conseils.",
-      articleId: allArticles[0].id
+      articleId: allArticles[0].id,
+      userId: testUser.id
     }
   });
 
@@ -100,7 +184,8 @@ async function main() {
     data: {
       name: "Jean Martin",
       content: "J'ai hâte de visiter cette destination !",
-      articleId: allArticles[0].id
+      articleId: allArticles[0].id,
+      userId: testUser.id
     }
   });
 

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { FaCompass, FaMapMarkedAlt, FaGlobe, FaMountain, FaUmbrellaBeach } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaCompass, FaMapMarkedAlt, FaGlobe, FaMountain, FaUmbrellaBeach, FaSearch, FaTree } from 'react-icons/fa';
 
 const Destinations = () => {
+  const navigate = useNavigate();
   const [activeContinent, setActiveContinent] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const destinations = [
     {
@@ -52,6 +55,54 @@ const Destinations = () => {
       image: "/assets/images/Pitoresque.jpg",
       description: "Cité éternelle, berceau de la civilisation occidentale.",
       highlights: ["Colisée", "Vatican", "Forum Romain", "Trastevere"]
+    },
+    {
+      id: 7,
+      name: "Bali, Indonésie",
+      continent: "asia",
+      image: "/assets/images/plage.jpg",
+      description: "Île des dieux, paradis tropical entre rizières et temples hindous.",
+      highlights: ["Ubud", "Seminyak", "Temple Uluwatu", "Rizières de Tegallalang"]
+    },
+    {
+      id: 8,
+      name: "Rio de Janeiro, Brésil",
+      continent: "america",
+      image: "/assets/images/Pitoresque.jpg",
+      description: "Ville vibrante entre montagnes, océan et samba.",
+      highlights: ["Corcovado", "Copacabana", "Sugarloaf", "Favela Rocinha"]
+    },
+    {
+      id: 9,
+      name: "Marrakech, Maroc",
+      continent: "africa",
+      image: "/assets/images/cover.jpg",
+      description: "Cité impériale aux souks animés et palais magnifiques.",
+      highlights: ["Place Jemaa el-Fna", "Médina", "Jardin Majorelle", "Palais Bahia"]
+    },
+    {
+      id: 10,
+      name: "Londres, Angleterre",
+      continent: "europe",
+      image: "/assets/images/New-york.jpg",
+      description: "Capitale historique aux monuments emblématiques et culture riche.",
+      highlights: ["Big Ben", "Tower Bridge", "British Museum", "Hyde Park"]
+    },
+    {
+      id: 11,
+      name: "Barcelone, Espagne",
+      continent: "europe",
+      image: "/assets/images/Pitoresque.jpg",
+      description: "Ville moderne aux œuvres de Gaudí et plages méditerranéennes.",
+      highlights: ["Sagrada Familia", "Park Güell", "Las Ramblas", "Gothic Quarter"]
+    },
+    {
+      id: 12,
+      name: "Dubai, Émirats Arabes Unis",
+      continent: "asia",
+      image: "/assets/images/cover.jpg",
+      description: "Ville ultramoderne aux gratte-ciels futuristes et luxe.",
+      highlights: ["Burj Khalifa", "Palm Jumeirah", "Dubai Mall", "Burj Al Arab"]
     }
   ];
 
@@ -60,13 +111,30 @@ const Destinations = () => {
     { id: 'europe', name: 'Europe', icon: FaMountain },
     { id: 'asia', name: 'Asie', icon: FaCompass },
     { id: 'america', name: 'Amériques', icon: FaMapMarkedAlt },
-    { id: 'africa', name: 'Afrique', icon: FaGlobe },
+    { id: 'africa', name: 'Afrique', icon: FaTree },
     { id: 'oceania', name: 'Océanie', icon: FaUmbrellaBeach }
   ];
 
-  const filteredDestinations = activeContinent === 'all' 
-    ? destinations 
-    : destinations.filter(dest => dest.continent === activeContinent);
+  const filteredDestinations = destinations.filter(dest => {
+    const matchesContinent = activeContinent === 'all' || dest.continent === activeContinent;
+    const matchesSearch = searchTerm === '' || 
+      dest.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      dest.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      dest.highlights.some(h => h.toLowerCase().includes(searchTerm.toLowerCase()));
+    return matchesContinent && matchesSearch;
+  });
+
+  const handleDiscover = (destinationName) => {
+    // Extraire le nom de la ville (avant la virgule si présent)
+    const cityName = destinationName.split(',')[0].trim();
+    // Rediriger vers le blog avec une recherche pour cette destination
+    navigate(`/blog?search=${encodeURIComponent(cityName)}`);
+  };
+
+  const handleSeeAllGuides = () => {
+    // Rediriger vers le blog avec filtre catégorie "destinations"
+    navigate('/blog?category=destinations');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-orange-50 to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden">
@@ -100,7 +168,7 @@ const Destinations = () => {
           </h1>
           
           <p className="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 leading-relaxed drop-shadow-lg">
-            Explorez le monde avec nos guides détaillés et découvrez les plus beaux endroits de la planète.
+            Découvrez nos destinations phares et leurs points d'intérêt. Cliquez sur "Découvrir" pour voir les articles et guides détaillés créés par notre communauté.
           </p>
         </div>
 
@@ -113,13 +181,41 @@ const Destinations = () => {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 -mt-6 sm:-mt-8 lg:-mt-12 relative z-10">
-        {/* Filtres par continent - Design Organique */}
+        {/* Section explicative */}
+        <div className="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 rounded-r-lg p-4 mb-6">
+          <div className="flex items-start gap-3">
+            <FaMapMarkedAlt className="text-orange-500 text-xl mt-0.5 flex-shrink-0" />
+            <div>
+              <h3 className="font-semibold text-orange-900 dark:text-orange-200 mb-1">Qu'est-ce que Destinations ?</h3>
+              <p className="text-sm text-orange-800 dark:text-orange-300">
+                <strong>Destinations</strong> est notre catalogue de lieux incontournables à visiter. Chaque destination présente ses points d'intérêt. Cliquez sur "Découvrir" pour voir tous les articles du blog liés à cette destination, créés par notre communauté.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Recherche et Filtres - Design Organique */}
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl sm:rounded-[3rem] p-6 sm:p-8 lg:p-10 shadow-2xl border border-white/50 dark:border-gray-700/50 relative overflow-hidden mb-8 sm:mb-12">
           {/* Effet de lumière */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-200/30 to-yellow-200/30 rounded-full blur-3xl"></div>
           
           <div className="relative z-10">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">
+            {/* Barre de recherche */}
+            <div className="mb-6">
+              <div className="relative max-w-2xl mx-auto">
+                <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
+                <input
+                  type="text"
+                  placeholder="Rechercher une destination..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 sm:py-4 border-2 border-gray-200 dark:border-gray-600 rounded-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Filtres par continent */}
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4 sm:mb-6 text-center">
               Filtrer par continent
             </h2>
             <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
@@ -141,6 +237,22 @@ const Destinations = () => {
                 );
               })}
             </div>
+
+            {/* Compteur de résultats */}
+            <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+              <span className="font-medium">{filteredDestinations.length} destination(s) trouvée(s)</span>
+              {(searchTerm || activeContinent !== 'all') && (
+                <button
+                  onClick={() => {
+                    setSearchTerm('');
+                    setActiveContinent('all');
+                  }}
+                  className="ml-4 text-orange-600 dark:text-orange-400 hover:underline font-medium"
+                >
+                  Réinitialiser
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -155,9 +267,18 @@ const Destinations = () => {
               >
                 <div className="relative">
                   <img 
-                    src={destination.image} 
+                    src={
+                      destination.image?.startsWith('http://') || destination.image?.startsWith('https://')
+                        ? destination.image
+                        : destination.image?.startsWith('/')
+                          ? destination.image
+                          : `/${destination.image}`
+                    }
                     alt={destination.name}
                     className="w-full h-48 sm:h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.target.src = '/assets/images/cover.jpg'
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                   <div className="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
@@ -183,7 +304,10 @@ const Destinations = () => {
                     </div>
                   </div>
                   
-                  <button className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 sm:py-4 px-4 rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 flex items-center justify-center gap-2">
+                  <button 
+                    onClick={() => handleDiscover(destination.name)}
+                    className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 sm:py-4 px-4 rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 flex items-center justify-center gap-2"
+                  >
                     <FaCompass />
                     <span>Découvrir</span>
                   </button>
@@ -220,7 +344,10 @@ const Destinations = () => {
               <p className="text-base sm:text-lg lg:text-xl mb-8 sm:mb-10 opacity-95 max-w-2xl mx-auto">
                 Découvrez nos guides détaillés et planifiez votre prochain voyage
               </p>
-              <button className="bg-white text-orange-600 font-bold py-4 sm:py-5 px-8 sm:px-12 rounded-full hover:scale-110 transition-all duration-300 text-sm sm:text-base shadow-2xl hover:shadow-white/50 flex items-center justify-center gap-2 mx-auto">
+              <button 
+                onClick={handleSeeAllGuides}
+                className="bg-white text-orange-600 font-bold py-4 sm:py-5 px-8 sm:px-12 rounded-full hover:scale-110 transition-all duration-300 text-sm sm:text-base shadow-2xl hover:shadow-white/50 flex items-center justify-center gap-2 mx-auto"
+              >
                 <FaMapMarkedAlt />
                 <span>Voir tous nos guides</span>
               </button>

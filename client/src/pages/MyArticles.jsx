@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import api from '../services/api'
 import ArticleCard from '../components/ArticleCard'
 import { useToast } from '../context/ToastContext'
 import { FaTrash, FaArrowLeft, FaEdit, FaCompass, FaBook } from 'react-icons/fa'
@@ -26,11 +26,19 @@ export default function MyArticles() {
 
   const loadArticles = async (userId) => {
     try {
-      const { data } = await axios.get(`/api/articles?userId=${userId}`)
-      setArticles(data)
+      if (!userId) {
+        showToast('Erreur: Identifiant utilisateur manquant', 'error')
+        return
+      }
+      
+      const { data } = await api.get(`/articles?userId=${userId}`)
+      
+      // Double vérification côté client : ne garder que les articles de l'utilisateur
+      const userArticles = data.filter(article => article.userId === userId)
+      setArticles(userArticles)
     } catch (error) {
       console.error('Erreur chargement articles:', error)
-      showToast('Erreur lors du chargement de vos articles', 'error')
+      showToast(error.response?.data?.error || 'Erreur lors du chargement de vos articles', 'error')
     } finally {
       setLoading(false)
     }
@@ -42,11 +50,11 @@ export default function MyArticles() {
     }
 
     try {
-      await axios.delete(`/api/articles/${articleId}`)
+      await api.delete(`/articles/${articleId}`)
       showToast('Article supprimé avec succès', 'success')
       loadArticles(user.id)
     } catch (error) {
-      showToast('Erreur lors de la suppression', 'error')
+      showToast(error.response?.data?.error || 'Erreur lors de la suppression', 'error')
     }
   }
 
@@ -138,23 +146,55 @@ export default function MyArticles() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-            {articles.map((article, index) => (
-              <div key={article.id} className="relative transform transition-all duration-500" style={{ animationDelay: `${index * 100}ms` }}>
-                <ArticleCard article={article} />
-                <div className="absolute top-4 right-4 z-20">
-                  <button
-                    onClick={() => handleDelete(article.id)}
-                    className="bg-red-500 text-white px-3 sm:px-4 py-2 rounded-full text-sm hover:bg-red-600 transition-all hover:scale-110 flex items-center gap-2 shadow-lg"
-                    title="Supprimer"
-                  >
-                    <FaTrash />
-                    <span className="hidden sm:inline">Supprimer</span>
-                  </button>
+          <>
+            {/* En-tête avec statistiques */}
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl sm:rounded-[3rem] p-6 sm:p-8 mb-8 shadow-xl border border-white/50 dark:border-gray-700/50">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                    Vos articles publiés
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {articles.length} article{articles.length > 1 ? 's' : ''} au total
+                  </p>
                 </div>
+                <Link
+                  to="/create-article"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
+                >
+                  <FaEdit />
+                  <span>Nouvel article</span>
+                </Link>
               </div>
-            ))}
-          </div>
+            </div>
+
+            {/* Grille d'articles */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+              {articles.map((article, index) => (
+                <div key={article.id} className="relative transform transition-all duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+                  <ArticleCard article={article} />
+                  <div className="absolute top-4 right-4 z-20 flex gap-2">
+                    <button
+                      onClick={() => navigate(`/edit-article/${article.id}`)}
+                      className="bg-blue-500 text-white px-3 sm:px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition-all hover:scale-110 flex items-center gap-2 shadow-lg"
+                      title="Modifier"
+                    >
+                      <FaEdit />
+                      <span className="hidden sm:inline">Modifier</span>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(article.id)}
+                      className="bg-red-500 text-white px-3 sm:px-4 py-2 rounded-full text-sm hover:bg-red-600 transition-all hover:scale-110 flex items-center gap-2 shadow-lg"
+                      title="Supprimer"
+                    >
+                      <FaTrash />
+                      <span className="hidden sm:inline">Supprimer</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         {/* Bouton retour */}
