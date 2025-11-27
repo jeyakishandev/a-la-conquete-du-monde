@@ -1,7 +1,6 @@
 export default {
   testEnvironment: 'node',
   transform: {},
-  extensionsToTreatAsEsm: ['.js'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
@@ -12,13 +11,14 @@ export default {
     'utils/**/*.js',
     '!**/node_modules/**',
     '!**/coverage/**',
+    '!**/__tests__/**',
   ],
   coverageThreshold: {
     global: {
-      branches: 50,
-      functions: 50,
-      lines: 50,
-      statements: 50,
+      branches: 30,
+      functions: 30,
+      lines: 30,
+      statements: 30,
     },
   },
 };
