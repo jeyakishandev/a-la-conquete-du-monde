@@ -1,33 +1,33 @@
-import { Link } from 'react-router-dom'
-import { FaArrowRight } from 'react-icons/fa'
+import { Link } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 
 export default function ArticleCard({ article }) {
   // Formatage de la date
-  const formatDate = (dateString) => {
-    if (!dateString) return ''
-    const date = new Date(dateString)
-    return date.toLocaleDateString('fr-FR', { 
-      day: 'numeric', 
-      month: 'long', 
-      year: 'numeric' 
-    })
-  }
+  const formatDate = dateString => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
 
   return (
-    <Link 
+    <Link
       to={`/article/${article.id}`}
       className="group block relative h-[400px] sm:h-[450px] lg:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
     >
       {/* Image */}
-      <img 
-        src={article.image} 
-        alt={article.title} 
+      <img
+        src={article.image}
+        alt={article.title}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      
+
       {/* Overlay sombre permanent pour meilleure lisibilité */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-      
+
       {/* Badge de catégorie en haut à gauche */}
       <div className="absolute top-4 left-4 z-10">
         <span className="inline-block bg-white/95 backdrop-blur-sm text-gray-900 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-md">
@@ -56,5 +56,5 @@ export default function ArticleCard({ article }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }

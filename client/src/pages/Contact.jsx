@@ -1,54 +1,49 @@
-import { useState } from 'react'
-import api from '../services/api'
-import { useToast } from '../context/ToastContext'
-import { FaPaperPlane } from 'react-icons/fa'
+import { useState } from 'react';
+import api from '../services/api';
+import { useToast } from '../context/ToastContext';
+import { FaPaperPlane } from 'react-icons/fa';
 
 export default function Contact() {
-  const { showToast } = useToast()
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
-  })
-  const [loading, setLoading] = useState(false)
+    message: '',
+  });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setLoading(true);
+
     try {
-      await api.post('/contact', formData)
-      showToast('Votre message a été envoyé avec succès !', 'success')
-      setFormData({ name: '', email: '', message: '' })
+      await api.post('/contact', formData);
+      showToast('Votre message a été envoyé avec succès !', 'success');
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      showToast(error.response?.data?.error || 'Erreur lors de l\'envoi du message', 'error')
+      showToast(error.response?.data?.error || "Erreur lors de l'envoi du message", 'error');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <div className="max-w-2xl mx-auto py-10 fade-in">
-      <h1 className="text-4xl font-bold text-center mb-4">
-        Contactez-nous
-      </h1>
+      <h1 className="text-4xl font-bold text-center mb-4">Contactez-nous</h1>
       <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
         Une question ? Une suggestion ? N'hésitez pas à nous écrire !
       </p>
 
-
       <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
         <div className="mb-6">
-          <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">
-            Nom *
-          </label>
+          <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Nom *</label>
           <input
             type="text"
             name="name"
@@ -115,6 +110,5 @@ export default function Contact() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

@@ -16,7 +16,7 @@ describe('Footer Component', () => {
         <Footer darkMode={false} />
       </BrowserRouter>
     );
-    
+
     const footer = document.querySelector('footer');
     expect(footer).toBeInTheDocument();
   });
@@ -27,7 +27,7 @@ describe('Footer Component', () => {
         <Footer darkMode={false} />
       </BrowserRouter>
     );
-    
+
     // Le footer devrait contenir des éléments
     expect(document.querySelector('footer')).toBeInTheDocument();
   });
@@ -38,15 +38,15 @@ describe('Footer Component', () => {
         <Footer darkMode={false} />
       </BrowserRouter>
     );
-    
+
     expect(document.querySelector('footer')).toBeInTheDocument();
-    
+
     rerender(
       <BrowserRouter>
         <Footer darkMode={true} />
       </BrowserRouter>
     );
-    
+
     expect(document.querySelector('footer')).toBeInTheDocument();
   });
 
@@ -56,9 +56,8 @@ describe('Footer Component', () => {
         <Footer darkMode={false} />
       </BrowserRouter>
     );
-    
+
     // Le footer devrait être présent
     expect(document.querySelector('footer')).toBeInTheDocument();
   });
 });
-

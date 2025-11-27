@@ -1,49 +1,49 @@
-import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import api from '../services/api'
-import ArticleCard from '../components/ArticleCard'
-import { useToast } from '../context/ToastContext'
-import { FaArrowLeft, FaStar, FaCompass, FaHeart } from 'react-icons/fa'
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../services/api';
+import ArticleCard from '../components/ArticleCard';
+import { useToast } from '../context/ToastContext';
+import { FaArrowLeft, FaStar, FaCompass, FaHeart } from 'react-icons/fa';
 
 export default function Favorites() {
-  const navigate = useNavigate()
-  const { showToast } = useToast()
-  const [favorites, setFavorites] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const userData = localStorage.getItem('user')
+    const userData = localStorage.getItem('user');
     if (userData && userData !== 'undefined' && userData !== 'null') {
       try {
-        const user = JSON.parse(userData)
-        setUser(user)
-        loadFavorites(user)
+        const user = JSON.parse(userData);
+        setUser(user);
+        loadFavorites(user);
       } catch (e) {
-        console.error('Erreur parsing user:', e)
-        showToast('Vous devez être connecté pour voir vos favoris', 'warning')
-        navigate('/login')
+        console.error('Erreur parsing user:', e);
+        showToast('Vous devez être connecté pour voir vos favoris', 'warning');
+        navigate('/login');
       }
     } else {
-      showToast('Vous devez être connecté pour voir vos favoris', 'warning')
-      navigate('/login')
+      showToast('Vous devez être connecté pour voir vos favoris', 'warning');
+      navigate('/login');
     }
-  }, [])
+  }, []);
 
   const loadFavorites = async (userParam = null) => {
     try {
-      const currentUser = userParam || user
-      if (!currentUser?.id) return
-      
-      const { data } = await api.get(`/favorites/user?userId=${currentUser.id}`)
-      setFavorites(data)
+      const currentUser = userParam || user;
+      if (!currentUser?.id) return;
+
+      const { data } = await api.get(`/favorites/user?userId=${currentUser.id}`);
+      setFavorites(data);
     } catch (error) {
-      console.error('Erreur chargement favoris:', error)
-      showToast('Erreur lors du chargement des favoris', 'error')
+      console.error('Erreur chargement favoris:', error);
+      showToast('Erreur lors du chargement des favoris', 'error');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -53,7 +53,7 @@ export default function Favorites() {
           <p className="mt-4 text-gray-600 dark:text-gray-400">Chargement de vos favoris...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -62,11 +62,14 @@ export default function Favorites() {
       <section className="relative min-h-[30vh] sm:min-h-[40vh] flex items-center justify-center overflow-hidden">
         {/* Background avec effet de profondeur */}
         <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-500 dark:from-orange-600 dark:via-orange-700 dark:to-yellow-600">
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          ></div>
         </div>
-        
+
         {/* Formes organiques flottantes */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-300/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -79,23 +82,30 @@ export default function Favorites() {
               <span>Vos articles favoris</span>
             </span>
           </div>
-          
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight text-white drop-shadow-2xl">
             <span className="block">Mes Favoris</span>
           </h1>
-          
+
           <p className="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 leading-relaxed drop-shadow-lg">
-            {favorites.length === 0 
+            {favorites.length === 0
               ? "Vous n'avez pas encore d'articles favoris"
-              : `${favorites.length} article${favorites.length > 1 ? 's' : ''} sauvegardé${favorites.length > 1 ? 's' : ''}`
-            }
+              : `${favorites.length} article${favorites.length > 1 ? 's' : ''} sauvegardé${favorites.length > 1 ? 's' : ''}`}
           </p>
         </div>
 
         {/* Vague de séparation organique */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-12 sm:h-20 lg:h-24" viewBox="0 0 1200 120" preserveAspectRatio="none" fill="currentColor">
-            <path d="M0,60 C300,100 600,20 900,60 C1050,80 1150,40 1200,60 L1200,120 L0,120 Z" className="text-sky-50 dark:text-gray-900"></path>
+          <svg
+            className="w-full h-12 sm:h-20 lg:h-24"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            fill="currentColor"
+          >
+            <path
+              d="M0,60 C300,100 600,20 900,60 C1050,80 1150,40 1200,60 L1200,120 L0,120 Z"
+              className="text-sky-50 dark:text-gray-900"
+            ></path>
           </svg>
         </div>
       </section>
@@ -106,7 +116,7 @@ export default function Favorites() {
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl sm:rounded-[3rem] p-12 sm:p-16 text-center shadow-2xl border border-white/50 dark:border-gray-700/50 relative overflow-hidden">
             {/* Effet de lumière */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-200/30 to-yellow-200/30 rounded-full blur-3xl"></div>
-            
+
             <div className="relative z-10">
               <FaHeart className="text-6xl sm:text-8xl text-gray-300 dark:text-gray-600 mx-auto mb-6 animate-pulse" />
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-4">
@@ -127,7 +137,11 @@ export default function Favorites() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
             {favorites.map((article, index) => (
-              <div key={article.id} className="transform transition-all duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+              <div
+                key={article.id}
+                className="transform transition-all duration-500"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
                 <ArticleCard article={article} />
               </div>
             ))}
@@ -146,5 +160,5 @@ export default function Favorites() {
         </div>
       </div>
     </div>
-  )
+  );
 }

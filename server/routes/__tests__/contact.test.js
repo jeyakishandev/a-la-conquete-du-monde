@@ -22,7 +22,7 @@ describe('Contact Form Validation', () => {
       const name = 'John Doe';
       const email = 'john@example.com';
       const message = 'Test message';
-      
+
       expect(name).toBeTruthy();
       expect(email).toBeTruthy();
       expect(message).toBeTruthy();
@@ -48,4 +48,3 @@ describe('Contact Form Validation', () => {
     });
   });
 });
-

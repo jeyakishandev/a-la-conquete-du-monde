@@ -32,7 +32,7 @@ describe('Header Component', () => {
         <Header darkMode={false} />
       </BrowserRouter>
     );
-    
+
     const header = document.querySelector('header');
     expect(header).toBeInTheDocument();
   });
@@ -43,7 +43,7 @@ describe('Header Component', () => {
         <Header darkMode={false} />
       </BrowserRouter>
     );
-    
+
     // Le header devrait contenir le logo ou le titre
     expect(document.querySelector('header')).toBeInTheDocument();
   });
@@ -54,28 +54,28 @@ describe('Header Component', () => {
         <Header darkMode={false} />
       </BrowserRouter>
     );
-    
+
     const header = document.querySelector('header');
     expect(header).toBeInTheDocument();
-    
+
     rerender(
       <BrowserRouter>
         <Header darkMode={true} />
       </BrowserRouter>
     );
-    
+
     expect(document.querySelector('header')).toBeInTheDocument();
   });
 
   it('should show login button when user is not logged in', () => {
     localStorage.clear();
-    
+
     render(
       <BrowserRouter>
         <Header darkMode={false} />
       </BrowserRouter>
     );
-    
+
     // Le header devrait être présent même sans utilisateur
     expect(document.querySelector('header')).toBeInTheDocument();
   });
@@ -84,17 +84,16 @@ describe('Header Component', () => {
     const user = { id: 1, username: 'testuser', email: 'test@example.com' };
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', 'test-token');
-    
+
     render(
       <BrowserRouter>
         <Header darkMode={false} />
       </BrowserRouter>
     );
-    
+
     // Le header devrait être présent
     await waitFor(() => {
       expect(document.querySelector('header')).toBeInTheDocument();
     });
   });
 });
-

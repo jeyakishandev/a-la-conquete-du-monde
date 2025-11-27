@@ -71,4 +71,3 @@ describe('ArticleCard Component', () => {
     expect(link).toHaveAttribute('href', '/article/1');
   });
 });
-

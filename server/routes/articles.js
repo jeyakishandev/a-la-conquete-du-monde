@@ -132,12 +132,9 @@ router.post('/', authenticateToken, async (req, res) => {
 
     // Validation de la catégorie
     if (!category || !isValidCategory(category)) {
-      return res
-        .status(400)
-        .json({
-          error:
-            'Catégorie invalide. Catégories valides: destinations, culture, aventure, conseils',
-        });
+      return res.status(400).json({
+        error: 'Catégorie invalide. Catégories valides: destinations, culture, aventure, conseils',
+      });
     }
 
     // Validation de l'URL d'image

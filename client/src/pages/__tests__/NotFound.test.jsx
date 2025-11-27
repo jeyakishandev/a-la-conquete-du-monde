@@ -10,7 +10,7 @@ describe('NotFound Page', () => {
         <NotFound />
       </BrowserRouter>
     );
-    
+
     expect(screen.getByText(/404/i)).toBeInTheDocument();
   });
 
@@ -20,7 +20,7 @@ describe('NotFound Page', () => {
         <NotFound />
       </BrowserRouter>
     );
-    
+
     expect(screen.getByText(/404/i)).toBeInTheDocument();
   });
 
@@ -30,9 +30,8 @@ describe('NotFound Page', () => {
         <NotFound />
       </BrowserRouter>
     );
-    
+
     const link = screen.getByRole('link');
     expect(link).toBeInTheDocument();
   });
 });
-

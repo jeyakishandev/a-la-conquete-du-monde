@@ -1,62 +1,57 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import api from '../services/api'
-import { useToast } from '../context/ToastContext'
-import { FaSignInAlt, FaArrowLeft } from 'react-icons/fa'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../services/api';
+import { useToast } from '../context/ToastContext';
+import { FaSignInAlt, FaArrowLeft } from 'react-icons/fa';
 
 export default function Login() {
-  const navigate = useNavigate()
-  const { showToast } = useToast()
+  const navigate = useNavigate();
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
-  })
-  const [loading, setLoading] = useState(false)
+    password: '',
+  });
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setLoading(true);
 
     try {
-      const { data } = await api.post('/auth/login', formData)
-      
+      const { data } = await api.post('/auth/login', formData);
+
       // Sauvegarder le token
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      
-      showToast('Connexion réussie !', 'success')
-      
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      showToast('Connexion réussie !', 'success');
+
       // Rediriger vers la page d'accueil
       setTimeout(() => {
-        navigate('/')
-        window.location.reload() // Recharger pour mettre à jour l'état
-      }, 500)
+        navigate('/');
+        window.location.reload(); // Recharger pour mettre à jour l'état
+      }, 500);
     } catch (error) {
-      showToast(error.response?.data?.error || 'Erreur lors de la connexion', 'error')
+      showToast(error.response?.data?.error || 'Erreur lors de la connexion', 'error');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4">
       <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Connexion
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Connectez-vous à votre compte
-          </p>
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Connexion</h1>
+          <p className="text-gray-600 dark:text-gray-400">Connectez-vous à votre compte</p>
         </div>
-
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -109,13 +104,15 @@ export default function Login() {
         </div>
 
         <div className="mt-4 text-center">
-          <Link to="/" className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 flex items-center justify-center gap-1">
+          <Link
+            to="/"
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 flex items-center justify-center gap-1"
+          >
             <FaArrowLeft />
             <span>Retour à l'accueil</span>
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

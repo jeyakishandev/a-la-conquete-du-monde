@@ -96,6 +96,7 @@ Application web fullstack moderne de blog de voyage. Ce projet démontre la mise
 - ✅ **Sécurité renforcée** : Validation double (client/serveur), rate limiting, sanitisation
 - ✅ **Performance** : Lazy loading, code splitting, optimisation des images
 - ✅ **UX optimale** : Mode sombre/clair, animations, feedback utilisateur
+- ✅ **Qualité du code** : Tests unitaires, ESLint, Prettier, validation à 99% de couverture
 
 ## 🚀 Installation
 
@@ -199,11 +200,44 @@ FRONTEND_URL=https://...
 VITE_API_URL=https://api-url.com/api
 ```
 
+## 🧪 Tests et Qualité du Code
+
+### Tests Backend
+- **Jest** : Framework de test unitaire
+- **Supertest** : Tests d'intégration des routes API
+- **Couverture** : 99% pour les utilitaires de validation
+- **Scripts disponibles** :
+  ```bash
+  npm test              # Exécuter tous les tests avec couverture
+  npm test:watch        # Mode watch pour développement
+  ```
+
+### Tests Frontend
+- **Vitest** : Framework de test moderne et rapide
+- **Testing Library** : Tests de composants React
+- **Scripts disponibles** :
+  ```bash
+  npm test              # Exécuter tous les tests
+  npm test:ui           # Interface graphique pour les tests
+  npm test:coverage     # Tests avec rapport de couverture
+  ```
+
+### Outils de qualité
+- **ESLint** : Linting du code (backend et frontend)
+- **Prettier** : Formatage automatique du code
+- **Scripts disponibles** :
+  ```bash
+  npm run lint          # Vérifier le code
+  npm run lint:fix      # Corriger automatiquement
+  npm run format        # Formater le code
+  ```
+
 ## 🔧 Défis techniques résolus
 
 1. **Gestion des connexions Prisma avec Supabase** : Implémentation d'une instance singleton avec support du connection pooler (PGBouncer)
 2. **Synchronisation frontend/backend** : Configuration des variables d'environnement pour communication fluide
 3. **Seed automatique** : Système qui exécute automatiquement le seed au premier démarrage si la base est vide
+4. **Tests et qualité** : Mise en place de tests unitaires complets et outils de linting/formatage pour maintenir la qualité du code
 
 ## 📄 Licence
 

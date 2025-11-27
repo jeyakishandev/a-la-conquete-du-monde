@@ -25,7 +25,7 @@ describe('Likes Logic', () => {
       const userId = '456';
       const parsed = userId ? parseInt(userId) : null;
       expect(parsed).toBe(456);
-      
+
       const nullUserId = null;
       const parsedNull = nullUserId ? parseInt(nullUserId) : null;
       expect(parsedNull).toBeNull();
@@ -42,11 +42,10 @@ describe('Likes Logic', () => {
       const userLike = { id: 1, articleId: 1, userId: 1 };
       const liked = !!userLike;
       expect(liked).toBe(true);
-      
+
       const noLike = null;
       const notLiked = !!noLike;
       expect(notLiked).toBe(false);
     });
   });
 });
-

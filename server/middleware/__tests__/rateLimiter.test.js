@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import { describe, it, expect } from '@jest/globals';
 
 describe('Rate Limiter Logic', () => {
   describe('IP Extraction', () => {
@@ -15,7 +15,8 @@ describe('Rate Limiter Logic', () => {
     });
 
     it('should handle missing IP', () => {
-      const ip = null || undefined || 'unknown';
+      const missingIp = undefined;
+      const ip = missingIp || 'unknown';
       expect(ip).toBe('unknown');
     });
   });
@@ -25,7 +26,7 @@ describe('Rate Limiter Logic', () => {
       const now = Date.now();
       const windowMs = 15 * 60 * 1000; // 15 minutes
       const resetTime = now + windowMs;
-      
+
       expect(resetTime).toBeGreaterThan(now);
       expect(resetTime - now).toBe(windowMs);
     });
@@ -33,14 +34,14 @@ describe('Rate Limiter Logic', () => {
     it('should handle expired window', () => {
       const now = Date.now();
       const expiredResetTime = now - 1000; // 1 seconde dans le passé
-      
+
       expect(expiredResetTime < now).toBe(true);
     });
 
     it('should handle active window', () => {
       const now = Date.now();
       const futureResetTime = now + 10000; // 10 secondes dans le futur
-      
+
       expect(futureResetTime > now).toBe(true);
     });
   });
@@ -61,7 +62,7 @@ describe('Rate Limiter Logic', () => {
       const maxAttempts = 5;
       const attempt1 = { count: 4, resetTime: Date.now() + 900000 };
       const attempt2 = { count: 5, resetTime: Date.now() + 900000 };
-      
+
       expect(attempt1.count >= maxAttempts).toBe(false);
       expect(attempt2.count >= maxAttempts).toBe(true);
     });
@@ -72,7 +73,7 @@ describe('Rate Limiter Logic', () => {
       const now = Date.now();
       const resetTime = now + 60000; // 1 minute
       const retryAfter = Math.ceil((resetTime - now) / 1000);
-      
+
       expect(retryAfter).toBe(60); // 60 secondes
     });
   });
@@ -81,7 +82,7 @@ describe('Rate Limiter Logic', () => {
     it('should have correct auth rate limiter config', () => {
       const windowMs = 15 * 60 * 1000; // 15 minutes
       const maxAttempts = 5;
-      
+
       expect(windowMs).toBe(900000);
       expect(maxAttempts).toBe(5);
     });
@@ -89,7 +90,7 @@ describe('Rate Limiter Logic', () => {
     it('should have correct register rate limiter config', () => {
       const windowMs = 60 * 60 * 1000; // 1 heure
       const maxAttempts = 3;
-      
+
       expect(windowMs).toBe(3600000);
       expect(maxAttempts).toBe(3);
     });
@@ -97,10 +98,9 @@ describe('Rate Limiter Logic', () => {
     it('should have correct API rate limiter config', () => {
       const windowMs = 15 * 60 * 1000;
       const maxAttempts = 100;
-      
+
       expect(windowMs).toBe(900000);
       expect(maxAttempts).toBe(100);
     });
   });
 });
-

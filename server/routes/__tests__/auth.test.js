@@ -1,10 +1,6 @@
 import { describe, it, expect } from '@jest/globals';
 import bcrypt from 'bcryptjs';
-import {
-  isValidEmail,
-  isValidUsername,
-  validatePassword,
-} from '../../utils/validation.js';
+import { isValidEmail, isValidUsername, validatePassword } from '../../utils/validation.js';
 
 describe('Auth Validation Utilities', () => {
   describe('Email Validation', () => {

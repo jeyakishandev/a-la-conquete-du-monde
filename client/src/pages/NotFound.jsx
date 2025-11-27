@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { FaHome, FaExclamationTriangle, FaBook } from 'react-icons/fa'
+import { Link } from 'react-router-dom';
+import { FaHome, FaExclamationTriangle, FaBook } from 'react-icons/fa';
 
 export default function NotFound() {
   return (
@@ -9,9 +9,7 @@ export default function NotFound() {
           <div className="flex justify-center mb-4">
             <FaExclamationTriangle className="text-9xl text-orange-500 dark:text-orange-400" />
           </div>
-          <h1 className="text-9xl font-bold text-orange-500 dark:text-orange-400 mb-4">
-            404
-          </h1>
+          <h1 className="text-9xl font-bold text-orange-500 dark:text-orange-400 mb-4">404</h1>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Page non trouvée
           </h2>
@@ -38,12 +36,9 @@ export default function NotFound() {
         </div>
 
         <div className="mt-12">
-          <p className="text-gray-500 dark:text-gray-400">
-            Continuez votre voyage de découverte !
-          </p>
+          <p className="text-gray-500 dark:text-gray-400">Continuez votre voyage de découverte !</p>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

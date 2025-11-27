@@ -1,24 +1,24 @@
-import { createContext, useContext, useState } from 'react'
-import Toast from '../components/Toast'
+import { createContext, useContext, useState } from 'react';
+import Toast from '../components/Toast';
 
-const ToastContext = createContext()
+const ToastContext = createContext();
 
 export function useToast() {
-  return useContext(ToastContext)
+  return useContext(ToastContext);
 }
 
 export function ToastProvider({ children }) {
-  const [toasts, setToasts] = useState([])
+  const [toasts, setToasts] = useState([]);
 
   const showToast = (message, type = 'info', duration = 5000) => {
-    const id = Date.now()
-    setToasts(prev => [...prev, { id, message, type, duration }])
-    return id
-  }
+    const id = Date.now();
+    setToasts(prev => [...prev, { id, message, type, duration }]);
+    return id;
+  };
 
-  const removeToast = (id) => {
-    setToasts(prev => prev.filter(toast => toast.id !== id))
-  }
+  const removeToast = id => {
+    setToasts(prev => prev.filter(toast => toast.id !== id));
+  };
 
   return (
     <ToastContext.Provider value={{ showToast }}>
@@ -35,6 +35,5 @@ export function ToastProvider({ children }) {
         ))}
       </div>
     </ToastContext.Provider>
-  )
+  );
 }
-

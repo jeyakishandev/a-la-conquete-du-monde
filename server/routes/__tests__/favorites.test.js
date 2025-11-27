@@ -6,7 +6,7 @@ describe('Favorites Logic', () => {
       const userId = null;
       const requiresAuth = !userId;
       expect(requiresAuth).toBe(true); // Devrait être rejeté
-      
+
       const validUserId = 123;
       expect(validUserId).toBeTruthy();
     });
@@ -40,7 +40,7 @@ describe('Favorites Logic', () => {
       const favorite = { id: 1, articleId: 1, userId: 1 };
       const favorited = !!favorite;
       expect(favorited).toBe(true);
-      
+
       const noFavorite = null;
       const notFavorited = !!noFavorite;
       expect(notFavorited).toBe(false);
@@ -52,11 +52,10 @@ describe('Favorites Logic', () => {
       const userId = 123;
       const where = userId ? { userId: parseInt(userId) } : {};
       expect(where).toEqual({ userId: 123 });
-      
+
       const noUserId = null;
       const emptyWhere = noUserId ? { userId: parseInt(noUserId) } : {};
       expect(emptyWhere).toEqual({});
     });
   });
 });
-

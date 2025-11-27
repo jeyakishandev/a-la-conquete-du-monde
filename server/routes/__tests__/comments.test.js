@@ -1,22 +1,19 @@
 import { describe, it, expect } from '@jest/globals';
-import {
-  isValidEmail,
-  sanitizeString,
-} from '../../utils/validation.js';
+import { isValidEmail, sanitizeString } from '../../utils/validation.js';
 
 describe('Comments Validation', () => {
   describe('Comment Content Validation', () => {
     it('should validate comment content length', () => {
       const minLength = 3;
       const maxLength = 1000;
-      
+
       const shortContent = 'ab'; // trop court
       expect(shortContent.trim().length).toBeLessThan(minLength);
-      
+
       const validContent = 'This is a valid comment content';
       expect(validContent.trim().length).toBeGreaterThanOrEqual(minLength);
       expect(validContent.trim().length).toBeLessThanOrEqual(maxLength);
-      
+
       const longContent = 'a'.repeat(1001); // trop long
       expect(longContent.trim().length).toBeGreaterThan(maxLength);
     });
@@ -30,7 +27,7 @@ describe('Comments Validation', () => {
       const name = null;
       const userId = null;
       expect(!name && !userId).toBe(true); // Devrait être rejeté
-      
+
       const validCase = 'John Doe';
       expect(validCase).toBeTruthy();
     });
@@ -50,4 +47,3 @@ describe('Comments Validation', () => {
     });
   });
 });
-

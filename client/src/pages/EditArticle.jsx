@@ -1,45 +1,55 @@
-import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import api from '../services/api'
-import { useToast } from '../context/ToastContext'
-import { FaSave, FaTimes, FaEdit, FaGlobe, FaBook, FaMountain, FaLightbulb, FaImage } from 'react-icons/fa'
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '../services/api';
+import { useToast } from '../context/ToastContext';
+import {
+  FaSave,
+  FaTimes,
+  FaEdit,
+  FaGlobe,
+  FaBook,
+  FaMountain,
+  FaLightbulb,
+  FaImage,
+} from 'react-icons/fa';
 
 export default function EditArticle() {
-  const navigate = useNavigate()
-  const { id } = useParams()
-  const { showToast } = useToast()
-  const [loading, setLoading] = useState(false)
-  const [loadingArticle, setLoadingArticle] = useState(true)
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { showToast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [loadingArticle, setLoadingArticle] = useState(true);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     content: '',
     category: 'destinations',
-    image: ''
-  })
+    image: '',
+  });
 
   const categories = [
     { value: 'destinations', label: 'Destinations', icon: FaGlobe },
     { value: 'culture', label: 'Culture', icon: FaBook },
     { value: 'aventure', label: 'Aventure', icon: FaMountain },
-    { value: 'conseils', label: 'Conseils', icon: FaLightbulb }
-  ]
+    { value: 'conseils', label: 'Conseils', icon: FaLightbulb },
+  ];
 
   useEffect(() => {
-    loadArticle()
-  }, [id])
+    loadArticle();
+  }, [id]);
 
   const loadArticle = async () => {
     try {
-      const { data } = await api.get(`/articles/${id}`)
-      
+      const { data } = await api.get(`/articles/${id}`);
+
       // Vérifier que l'utilisateur est le propriétaire
       const userStr = localStorage.getItem('user');
-      const user = (userStr && userStr !== 'undefined' && userStr !== 'null') ? JSON.parse(userStr) : {};
+      const user =
+        userStr && userStr !== 'undefined' && userStr !== 'null' ? JSON.parse(userStr) : {};
       if (data.userId !== user.id) {
-        showToast('Vous n\'êtes pas autorisé à modifier cet article', 'error')
-        navigate('/my-articles')
-        return
+        showToast("Vous n'êtes pas autorisé à modifier cet article", 'error');
+        navigate('/my-articles');
+        return;
       }
 
       setFormData({
@@ -47,95 +57,98 @@ export default function EditArticle() {
         description: data.description || '',
         content: data.content || '',
         category: data.category || 'destinations',
-        image: data.image || ''
-      })
+        image: data.image || '',
+      });
     } catch {
-      showToast('Erreur lors du chargement de l\'article', 'error')
-      navigate('/my-articles')
+      showToast("Erreur lors du chargement de l'article", 'error');
+      navigate('/my-articles');
     } finally {
-      setLoadingArticle(false)
+      setLoadingArticle(false);
     }
-  }
+  };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   // Compteurs de caractères
-  const titleLength = formData.title.length
-  const descriptionLength = formData.description.length
-  const contentLength = formData.content.length
+  const titleLength = formData.title.length;
+  const descriptionLength = formData.description.length;
+  const contentLength = formData.content.length;
 
   // Validation des longueurs
-  const titleMaxLength = 100
-  const descriptionMaxLength = 200
-  const contentMinLength = 50
+  const titleMaxLength = 100;
+  const descriptionMaxLength = 200;
+  const contentMinLength = 50;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setLoading(true);
 
     // Validation
     if (!formData.title || !formData.description || !formData.content) {
-      showToast('Veuillez remplir tous les champs obligatoires', 'warning')
-      setLoading(false)
-      return
+      showToast('Veuillez remplir tous les champs obligatoires', 'warning');
+      setLoading(false);
+      return;
     }
 
     if (formData.title.length > titleMaxLength) {
-      showToast(`Le titre ne peut pas dépasser ${titleMaxLength} caractères`, 'warning')
-      setLoading(false)
-      return
+      showToast(`Le titre ne peut pas dépasser ${titleMaxLength} caractères`, 'warning');
+      setLoading(false);
+      return;
     }
 
     if (formData.description.length > descriptionMaxLength) {
-      showToast(`La description ne peut pas dépasser ${descriptionMaxLength} caractères`, 'warning')
-      setLoading(false)
-      return
+      showToast(
+        `La description ne peut pas dépasser ${descriptionMaxLength} caractères`,
+        'warning'
+      );
+      setLoading(false);
+      return;
     }
 
     if (formData.content.length < contentMinLength) {
-      showToast(`Le contenu doit contenir au moins ${contentMinLength} caractères`, 'warning')
-      setLoading(false)
-      return
+      showToast(`Le contenu doit contenir au moins ${contentMinLength} caractères`, 'warning');
+      setLoading(false);
+      return;
     }
 
     try {
-      await api.put(`/articles/${id}`, formData)
-      showToast('Article modifié avec succès !', 'success')
+      await api.put(`/articles/${id}`, formData);
+      showToast('Article modifié avec succès !', 'success');
       setTimeout(() => {
-        navigate(`/article/${id}`)
-      }, 1000)
+        navigate(`/article/${id}`);
+      }, 1000);
     } catch (error) {
       if (error.response?.status === 401) {
-        showToast('Votre session a expiré. Veuillez vous reconnecter.', 'warning')
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
+        showToast('Votre session a expiré. Veuillez vous reconnecter.', 'warning');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setTimeout(() => {
-          navigate('/login')
-        }, 1500)
-        return
+          navigate('/login');
+        }, 1500);
+        return;
       }
-      
+
       if (error.response?.status === 403) {
-        showToast('Vous n\'êtes pas autorisé à modifier cet article', 'error')
+        showToast("Vous n'êtes pas autorisé à modifier cet article", 'error');
       } else if (error.response?.status === 400) {
-        const errorMessage = error.response?.data?.error || 'Données invalides'
-        showToast(errorMessage, 'error')
+        const errorMessage = error.response?.data?.error || 'Données invalides';
+        showToast(errorMessage, 'error');
       } else {
-        showToast('Erreur lors de la modification de l\'article', 'error')
+        showToast("Erreur lors de la modification de l'article", 'error');
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const isAbsoluteUrl = (url) => {
-    return url && (url.startsWith('http://') || url.startsWith('https://'))
-  }
+  const isAbsoluteUrl = url => {
+    return url && (url.startsWith('http://') || url.startsWith('https://'));
+  };
 
   if (loadingArticle) {
     return (
@@ -145,7 +158,7 @@ export default function EditArticle() {
           <p className="mt-4 text-gray-600 dark:text-gray-400">Chargement de l'article...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -154,11 +167,14 @@ export default function EditArticle() {
       <section className="relative min-h-[30vh] sm:min-h-[35vh] flex items-center justify-center overflow-hidden">
         {/* Background avec effet de profondeur */}
         <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-500 dark:from-orange-600 dark:via-orange-700 dark:to-yellow-600">
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          ></div>
         </div>
-        
+
         {/* Formes organiques flottantes */}
         <div className="absolute top-10 left-10 w-64 h-64 bg-yellow-300/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-10 right-10 w-80 h-80 bg-orange-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -171,7 +187,7 @@ export default function EditArticle() {
               <span>Modification d'article</span>
             </span>
           </div>
-          
+
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight text-white drop-shadow-2xl">
             Modifier votre article
           </h1>
@@ -184,7 +200,6 @@ export default function EditArticle() {
       {/* Formulaire */}
       <section className="relative -mt-8 sm:-mt-12 z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16">
         <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10 border border-white/20 dark:border-gray-700/50">
-
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Titre */}
             <div>
@@ -203,7 +218,9 @@ export default function EditArticle() {
               />
               <div className="flex justify-between items-center mt-1">
                 <span className="text-xs text-gray-500 dark:text-gray-400"></span>
-                <span className={`text-xs ${titleLength > titleMaxLength * 0.9 ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}>
+                <span
+                  className={`text-xs ${titleLength > titleMaxLength * 0.9 ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}
+                >
                   {titleLength}/{titleMaxLength}
                 </span>
               </div>
@@ -225,8 +242,12 @@ export default function EditArticle() {
                 required
               />
               <div className="flex justify-between items-center mt-1">
-                <span className="text-xs text-gray-500 dark:text-gray-400">Résumé court de votre article</span>
-                <span className={`text-xs ${descriptionLength > descriptionMaxLength * 0.9 ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}>
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Résumé court de votre article
+                </span>
+                <span
+                  className={`text-xs ${descriptionLength > descriptionMaxLength * 0.9 ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}
+                >
                   {descriptionLength}/{descriptionMaxLength}
                 </span>
               </div>
@@ -239,8 +260,8 @@ export default function EditArticle() {
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {categories.map(cat => {
-                  const Icon = cat.icon
-                  const isSelected = formData.category === cat.value
+                  const Icon = cat.icon;
+                  const isSelected = formData.category === cat.value;
                   return (
                     <button
                       key={cat.value}
@@ -255,7 +276,7 @@ export default function EditArticle() {
                       <Icon className="text-xl" />
                       <span className="text-xs sm:text-sm font-medium">{cat.label}</span>
                     </button>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -276,14 +297,14 @@ export default function EditArticle() {
               />
               {formData.image && (
                 <div className="mt-3 rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-600">
-                  <img 
+                  <img
                     src={isAbsoluteUrl(formData.image) ? formData.image : `/${formData.image}`}
-                    alt="Aperçu" 
+                    alt="Aperçu"
                     className="w-full h-48 object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none'
+                    onError={e => {
+                      e.target.style.display = 'none';
                       if (e.target.nextSibling) {
-                        e.target.nextSibling.style.display = 'block'
+                        e.target.nextSibling.style.display = 'block';
                       }
                     }}
                   />
@@ -313,10 +334,14 @@ export default function EditArticle() {
                 required
               />
               <div className="flex justify-between items-center mt-2">
-                <span className={`text-xs ${contentLength < contentMinLength ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}>
+                <span
+                  className={`text-xs ${contentLength < contentMinLength ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}
+                >
                   Minimum {contentMinLength} caractères requis
                 </span>
-                <span className={`text-xs ${contentLength < contentMinLength ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}>
+                <span
+                  className={`text-xs ${contentLength < contentMinLength ? 'text-orange-500' : 'text-gray-500 dark:text-gray-400'}`}
+                >
                   {contentLength} caractères
                 </span>
               </div>
@@ -326,7 +351,12 @@ export default function EditArticle() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <button
                 type="submit"
-                disabled={loading || contentLength < contentMinLength || titleLength > titleMaxLength || descriptionLength > descriptionMaxLength}
+                disabled={
+                  loading ||
+                  contentLength < contentMinLength ||
+                  titleLength > titleMaxLength ||
+                  descriptionLength > descriptionMaxLength
+                }
                 className="flex-1 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 sm:py-4 px-6 rounded-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
               >
                 <FaSave />
@@ -345,6 +375,5 @@ export default function EditArticle() {
         </div>
       </section>
     </div>
-  )
+  );
 }
-

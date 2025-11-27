@@ -198,7 +198,8 @@ body {
 
 /* Touch-friendly buttons on mobile */
 @media (max-width: 640px) {
-  button, a {
+  button,
+  a {
     min-height: 44px;
     min-width: 44px;
   }
@@ -225,7 +226,8 @@ body {
 }
 
 @keyframes morph {
-  0%, 100% {
+  0%,
+  100% {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
   50% {
@@ -235,14 +237,13 @@ body {
 
 /* Effets de profondeur */
 .depth-shadow {
-  box-shadow: 
+  box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.1),
     0 1px 8px rgba(0, 0, 0, 0.05);
 }
 
 .depth-shadow-lg {
-  box-shadow: 
+  box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.15),
     0 5px 15px rgba(0, 0, 0, 0.1);
 }
-

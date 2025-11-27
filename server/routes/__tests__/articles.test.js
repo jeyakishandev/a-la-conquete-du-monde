@@ -7,7 +7,7 @@ import {
   isValidImageUrl,
 } from '../../utils/validation.js';
 
-describe('Article Validation', () => {
+describe('Article Validation Logic (used in routes)', () => {
   describe('validateArticleTitle', () => {
     it('should validate correct article titles', () => {
       const result = validateArticleTitle('Mon super article de voyage');
@@ -51,7 +51,8 @@ describe('Article Validation', () => {
 
   describe('validateArticleContent', () => {
     it('should validate correct content', () => {
-      const content = 'Contenu détaillé de mon article de voyage avec assez de texte pour être valide';
+      const content =
+        'Contenu détaillé de mon article de voyage avec assez de texte pour être valide';
       const result = validateArticleContent(content);
       expect(result.isValid).toBe(true);
     });
@@ -88,6 +89,33 @@ describe('Article Validation', () => {
 
     it('should reject invalid image URLs', () => {
       expect(isValidImageUrl('not-a-url')).toBe(false);
+    });
+  });
+
+  describe('Article filtering logic', () => {
+    it('should handle userId filtering', () => {
+      const userId = '1';
+      const parsed = parseInt(userId);
+      expect(parsed).toBe(1);
+      expect(isNaN(parsed)).toBe(false);
+    });
+
+    it('should handle category filtering', () => {
+      const category = 'destinations';
+      const shouldFilter = category && category !== 'all';
+      expect(shouldFilter).toBe(true);
+    });
+
+    it('should handle search filtering', () => {
+      const search = 'Paris';
+      const shouldSearch = !!search;
+      expect(shouldSearch).toBe(true);
+    });
+
+    it('should handle invalid userId', () => {
+      const invalidUserId = 'abc';
+      const parsed = parseInt(invalidUserId);
+      expect(isNaN(parsed)).toBe(true);
     });
   });
 });

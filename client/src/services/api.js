@@ -13,7 +13,6 @@ if (API_URL && typeof API_URL === 'string') {
   }
 }
 
-
 // Créer une instance axios avec configuration par défaut
 const api = axios.create({
   baseURL: API_URL,
@@ -25,7 +24,7 @@ const api = axios.create({
 
 // Intercepteur pour les requêtes
 api.interceptors.request.use(
-  (config) => {
+  config => {
     // Ajouter le token JWT si disponible
     const token = localStorage.getItem('token');
     if (token) {
@@ -33,15 +32,15 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
+  error => {
     return Promise.reject(error);
   }
 );
 
 // Intercepteur pour les réponses
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  response => response,
+  error => {
     // Gérer les erreurs 401 (non autorisé)
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
@@ -55,4 +54,3 @@ api.interceptors.response.use(
 );
 
 export default api;
-

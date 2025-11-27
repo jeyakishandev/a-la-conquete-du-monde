@@ -1,122 +1,129 @@
-import { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import api from '../services/api'
-import { 
-  FaBars, 
-  FaTimes, 
-  FaSignOutAlt, 
-  FaStar, 
-  FaUser, 
-  FaEdit, 
-  FaBook, 
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import api from '../services/api';
+import {
+  FaBars,
+  FaTimes,
+  FaSignOutAlt,
+  FaStar,
+  FaUser,
+  FaEdit,
+  FaBook,
   FaHome,
   FaMapMarkedAlt,
   FaInfoCircle,
   FaEnvelope,
-  FaCompass
-} from 'react-icons/fa'
+  FaCompass,
+} from 'react-icons/fa';
 
 export default function Header({ darkMode }) {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [favoritesCount, setFavoritesCount] = useState(0)
-  const [user, setUser] = useState(null)
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [favoritesCount, setFavoritesCount] = useState(0);
+  const [user, setUser] = useState(null);
 
   // Vérifier si on est sur la page d'accueil avec le hero coloré
-  const isHomePage = location.pathname === '/'
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
-    const userData = localStorage.getItem('user')
+    const userData = localStorage.getItem('user');
     if (userData && userData !== 'undefined' && userData !== 'null') {
       try {
-        setUser(JSON.parse(userData))
+        setUser(JSON.parse(userData));
       } catch (e) {
-        console.error('Erreur parsing user:', e)
-        localStorage.removeItem('user')
+        console.error('Erreur parsing user:', e);
+        localStorage.removeItem('user');
       }
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+      setIsScrolled(window.scrollY > 50);
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     // Charger le compteur de favoris
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     if (token && user) {
-      api.get('/favorites/count')
+      api
+        .get('/favorites/count')
         .then(res => setFavoritesCount(res.data.count || 0))
-        .catch(err => console.error('Erreur favoris:', err))
+        .catch(err => console.error('Erreur favoris:', err));
     }
-  }, [location.pathname, user])
+  }, [location.pathname, user]);
 
   useEffect(() => {
     // Fermer le menu mobile quand on change de page
-    setIsMenuOpen(false)
-  }, [location.pathname])
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    setUser(null)
-    navigate('/')
-    window.location.reload()
-  }
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/');
+    window.location.reload();
+  };
 
-  const isActive = (path) => {
-    return location.pathname === path
-  }
-
+  const isActive = path => {
+    return location.pathname === path;
+  };
 
   return (
-    <header className={`fixed w-full top-0 left-0 z-50 transition-all duration-500 ${
-      isScrolled 
-        ? darkMode 
-          ? 'bg-gray-900/98 backdrop-blur-xl shadow-2xl border-b border-orange-500/20' 
-          : 'bg-white/98 backdrop-blur-xl shadow-2xl border-b border-orange-200/30'
-        : isHomePage
-          ? 'bg-transparent' // Transparent sur la page d'accueil
-          : darkMode
-            ? 'bg-gray-900/95 backdrop-blur-md'
-            : 'bg-white/95 backdrop-blur-md border-b border-gray-200/50'
-    }`}>
+    <header
+      className={`fixed w-full top-0 left-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? darkMode
+            ? 'bg-gray-900/98 backdrop-blur-xl shadow-2xl border-b border-orange-500/20'
+            : 'bg-white/98 backdrop-blur-xl shadow-2xl border-b border-orange-200/30'
+          : isHomePage
+            ? 'bg-transparent' // Transparent sur la page d'accueil
+            : darkMode
+              ? 'bg-gray-900/95 backdrop-blur-md'
+              : 'bg-white/95 backdrop-blur-md border-b border-gray-200/50'
+      }`}
+    >
       {/* Barre de navigation principale */}
       <nav className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20 gap-3 sm:gap-4 lg:gap-6">
           {/* Logo et Titre */}
-          <Link 
-            to="/" 
-            className="flex items-center gap-2 sm:gap-3 group flex-shrink-0"
-          >
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">
             <div className="relative">
-              <img 
-                src="/assets/images/Logo-voyage.png" 
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full ring-2 ring-orange-400/50 group-hover:ring-orange-500 transition-all duration-300 group-hover:scale-110" 
-                alt="Logo" 
+              <img
+                src="/assets/images/Logo-voyage.png"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full ring-2 ring-orange-400/50 group-hover:ring-orange-500 transition-all duration-300 group-hover:scale-110"
+                alt="Logo"
               />
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full animate-pulse"></div>
             </div>
             <div className="hidden sm:block">
-              <h1 className={`text-base sm:text-lg lg:text-xl font-bold transition-colors leading-tight ${
-                isHomePage && !isScrolled
-                  ? 'text-white drop-shadow-lg'
-                  : darkMode ? 'text-white' : 'text-gray-900'
-              }`}>
+              <h1
+                className={`text-base sm:text-lg lg:text-xl font-bold transition-colors leading-tight ${
+                  isHomePage && !isScrolled
+                    ? 'text-white drop-shadow-lg'
+                    : darkMode
+                      ? 'text-white'
+                      : 'text-gray-900'
+                }`}
+              >
                 À la Conquête du Monde
               </h1>
-              <p className={`text-xs transition-colors ${
-                isHomePage && !isScrolled
-                  ? 'text-white/80'
-                  : darkMode ? 'text-gray-400' : 'text-gray-600'
-              }`}>
+              <p
+                className={`text-xs transition-colors ${
+                  isHomePage && !isScrolled
+                    ? 'text-white/80'
+                    : darkMode
+                      ? 'text-gray-400'
+                      : 'text-gray-600'
+                }`}
+              >
                 Explorez • Rêvez • Voyagez
               </p>
             </div>
@@ -124,8 +131,8 @@ export default function Header({ darkMode }) {
 
           {/* Menu Tablette - Icônes uniquement */}
           <div className="hidden md:flex lg:hidden items-center gap-2 flex-1 justify-center">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -140,8 +147,8 @@ export default function Header({ darkMode }) {
               <FaHome className="text-base" />
             </Link>
 
-            <Link 
-              to="/blog" 
+            <Link
+              to="/blog"
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/blog')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -156,8 +163,8 @@ export default function Header({ darkMode }) {
               <FaBook className="text-base" />
             </Link>
 
-            <Link 
-              to="/destinations" 
+            <Link
+              to="/destinations"
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/destinations')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -172,8 +179,8 @@ export default function Header({ darkMode }) {
               <FaMapMarkedAlt className="text-base" />
             </Link>
 
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/about')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -188,8 +195,8 @@ export default function Header({ darkMode }) {
               <FaInfoCircle className="text-base" />
             </Link>
 
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/contact')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -205,8 +212,8 @@ export default function Header({ darkMode }) {
             </Link>
 
             {user && (
-              <Link 
-                to="/favorites" 
+              <Link
+                to="/favorites"
                 className={`p-2.5 rounded-full transition-all duration-300 relative ${
                   isActive('/favorites')
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -230,8 +237,8 @@ export default function Header({ darkMode }) {
 
           {/* Menu Desktop - Centré avec espacement optimal */}
           <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-1 justify-center max-w-2xl mx-4">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -246,8 +253,8 @@ export default function Header({ darkMode }) {
               <span>Accueil</span>
             </Link>
 
-            <Link 
-              to="/blog" 
+            <Link
+              to="/blog"
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/blog')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -262,8 +269,8 @@ export default function Header({ darkMode }) {
               <span>Blog</span>
             </Link>
 
-            <Link 
-              to="/destinations" 
+            <Link
+              to="/destinations"
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/destinations')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -278,8 +285,8 @@ export default function Header({ darkMode }) {
               <span>Destinations</span>
             </Link>
 
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/about')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -294,8 +301,8 @@ export default function Header({ darkMode }) {
               <span>À propos</span>
             </Link>
 
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/contact')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -318,8 +325,8 @@ export default function Header({ darkMode }) {
                 {/* Menu utilisateur - Desktop */}
                 <div className="hidden lg:flex items-center gap-2">
                   {/* Mes articles - Desktop */}
-                  <Link 
-                    to="/my-articles" 
+                  <Link
+                    to="/my-articles"
                     className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                       isActive('/my-articles')
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -336,8 +343,8 @@ export default function Header({ darkMode }) {
                   </Link>
 
                   {/* Favoris - Desktop */}
-                  <Link 
-                    to="/favorites" 
+                  <Link
+                    to="/favorites"
                     className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 relative whitespace-nowrap ${
                       isActive('/favorites')
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
@@ -359,8 +366,8 @@ export default function Header({ darkMode }) {
                   </Link>
 
                   {/* Bouton Écrire - Desktop */}
-                  <Link 
-                    to="/create-article" 
+                  <Link
+                    to="/create-article"
                     className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition-all duration-300 text-sm font-semibold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 whitespace-nowrap"
                   >
                     <FaEdit />
@@ -375,24 +382,28 @@ export default function Header({ darkMode }) {
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                         : isHomePage && !isScrolled
                           ? 'bg-white/10 backdrop-blur-md text-white/90 hover:bg-white/20'
-                          : darkMode 
-                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
+                          : darkMode
+                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                     title="Mon profil"
                   >
                     <FaUser className="inline mr-2" />
-                    <span className="truncate max-w-[120px]">{user.username || user.name || (user.email ? user.email.split('@')[0] : 'Utilisateur')}</span>
+                    <span className="truncate max-w-[120px]">
+                      {user.username ||
+                        user.name ||
+                        (user.email ? user.email.split('@')[0] : 'Utilisateur')}
+                    </span>
                   </Link>
-                  
+
                   {/* Bouton déconnexion */}
-                  <button 
+                  <button
                     onClick={handleLogout}
                     className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
                       isHomePage && !isScrolled
                         ? 'text-white/80 hover:bg-white/10'
-                        : darkMode 
-                          ? 'text-red-400 hover:bg-gray-800' 
+                        : darkMode
+                          ? 'text-red-400 hover:bg-gray-800'
                           : 'text-red-600 hover:bg-gray-100'
                     }`}
                     aria-label="Déconnexion"
@@ -403,8 +414,8 @@ export default function Header({ darkMode }) {
                 </div>
 
                 {/* Bouton Écrire - Tablette (icône uniquement) */}
-                <Link 
-                  to="/create-article" 
+                <Link
+                  to="/create-article"
                   className="hidden md:flex lg:hidden items-center justify-center w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-400 text-white rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
                   title="Écrire"
                 >
@@ -420,21 +431,21 @@ export default function Header({ darkMode }) {
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
                         : isHomePage && !isScrolled
                           ? 'bg-white/10 backdrop-blur-md text-white/90 hover:bg-white/20'
-                          : darkMode 
-                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
+                          : darkMode
+                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                     title="Mon profil"
                   >
                     <FaUser />
                   </Link>
-                  <button 
+                  <button
                     onClick={handleLogout}
                     className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
                       isHomePage && !isScrolled
                         ? 'text-white/80 hover:bg-white/10'
-                        : darkMode 
-                          ? 'text-red-400 hover:bg-gray-800' 
+                        : darkMode
+                          ? 'text-red-400 hover:bg-gray-800'
                           : 'text-red-600 hover:bg-gray-100'
                     }`}
                     aria-label="Déconnexion"
@@ -445,11 +456,13 @@ export default function Header({ darkMode }) {
                 </div>
 
                 {/* Bouton menu mobile */}
-                <button 
+                <button
                   className={`md:hidden p-2 rounded-full transition-all duration-300 ${
                     isHomePage && !isScrolled
                       ? 'text-white'
-                      : darkMode ? 'text-white' : 'text-gray-900'
+                      : darkMode
+                        ? 'text-white'
+                        : 'text-gray-900'
                   }`}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label="Toggle menu"
@@ -461,20 +474,20 @@ export default function Header({ darkMode }) {
               <>
                 {/* Boutons connexion/inscription - Desktop */}
                 <div className="hidden md:flex items-center gap-2">
-                  <Link 
-                    to="/login" 
+                  <Link
+                    to="/login"
                     className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
                       isHomePage && !isScrolled
                         ? 'text-white/90 hover:bg-white/10'
-                        : darkMode 
-                          ? 'text-gray-300 hover:bg-gray-800' 
+                        : darkMode
+                          ? 'text-gray-300 hover:bg-gray-800'
                           : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     Connexion
                   </Link>
-                  <Link 
-                    to="/register" 
+                  <Link
+                    to="/register"
                     className="px-4 py-2 rounded-full font-semibold bg-gradient-to-r from-orange-500 to-yellow-400 text-white hover:scale-105 transition-all duration-300 shadow-lg shadow-orange-500/30"
                   >
                     Inscription
@@ -482,11 +495,13 @@ export default function Header({ darkMode }) {
                 </div>
 
                 {/* Bouton menu mobile */}
-                <button 
+                <button
                   className={`md:hidden p-2 rounded-full transition-all duration-300 ${
                     isHomePage && !isScrolled
                       ? 'text-white'
-                      : darkMode ? 'text-white' : 'text-gray-900'
+                      : darkMode
+                        ? 'text-white'
+                        : 'text-gray-900'
                   }`}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label="Toggle menu"
@@ -500,76 +515,92 @@ export default function Header({ darkMode }) {
       </nav>
 
       {/* Menu mobile */}
-      <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-        isMenuOpen 
-          ? 'max-h-screen opacity-100' 
-          : 'max-h-0 opacity-0'
-      }`}>
-        <div className={`${
-          isScrolled || !isHomePage
-            ? darkMode ? 'bg-gray-900' : 'bg-white'
-            : darkMode ? 'bg-gray-900/95 backdrop-blur-xl' : 'bg-white/95 backdrop-blur-xl'
-        } border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+      <div
+        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+          isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div
+          className={`${
+            isScrolled || !isHomePage
+              ? darkMode
+                ? 'bg-gray-900'
+                : 'bg-white'
+              : darkMode
+                ? 'bg-gray-900/95 backdrop-blur-xl'
+                : 'bg-white/95 backdrop-blur-xl'
+          } border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}
+        >
           <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4 space-y-2">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/')
                   ? 'bg-orange-500 text-white shadow-lg'
-                  : darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800'
+                    : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
               <FaHome />
               <span>Accueil</span>
             </Link>
 
-            <Link 
-              to="/blog" 
+            <Link
+              to="/blog"
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/blog')
                   ? 'bg-orange-500 text-white shadow-lg'
-                  : darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800'
+                    : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
               <FaBook />
               <span>Blog</span>
             </Link>
 
-            <Link 
-              to="/destinations" 
+            <Link
+              to="/destinations"
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/destinations')
                   ? 'bg-orange-500 text-white shadow-lg'
-                  : darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800'
+                    : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
               <FaMapMarkedAlt />
               <span>Destinations</span>
             </Link>
 
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/about')
                   ? 'bg-orange-500 text-white shadow-lg'
-                  : darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800'
+                    : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
               <FaInfoCircle />
               <span>À propos</span>
             </Link>
 
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/contact')
                   ? 'bg-orange-500 text-white shadow-lg'
-                  : darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800'
+                    : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
               <FaEnvelope />
@@ -578,13 +609,15 @@ export default function Header({ darkMode }) {
 
             {user && (
               <>
-                <Link 
-                  to="/favorites" 
+                <Link
+                  to="/favorites"
                   onClick={() => setIsMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 relative ${
                     isActive('/favorites')
                       ? 'bg-orange-500 text-white shadow-lg'
-                      : darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                      : darkMode
+                        ? 'text-gray-300 hover:bg-gray-800'
+                        : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   <FaStar />
@@ -596,8 +629,8 @@ export default function Header({ darkMode }) {
                   )}
                 </Link>
 
-                <Link 
-                  to="/create-article" 
+                <Link
+                  to="/create-article"
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold bg-gradient-to-r from-orange-500 to-yellow-400 text-white shadow-lg"
                 >
@@ -605,13 +638,15 @@ export default function Header({ darkMode }) {
                   <span>Écrire un article</span>
                 </Link>
 
-                <Link 
-                  to="/my-articles" 
+                <Link
+                  to="/my-articles"
                   onClick={() => setIsMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                     isActive('/my-articles')
                       ? 'bg-orange-500 text-white shadow-lg'
-                      : darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                      : darkMode
+                        ? 'text-gray-300 hover:bg-gray-800'
+                        : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   <FaBook />
@@ -624,14 +659,16 @@ export default function Header({ darkMode }) {
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                     isActive('/profile')
                       ? 'bg-orange-500 text-white shadow-lg'
-                      : darkMode ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : darkMode
+                        ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
                   <FaUser />
                   <span>Mon profil</span>
                 </Link>
 
-                <button 
+                <button
                   onClick={handleLogout}
                   className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-300"
                 >
@@ -643,8 +680,8 @@ export default function Header({ darkMode }) {
 
             {!user && (
               <>
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   onClick={() => setIsMenuOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                     darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
@@ -654,8 +691,8 @@ export default function Header({ darkMode }) {
                   <span>Connexion</span>
                 </Link>
 
-                <Link 
-                  to="/register" 
+                <Link
+                  to="/register"
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold bg-gradient-to-r from-orange-500 to-yellow-400 text-white shadow-lg"
                 >
@@ -668,5 +705,5 @@ export default function Header({ darkMode }) {
         </div>
       </div>
     </header>
-  )
+  );
 }

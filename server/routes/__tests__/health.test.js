@@ -5,10 +5,11 @@ import express from 'express';
 // Mock simple pour tester
 const app = express();
 app.get('/api/health', (req, res) => {
+  const env = process.env.NODE_ENV || 'test';
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'test',
+    environment: env,
   });
 });
 
