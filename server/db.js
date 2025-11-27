@@ -5,14 +5,10 @@ import { PrismaClient } from '@prisma/client';
 const globalForPrisma = globalThis;
 
 const prismaClientSingleton = () => {
-  // Pour Supabase avec connection pooler, utiliser la configuration sans prepared statements
+  // Pour Supabase avec connection pooler
+  // Note: La configuration __internal n'est plus nécessaire avec les versions récentes de Prisma
   return new PrismaClient({
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-    // Désactiver les prepared statements pour compatibilité avec Supabase pooler
-    // Cela évite l'erreur "prepared statement does not exist"
-    __internal: {
-      useUds: false,
-    },
   });
 };
 
