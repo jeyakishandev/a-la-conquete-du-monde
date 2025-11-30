@@ -256,19 +256,19 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-orange-50 to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden py-8 sm:py-12">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-orange-50 to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden py-4 sm:py-8 lg:py-12">
+      <div className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         {/* Bouton retour */}
         <button
           onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors mb-6 sm:mb-8 text-sm font-medium"
+          className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors mb-4 sm:mb-6 lg:mb-8 text-sm font-medium"
         >
           <FaArrowLeft />
           <span>Retour</span>
         </button>
 
         {/* Hero Section */}
-        <section className="relative min-h-[30vh] sm:min-h-[40vh] flex items-center justify-center overflow-hidden mb-8 sm:mb-12">
+        <section className="relative min-h-[25vh] sm:min-h-[30vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden mb-6 sm:mb-8 lg:mb-12">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-orange-500 to-yellow-500 dark:from-orange-600 dark:via-orange-700 dark:to-yellow-600">
             <div
               className="absolute inset-0 opacity-20"
@@ -278,35 +278,35 @@ export default function Profile() {
             ></div>
           </div>
 
-          <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-300/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-10 left-4 sm:top-20 sm:left-10 w-48 h-48 sm:w-72 sm:h-72 bg-yellow-300/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-4 sm:bottom-20 sm:right-10 w-64 h-64 sm:w-96 sm:h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
+          <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16 text-center">
             {/* Avatar */}
-            <div className="mb-6">
-              <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-4xl sm:text-6xl font-bold text-white border-4 border-white/30 shadow-2xl">
+            <div className="mb-4 sm:mb-6">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl sm:text-4xl md:text-6xl font-bold text-white border-4 border-white/30 shadow-2xl">
                 {getAvatarInitial(user.name, user.username)}
               </div>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 sm:mb-4 leading-tight text-white drop-shadow-2xl">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-2 sm:mb-3 md:mb-4 leading-tight text-white drop-shadow-2xl px-2">
               {user.name || user.username}
             </h1>
 
-            <p className="text-base sm:text-lg text-white/90 mb-4 drop-shadow-lg">
+            <p className="text-sm sm:text-base md:text-lg text-white/90 mb-3 sm:mb-4 drop-shadow-lg px-2">
               @{user.username}
             </p>
 
-            <p className="text-sm sm:text-base text-white/80 flex items-center justify-center gap-2">
-              <FaCalendar />
-              <span>Membre depuis {formatDate(user.createdAt)}</span>
+            <p className="text-xs sm:text-sm md:text-base text-white/80 flex items-center justify-center gap-2 px-2">
+              <FaCalendar className="flex-shrink-0" />
+              <span className="truncate">Membre depuis {formatDate(user.createdAt)}</span>
             </p>
           </div>
 
           {/* Vague de séparation */}
           <div className="absolute bottom-0 left-0 right-0">
             <svg
-              className="w-full h-12 sm:h-20 lg:h-24"
+              className="w-full h-8 sm:h-12 md:h-20 lg:h-24"
               viewBox="0 0 1200 120"
               preserveAspectRatio="none"
               fill="currentColor"
@@ -319,92 +319,92 @@ export default function Profile() {
           </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 -mt-6 sm:-mt-8 lg:-mt-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 -mt-4 sm:-mt-6 md:-mt-8 lg:-mt-12 relative z-10">
           {/* Statistiques */}
           {stats && (
             <div className="lg:col-span-1">
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/50 dark:border-gray-700/50 p-6 sm:p-8 relative overflow-hidden">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/50 dark:border-gray-700/50 p-4 sm:p-6 md:p-8 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-200/30 to-yellow-200/30 rounded-full blur-3xl"></div>
 
                 <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                      <FaChartLine />
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                      <FaChartLine className="text-lg sm:text-xl" />
                       <span>Statistiques</span>
                     </h2>
                     <button
                       onClick={handleRefresh}
                       disabled={refreshing}
-                      className="p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="p-1.5 sm:p-2 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
                       title="Rafraîchir les statistiques"
                     >
-                      <FaSync className={`text-sm ${refreshing ? 'animate-spin' : ''}`} />
+                      <FaSync className={`text-xs sm:text-sm ${refreshing ? 'animate-spin' : ''}`} />
                     </button>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-gray-700 dark:to-gray-700 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <FaBook className="text-orange-500 text-xl" />
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">
+                  <div className="space-y-3 sm:space-y-4">
+                    <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-gray-700 dark:to-gray-700 rounded-lg sm:rounded-xl">
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                        <FaBook className="text-orange-500 text-lg sm:text-xl flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base truncate">
                           Articles
                         </span>
                       </div>
-                      <span className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                      <span className="text-xl sm:text-2xl font-bold text-orange-600 dark:text-orange-400 flex-shrink-0 ml-2">
                         <AnimatedCounter value={stats.articles.total} />
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-700 dark:to-gray-700 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <FaEye className="text-blue-500 text-xl" />
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">Vues</span>
+                    <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-gray-700 dark:to-gray-700 rounded-lg sm:rounded-xl">
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                        <FaEye className="text-blue-500 text-lg sm:text-xl flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base truncate">Vues</span>
                       </div>
-                      <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                      <span className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 flex-shrink-0 ml-2">
                         <AnimatedCounter value={stats.articles.totalViews} />
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-gray-700 dark:to-gray-700 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <FaHeart className="text-red-500 text-xl" />
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">Likes</span>
+                    <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-gray-700 dark:to-gray-700 rounded-lg sm:rounded-xl">
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                        <FaHeart className="text-red-500 text-lg sm:text-xl flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base truncate">Likes</span>
                       </div>
-                      <span className="text-2xl font-bold text-red-600 dark:text-red-400">
+                      <span className="text-xl sm:text-2xl font-bold text-red-600 dark:text-red-400 flex-shrink-0 ml-2">
                         <AnimatedCounter value={stats.articles.totalLikes} />
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-gray-700 dark:to-gray-700 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <FaStar className="text-yellow-500 text-xl" />
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-gray-700 dark:to-gray-700 rounded-lg sm:rounded-xl">
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                        <FaStar className="text-yellow-500 text-lg sm:text-xl flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base truncate">
                           Favoris
                         </span>
                       </div>
-                      <span className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+                      <span className="text-xl sm:text-2xl font-bold text-yellow-600 dark:text-yellow-400 flex-shrink-0 ml-2">
                         <AnimatedCounter value={stats.articles.totalFavorites} />
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-gray-700 rounded-xl">
-                      <div className="flex items-center gap-3">
-                        <FaComment className="text-green-500 text-xl" />
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-gray-700 rounded-lg sm:rounded-xl">
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                        <FaComment className="text-green-500 text-lg sm:text-xl flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base truncate">
                           Commentaires
                         </span>
                       </div>
-                      <span className="text-2xl font-bold text-green-600 dark:text-green-400">
+                      <span className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 flex-shrink-0 ml-2">
                         <AnimatedCounter value={stats.articles.totalComments} />
                       </span>
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                       Engagement
                     </h3>
-                    <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="space-y-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                       <div className="flex justify-between">
                         <span>Commentaires écrits</span>
                         <span className="font-semibold">
@@ -438,19 +438,19 @@ export default function Profile() {
 
           {/* Formulaire de profil */}
           <div className="lg:col-span-2">
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/50 dark:border-gray-700/50 p-6 sm:p-8 lg:p-10 relative overflow-hidden">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/50 dark:border-gray-700/50 p-4 sm:p-6 md:p-8 lg:p-10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-gradient-to-br from-orange-200/30 to-yellow-200/30 rounded-full blur-3xl"></div>
 
               <div className="relative z-10">
-                <div className="flex items-center justify-between mb-6 sm:mb-8">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                    <FaUser />
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <FaUser className="text-lg sm:text-xl md:text-2xl" />
                     <span>Informations du profil</span>
                   </h2>
                   {!isEditing && (
                     <button
                       onClick={() => setIsEditing(true)}
-                      className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition-all shadow-lg"
+                      className="flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-3 sm:px-4 py-2 text-sm sm:text-base rounded-full hover:scale-105 transition-all shadow-lg w-full sm:w-auto"
                     >
                       <FaEdit />
                       <span>Modifier</span>
@@ -458,11 +458,11 @@ export default function Profile() {
                   )}
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   {/* Nom */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      <FaUser className="inline mr-2" />
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
+                      <FaUser className="inline mr-1.5 sm:mr-2 text-xs sm:text-sm" />
                       Nom complet
                     </label>
                     <input
@@ -471,19 +471,19 @@ export default function Profile() {
                       value={formData.name}
                       onChange={handleChange}
                       disabled={!isEditing}
-                      className={`w-full px-4 py-3 rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
+                      className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
                         isEditing
                           ? 'border-gray-300 dark:border-gray-600'
                           : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'
                       } ${errors.name ? 'border-red-500' : ''}`}
                     />
-                    {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+                    {errors.name && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.name}</p>}
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      <FaEnvelope className="inline mr-2" />
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
+                      <FaEnvelope className="inline mr-1.5 sm:mr-2 text-xs sm:text-sm" />
                       Email
                     </label>
                     <input
@@ -492,19 +492,19 @@ export default function Profile() {
                       value={formData.email}
                       onChange={handleChange}
                       disabled={!isEditing}
-                      className={`w-full px-4 py-3 rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
+                      className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
                         isEditing
                           ? 'border-gray-300 dark:border-gray-600'
                           : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'
                       } ${errors.email ? 'border-red-500' : ''}`}
                     />
-                    {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+                    {errors.email && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.email}</p>}
                   </div>
 
                   {/* Username */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      <FaUser className="inline mr-2" />
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
+                      <FaUser className="inline mr-1.5 sm:mr-2 text-xs sm:text-sm" />
                       Nom d'utilisateur
                     </label>
                     <input
@@ -513,28 +513,28 @@ export default function Profile() {
                       value={formData.username}
                       onChange={handleChange}
                       disabled={!isEditing}
-                      className={`w-full px-4 py-3 rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
+                      className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
                         isEditing
                           ? 'border-gray-300 dark:border-gray-600'
                           : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'
                       } ${errors.username ? 'border-red-500' : ''}`}
                     />
                     {errors.username && (
-                      <p className="mt-1 text-sm text-red-500">{errors.username}</p>
+                      <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.username}</p>
                     )}
                   </div>
 
                   {/* Changement de mot de passe */}
                   {isEditing && (
-                    <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                        <FaLock />
+                    <div className="pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 flex items-center gap-2">
+                        <FaLock className="text-sm sm:text-base" />
                         <span>Changer le mot de passe</span>
                       </h3>
 
-                      <div className="space-y-4">
+                      <div className="space-y-3 sm:space-y-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
                             Mot de passe actuel
                           </label>
                           <input
@@ -542,19 +542,19 @@ export default function Profile() {
                             name="currentPassword"
                             value={formData.currentPassword}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
+                            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
                               errors.currentPassword
                                 ? 'border-red-500'
                                 : 'border-gray-300 dark:border-gray-600'
                             }`}
                           />
                           {errors.currentPassword && (
-                            <p className="mt-1 text-sm text-red-500">{errors.currentPassword}</p>
+                            <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.currentPassword}</p>
                           )}
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
                             Nouveau mot de passe
                           </label>
                           <input
@@ -562,19 +562,19 @@ export default function Profile() {
                             name="newPassword"
                             value={formData.newPassword}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
+                            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
                               errors.newPassword
                                 ? 'border-red-500'
                                 : 'border-gray-300 dark:border-gray-600'
                             }`}
                           />
                           {errors.newPassword && (
-                            <p className="mt-1 text-sm text-red-500">{errors.newPassword}</p>
+                            <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.newPassword}</p>
                           )}
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          <label className="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
                             Confirmer le nouveau mot de passe
                           </label>
                           <input
@@ -582,14 +582,14 @@ export default function Profile() {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className={`w-full px-4 py-3 rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
+                            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all ${
                               errors.confirmPassword
                                 ? 'border-red-500'
                                 : 'border-gray-300 dark:border-gray-600'
                             }`}
                           />
                           {errors.confirmPassword && (
-                            <p className="mt-1 text-sm text-red-500">{errors.confirmPassword}</p>
+                            <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.confirmPassword}</p>
                           )}
                         </div>
                       </div>
@@ -598,10 +598,10 @@ export default function Profile() {
 
                   {/* Boutons d'action */}
                   {isEditing && (
-                    <div className="flex gap-4 pt-6">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6">
                       <button
                         type="submit"
-                        className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-3 px-6 rounded-full hover:scale-105 transition-all shadow-lg"
+                        className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white font-bold py-2.5 sm:py-3 px-4 sm:px-6 text-sm sm:text-base rounded-full hover:scale-105 transition-all shadow-lg"
                       >
                         <FaSave />
                         <span>Enregistrer</span>
@@ -620,7 +620,7 @@ export default function Profile() {
                           });
                           setErrors({});
                         }}
-                        className="flex-1 flex items-center justify-center gap-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold py-3 px-6 rounded-full hover:scale-105 transition-all"
+                        className="flex-1 flex items-center justify-center gap-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold py-2.5 sm:py-3 px-4 sm:px-6 text-sm sm:text-base rounded-full hover:scale-105 transition-all"
                       >
                         <FaTimes />
                         <span>Annuler</span>
@@ -634,24 +634,24 @@ export default function Profile() {
         </div>
 
         {/* Liens rapides */}
-        <div className="mt-8 sm:mt-12 flex flex-wrap gap-4 justify-center">
+        <div className="mt-6 sm:mt-8 lg:mt-12 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
           <Link
             to="/my-articles"
-            className="inline-flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl text-gray-900 dark:text-white px-6 py-3 rounded-full hover:scale-105 transition-all shadow-lg border border-white/50 dark:border-gray-700/50"
+            className="inline-flex items-center justify-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl text-gray-900 dark:text-white px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full hover:scale-105 transition-all shadow-lg border border-white/50 dark:border-gray-700/50 w-full sm:w-auto"
           >
             <FaBook />
             <span>Mes articles</span>
           </Link>
           <Link
             to="/favorites"
-            className="inline-flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl text-gray-900 dark:text-white px-6 py-3 rounded-full hover:scale-105 transition-all shadow-lg border border-white/50 dark:border-gray-700/50"
+            className="inline-flex items-center justify-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl text-gray-900 dark:text-white px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full hover:scale-105 transition-all shadow-lg border border-white/50 dark:border-gray-700/50 w-full sm:w-auto"
           >
             <FaStar />
             <span>Mes favoris</span>
           </Link>
           <Link
             to="/create-article"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-6 py-3 rounded-full hover:scale-105 transition-all shadow-lg"
+            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full hover:scale-105 transition-all shadow-lg w-full sm:w-auto"
           >
             <FaEdit />
             <span>Créer un article</span>
