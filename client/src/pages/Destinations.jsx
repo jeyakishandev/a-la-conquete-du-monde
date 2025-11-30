@@ -21,6 +21,8 @@ const Destinations = () => {
       id: 1,
       name: 'Paris, France',
       continent: 'europe',
+      latitude: 48.8566,
+      longitude: 2.3522,
       image: '/assets/images/cover.jpg',
       description: "La ville lumière, capitale de la romance et de l'art de vivre à la française.",
       highlights: ['Tour Eiffel', 'Louvre', 'Champs-Élysées', 'Montmartre'],
@@ -29,6 +31,8 @@ const Destinations = () => {
       id: 2,
       name: 'Tokyo, Japon',
       continent: 'asia',
+      latitude: 35.6762,
+      longitude: 139.6503,
       image: '/assets/images/New-york.jpg',
       description: 'Métropole futuriste où tradition et modernité se rencontrent.',
       highlights: ['Shibuya', 'Temple Senso-ji', 'Tsukiji', 'Harajuku'],
@@ -37,6 +41,8 @@ const Destinations = () => {
       id: 3,
       name: 'New York, USA',
       continent: 'america',
+      latitude: 40.7128,
+      longitude: -74.0060,
       image: '/assets/images/New-york.jpg',
       description: 'La ville qui ne dort jamais, symbole du rêve américain.',
       highlights: ['Times Square', 'Central Park', 'Statue de la Liberté', 'Brooklyn Bridge'],
@@ -45,6 +51,8 @@ const Destinations = () => {
       id: 4,
       name: 'Safari Kenya',
       continent: 'africa',
+      latitude: -1.2921,
+      longitude: 36.8219,
       image: '/assets/images/Safari.jpg',
       description: 'Aventure au cœur de la savane africaine avec les Big Five.',
       highlights: ['Masai Mara', 'Amboseli', 'Tsavo', 'Lac Nakuru'],
@@ -53,6 +61,8 @@ const Destinations = () => {
       id: 5,
       name: 'Sydney, Australie',
       continent: 'oceania',
+      latitude: -33.8688,
+      longitude: 151.2093,
       image: '/assets/images/plage.jpg',
       description: 'Ville cosmopolite entre océan et culture aborigène.',
       highlights: ['Opéra de Sydney', 'Harbour Bridge', 'Bondi Beach', 'Blue Mountains'],
@@ -61,6 +71,8 @@ const Destinations = () => {
       id: 6,
       name: 'Rome, Italie',
       continent: 'europe',
+      latitude: 41.9028,
+      longitude: 12.4964,
       image: '/assets/images/Pitoresque.jpg',
       description: 'Cité éternelle, berceau de la civilisation occidentale.',
       highlights: ['Colisée', 'Vatican', 'Forum Romain', 'Trastevere'],
@@ -69,6 +81,8 @@ const Destinations = () => {
       id: 7,
       name: 'Bali, Indonésie',
       continent: 'asia',
+      latitude: -8.4095,
+      longitude: 115.1889,
       image: '/assets/images/plage.jpg',
       description: 'Île des dieux, paradis tropical entre rizières et temples hindous.',
       highlights: ['Ubud', 'Seminyak', 'Temple Uluwatu', 'Rizières de Tegallalang'],
@@ -77,6 +91,8 @@ const Destinations = () => {
       id: 8,
       name: 'Rio de Janeiro, Brésil',
       continent: 'america',
+      latitude: -22.9068,
+      longitude: -43.1729,
       image: '/assets/images/Pitoresque.jpg',
       description: 'Ville vibrante entre montagnes, océan et samba.',
       highlights: ['Corcovado', 'Copacabana', 'Sugarloaf', 'Favela Rocinha'],
@@ -85,6 +101,8 @@ const Destinations = () => {
       id: 9,
       name: 'Marrakech, Maroc',
       continent: 'africa',
+      latitude: 31.6295,
+      longitude: -7.9811,
       image: '/assets/images/cover.jpg',
       description: 'Cité impériale aux souks animés et palais magnifiques.',
       highlights: ['Place Jemaa el-Fna', 'Médina', 'Jardin Majorelle', 'Palais Bahia'],
@@ -93,6 +111,8 @@ const Destinations = () => {
       id: 10,
       name: 'Londres, Angleterre',
       continent: 'europe',
+      latitude: 51.5074,
+      longitude: -0.1278,
       image: '/assets/images/New-york.jpg',
       description: 'Capitale historique aux monuments emblématiques et culture riche.',
       highlights: ['Big Ben', 'Tower Bridge', 'British Museum', 'Hyde Park'],
@@ -101,6 +121,8 @@ const Destinations = () => {
       id: 11,
       name: 'Barcelone, Espagne',
       continent: 'europe',
+      latitude: 41.3851,
+      longitude: 2.1734,
       image: '/assets/images/Pitoresque.jpg',
       description: 'Ville moderne aux œuvres de Gaudí et plages méditerranéennes.',
       highlights: ['Sagrada Familia', 'Park Güell', 'Las Ramblas', 'Gothic Quarter'],
@@ -109,6 +131,8 @@ const Destinations = () => {
       id: 12,
       name: 'Dubai, Émirats Arabes Unis',
       continent: 'asia',
+      latitude: 25.2048,
+      longitude: 55.2708,
       image: '/assets/images/cover.jpg',
       description: 'Ville ultramoderne aux gratte-ciels futuristes et luxe.',
       highlights: ['Burj Khalifa', 'Palm Jumeirah', 'Dubai Mall', 'Burj Al Arab'],
@@ -282,6 +306,25 @@ const Destinations = () => {
                 </button>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* Carte Interactive */}
+        <div className="mb-8 sm:mb-12">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl sm:rounded-[3rem] p-6 sm:p-8 shadow-2xl border border-white/50 dark:border-gray-700/50">
+            <div className="flex items-center gap-3 mb-6">
+              <FaMapMarkedAlt className="text-orange-500 text-2xl" />
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                Carte Interactive
+              </h2>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm sm:text-base">
+              Explorez nos destinations sur la carte du monde. Cliquez sur un marqueur pour voir les détails.
+            </p>
+            <MapView 
+              destinations={filteredDestinations} 
+              onMarkerClick={(dest) => handleDiscover(dest.name)}
+            />
           </div>
         </div>
 
