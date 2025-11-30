@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LazyImage from '../components/LazyImage';
+import MapView from '../components/MapView';
 import {
   FaCompass,
   FaMapMarkedAlt,

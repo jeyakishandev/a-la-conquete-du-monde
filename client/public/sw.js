@@ -53,6 +53,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Ignorer les requêtes chrome-extension et autres schemes non-HTTP
+  if (url.protocol === 'chrome-extension:' || url.protocol === 'chrome:' || !url.protocol.startsWith('http')) {
+    return;
+  }
+
   // Ignorer les requêtes API (toujours aller au réseau)
   if (url.pathname.startsWith('/api')) {
     return;
