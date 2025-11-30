@@ -40,10 +40,21 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'axios-vendor': ['axios'],
-          'icons-vendor': ['react-icons/fa']
+        manualChunks: (id) => {
+          // Séparer les node_modules
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            if (id.includes('axios')) {
+              return 'axios-vendor';
+            }
+            if (id.includes('react-icons')) {
+              return 'icons-vendor';
+            }
+            // Autres vendors
+            return 'vendor';
+          }
         },
         // Optimisation des noms de chunks
         chunkFileNames: 'assets/js/[name]-[hash].js',

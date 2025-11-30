@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import { useToast } from '../context/ToastContext';
+import LazyImage from '../components/LazyImage';
 import {
   FaHeart,
   FaRegHeart,
@@ -258,7 +259,7 @@ export default function ArticleDetail() {
 
         {/* Image principale */}
         <div className="mb-6 sm:mb-8 lg:mb-12">
-          <img
+          <LazyImage
             src={
               article.image?.startsWith('http://') || article.image?.startsWith('https://')
                 ? article.image
@@ -268,10 +269,8 @@ export default function ArticleDetail() {
             }
             alt={article.title}
             className="w-full h-48 sm:h-64 md:h-80 lg:h-[500px] object-cover rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] shadow-2xl"
-            onError={e => {
-              // Fallback si l'image ne charge pas
-              e.target.src = '/assets/images/cover.jpg';
-            }}
+            width="1200"
+            height="500"
           />
         </div>
 

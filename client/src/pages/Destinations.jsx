@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LazyImage from '../components/LazyImage';
 import {
   FaCompass,
   FaMapMarkedAlt,
@@ -294,7 +295,7 @@ const Destinations = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="relative">
-                  <img
+                  <LazyImage
                     src={
                       destination.image?.startsWith('http://') ||
                       destination.image?.startsWith('https://')
@@ -305,9 +306,8 @@ const Destinations = () => {
                     }
                     alt={destination.name}
                     className="w-full h-48 sm:h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                    onError={e => {
-                      e.target.src = '/assets/images/cover.jpg';
-                    }}
+                    width="400"
+                    height="256"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                   <div className="absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-2 rounded-full text-sm font-semibold shadow-lg">

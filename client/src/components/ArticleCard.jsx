@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
+import LazyImage from './LazyImage';
 
 export default function ArticleCard({ article }) {
   // Formatage de la date
@@ -22,10 +23,12 @@ export default function ArticleCard({ article }) {
       className="group block relative h-[400px] sm:h-[450px] lg:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
     >
       {/* Image */}
-      <img
+      <LazyImage
         src={article.image}
         alt={article.title}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        width="500"
+        height="500"
       />
 
       {/* Overlay sombre permanent pour meilleure lisibilité */}

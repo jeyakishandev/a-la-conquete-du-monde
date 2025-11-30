@@ -68,6 +68,7 @@ export default function LazyImage({
       alt={alt}
       className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-50'} transition-opacity duration-300`}
       loading="lazy"
+      decoding="async"
       {...props}
     />
   );
