@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { ToastProvider } from './context/ToastContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import BackendStatusBanner from './components/BackendStatusBanner';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Destinations from './pages/Destinations';
@@ -48,6 +49,7 @@ function App() {
     <ToastProvider>
       <Router>
         <div className="min-h-screen flex flex-col">
+          <BackendStatusBanner />
           <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
           <main className="flex-grow mt-24 px-4 md:px-10">

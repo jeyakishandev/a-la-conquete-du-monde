@@ -49,6 +49,23 @@ api.interceptors.response.use(
         // window.location.href = '/login';
       }
     }
+    
+    // Détecter les erreurs de connexion au backend
+    // Ces erreurs sont déjà gérées par le composant BackendStatusBanner
+    // mais on peut les logger pour le débogage
+    const isConnectionError =
+      !error.response && (
+        error.code === 'ECONNREFUSED' ||
+        error.code === 'ETIMEDOUT' ||
+        error.code === 'ERR_NETWORK' ||
+        error.message?.includes('Network Error') ||
+        error.message?.includes('timeout')
+      );
+    
+    if (isConnectionError && process.env.NODE_ENV === 'development') {
+      console.warn('Erreur de connexion au backend:', error.message);
+    }
+    
     return Promise.reject(error);
   }
 );
