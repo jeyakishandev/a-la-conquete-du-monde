@@ -124,22 +124,14 @@ export default function Header({ darkMode }) {
             <div className="hidden sm:block">
               <h1
                 className={`text-base sm:text-lg lg:text-xl font-bold transition-colors leading-tight ${
-                  isHomePage && !isScrolled
-                    ? 'text-white drop-shadow-lg'
-                    : darkMode
-                      ? 'text-white'
-                      : 'text-gray-900'
+                  darkMode ? 'text-white' : 'text-gray-900'
                 }`}
               >
                 À la Conquête du Monde
               </h1>
               <p
                 className={`text-xs transition-colors ${
-                  isHomePage && !isScrolled
-                    ? 'text-white/80'
-                    : darkMode
-                      ? 'text-gray-400'
-                      : 'text-gray-600'
+                  darkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}
               >
                 Explorez • Rêvez • Voyagez
@@ -154,11 +146,9 @@ export default function Header({ darkMode }) {
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
               title="Accueil"
             >
@@ -170,11 +160,9 @@ export default function Header({ darkMode }) {
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/blog')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
               title="Blog"
             >
@@ -186,11 +174,9 @@ export default function Header({ darkMode }) {
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/destinations')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
               title="Destinations"
             >
@@ -202,11 +188,9 @@ export default function Header({ darkMode }) {
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/about')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
               title="À propos"
             >
@@ -218,11 +202,9 @@ export default function Header({ darkMode }) {
               className={`p-2.5 rounded-full transition-all duration-300 ${
                 isActive('/contact')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
               title="Contact"
             >
@@ -235,11 +217,9 @@ export default function Header({ darkMode }) {
                 className={`p-2.5 rounded-full transition-all duration-300 relative ${
                   isActive('/favorites')
                     ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                    : isHomePage && !isScrolled
-                      ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                      : darkMode
-                        ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                    : darkMode
+                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
                 }`}
                 title="Favoris"
               >
@@ -260,11 +240,9 @@ export default function Header({ darkMode }) {
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
             >
               <FaHome className="text-sm" />
@@ -276,11 +254,9 @@ export default function Header({ darkMode }) {
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/blog')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
             >
               <FaBook className="text-sm" />
@@ -292,11 +268,9 @@ export default function Header({ darkMode }) {
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/destinations')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
             >
               <FaMapMarkedAlt className="text-sm" />
@@ -308,11 +282,9 @@ export default function Header({ darkMode }) {
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/about')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
             >
               <FaInfoCircle className="text-sm" />
@@ -324,11 +296,9 @@ export default function Header({ darkMode }) {
               className={`px-3 lg:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                 isActive('/contact')
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                  : isHomePage && !isScrolled
-                    ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                    : darkMode
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                  : darkMode
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
               }`}
             >
               <FaEnvelope className="text-sm" />
@@ -348,11 +318,9 @@ export default function Header({ darkMode }) {
                     className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                       isActive('/my-articles')
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                        : isHomePage && !isScrolled
-                          ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                          : darkMode
-                            ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                            : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                        : darkMode
+                          ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                          : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
                     }`}
                     title="Mes articles"
                   >
@@ -366,11 +334,9 @@ export default function Header({ darkMode }) {
                     className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 relative whitespace-nowrap ${
                       isActive('/favorites')
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                        : isHomePage && !isScrolled
-                          ? 'text-white/90 hover:bg-white/10 hover:text-white'
-                          : darkMode
-                            ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
-                            : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
+                        : darkMode
+                          ? 'text-gray-300 hover:bg-gray-800 hover:text-orange-400'
+                          : 'text-gray-700 hover:bg-gray-100 hover:text-orange-600'
                     }`}
                     title="Favoris"
                   >
@@ -398,11 +364,9 @@ export default function Header({ darkMode }) {
                     className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all hover:scale-105 ${
                       isActive('/profile')
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                        : isHomePage && !isScrolled
-                          ? 'bg-white/10 backdrop-blur-md text-white/90 hover:bg-white/20'
-                          : darkMode
-                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : darkMode
+                          ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                     title="Mon profil"
                   >
@@ -418,11 +382,9 @@ export default function Header({ darkMode }) {
                   <button
                     onClick={handleLogout}
                     className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
-                      isHomePage && !isScrolled
-                        ? 'text-white/80 hover:bg-white/10'
-                        : darkMode
-                          ? 'text-red-400 hover:bg-gray-800'
-                          : 'text-red-600 hover:bg-gray-100'
+                      darkMode
+                        ? 'text-red-400 hover:bg-gray-800'
+                        : 'text-red-600 hover:bg-gray-100'
                     }`}
                     aria-label="Déconnexion"
                     title="Déconnexion"
@@ -447,11 +409,9 @@ export default function Header({ darkMode }) {
                     className={`p-2 rounded-full transition-all hover:scale-110 ${
                       isActive('/profile')
                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30'
-                        : isHomePage && !isScrolled
-                          ? 'bg-white/10 backdrop-blur-md text-white/90 hover:bg-white/20'
-                          : darkMode
-                            ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : darkMode
+                          ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                     title="Mon profil"
                   >
@@ -460,11 +420,9 @@ export default function Header({ darkMode }) {
                   <button
                     onClick={handleLogout}
                     className={`p-2 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
-                      isHomePage && !isScrolled
-                        ? 'text-white/80 hover:bg-white/10'
-                        : darkMode
-                          ? 'text-red-400 hover:bg-gray-800'
-                          : 'text-red-600 hover:bg-gray-100'
+                      darkMode
+                        ? 'text-red-400 hover:bg-gray-800'
+                        : 'text-red-600 hover:bg-gray-100'
                     }`}
                     aria-label="Déconnexion"
                     title="Déconnexion"
@@ -476,11 +434,7 @@ export default function Header({ darkMode }) {
                 {/* Bouton menu mobile */}
                 <button
                   className={`md:hidden p-2 rounded-full transition-all duration-300 ${
-                    isHomePage && !isScrolled
-                      ? 'text-white'
-                      : darkMode
-                        ? 'text-white'
-                        : 'text-gray-900'
+                    darkMode ? 'text-white' : 'text-gray-900'
                   }`}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label="Toggle menu"
@@ -495,11 +449,9 @@ export default function Header({ darkMode }) {
                   <Link
                     to="/login"
                     className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-                      isHomePage && !isScrolled
-                        ? 'text-white/90 hover:bg-white/10'
-                        : darkMode
-                          ? 'text-gray-300 hover:bg-gray-800'
-                          : 'text-gray-700 hover:bg-gray-100'
+                      darkMode
+                        ? 'text-gray-300 hover:bg-gray-800'
+                        : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
                     Connexion
@@ -515,11 +467,7 @@ export default function Header({ darkMode }) {
                 {/* Bouton menu mobile */}
                 <button
                   className={`md:hidden p-2 rounded-full transition-all duration-300 ${
-                    isHomePage && !isScrolled
-                      ? 'text-white'
-                      : darkMode
-                        ? 'text-white'
-                        : 'text-gray-900'
+                    darkMode ? 'text-white' : 'text-gray-900'
                   }`}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-label="Toggle menu"
