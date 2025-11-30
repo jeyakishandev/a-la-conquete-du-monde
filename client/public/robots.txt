@@ -1,0 +1,7 @@
+# robots.txt pour À la Conquête du Monde
+User-agent: *
+Allow: /
+
+# Sitemap (à créer si nécessaire)
+# Sitemap: https://conquete-frontend.onrender.com/sitemap.xml
+

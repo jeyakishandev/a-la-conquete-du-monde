@@ -1,0 +1,49 @@
+{
+  "name": "À la Conquête du Monde",
+  "short_name": "Conquête Monde",
+  "description": "Blog de voyage - Découvrez les plus beaux endroits du monde",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f97316",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/Logo-voyage.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/Logo-voyage.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["travel", "lifestyle", "blog"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Voir tous les articles",
+      "url": "/blog",
+      "icons": [{ "src": "/assets/images/Logo-voyage.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Destinations",
+      "short_name": "Destinations",
+      "description": "Explorer les destinations",
+      "url": "/destinations",
+      "icons": [{ "src": "/assets/images/Logo-voyage.png", "sizes": "96x96" }]
+    }
+  ]
+}
+
