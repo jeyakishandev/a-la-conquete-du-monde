@@ -32,7 +32,7 @@ build/
 Thumbs.db
 
 # Docker
-.dockerignore
+# .dockerignore (à garder dans Git - c'est de la config)
 
 # Testing
 coverage/
