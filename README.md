@@ -54,6 +54,8 @@ Application web fullstack moderne de blog de voyage. Ce projet démontre la mise
 
 ### 🌍 Destinations
 - Catalogue de destinations par continent
+- **Carte interactive** avec Leaflet et OpenStreetMap
+- Marqueurs cliquables avec informations des destinations
 - Filtres interactifs
 - Liens vers articles associés
 
@@ -63,6 +65,18 @@ Application web fullstack moderne de blog de voyage. Ce projet démontre la mise
 - Design responsive mobile-first
 - Animations fluides
 
+### 📱 Progressive Web App (PWA)
+- Installation sur mobile et desktop
+- Mode offline avec Service Worker
+- Manifest.json configuré
+- Notification d'installation automatique
+
+### ⚡ Performance & SEO
+- Lazy loading des pages et images
+- Code splitting optimisé
+- Meta tags SEO (Open Graph, Twitter Cards)
+- Optimisation du build (minification, compression)
+
 ## 🛠️ Technologies
 
 ### Frontend
@@ -71,6 +85,8 @@ Application web fullstack moderne de blog de voyage. Ce projet démontre la mise
 - **React Router** - Navigation
 - **Tailwind CSS** - Styling
 - **Axios** - Client HTTP
+- **Leaflet** - Cartes interactives
+- **React Leaflet** - Intégration Leaflet avec React
 
 ### Backend
 - **Node.js** - Runtime JavaScript
@@ -94,8 +110,10 @@ Application web fullstack moderne de blog de voyage. Ce projet démontre la mise
 - ✅ **API RESTful** : Routes modulaires avec middleware personnalisés
 - ✅ **Gestion optimisée des connexions** : Instance PrismaClient singleton pour Supabase
 - ✅ **Sécurité renforcée** : Validation double (client/serveur), rate limiting, sanitisation
-- ✅ **Performance** : Lazy loading, code splitting, optimisation des images
-- ✅ **UX optimale** : Mode sombre/clair, animations, feedback utilisateur
+- ✅ **Performance** : Lazy loading, code splitting, optimisation des images, PWA
+- ✅ **SEO optimisé** : Meta tags, Open Graph, Twitter Cards, robots.txt
+- ✅ **Cartes interactives** : Intégration Leaflet pour visualisation des destinations
+- ✅ **UX optimale** : Mode sombre/clair, animations, feedback utilisateur, notifications backend
 - ✅ **Qualité du code** : Tests unitaires, ESLint, Prettier, validation à 99% de couverture
 
 ## 🚀 Installation
@@ -235,9 +253,11 @@ VITE_API_URL=https://api-url.com/api
 ## 🔧 Défis techniques résolus
 
 1. **Gestion des connexions Prisma avec Supabase** : Implémentation d'une instance singleton avec support du connection pooler (PGBouncer)
-2. **Synchronisation frontend/backend** : Configuration des variables d'environnement pour communication fluide
+2. **Synchronisation frontend/backend** : Configuration des variables d'environnement pour communication fluide + notification utilisateur pendant le démarrage du backend
 3. **Seed automatique** : Système qui exécute automatiquement le seed au premier démarrage si la base est vide
-4. **Tests et qualité** : Mise en place de tests unitaires complets et outils de linting/formatage pour maintenir la qualité du code
+4. **PWA et Performance** : Implémentation complète d'une PWA avec Service Worker, lazy loading, et optimisations de build
+5. **Cartes interactives** : Intégration Leaflet avec gestion des coordonnées et popups interactives
+6. **Tests et qualité** : Mise en place de tests unitaires complets et outils de linting/formatage pour maintenir la qualité du code
 
 ## 📄 Licence
 
