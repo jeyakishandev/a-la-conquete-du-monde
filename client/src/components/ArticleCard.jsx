@@ -16,6 +16,9 @@ export default function ArticleCard({ article }) {
   return (
     <Link
       to={`/article/${article.id}`}
+      onClick={() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }}
       className="group block relative h-[400px] sm:h-[450px] lg:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
     >
       {/* Image */}

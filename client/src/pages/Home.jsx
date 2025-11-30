@@ -90,6 +90,9 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
             <Link
               to="/blog"
+              onClick={() => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+              }}
               className="group relative w-full sm:w-auto bg-white text-orange-600 font-bold py-3 sm:py-4 px-6 sm:px-10 rounded-full hover:scale-105 transition-all duration-300 text-base sm:text-lg shadow-2xl overflow-hidden"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
@@ -100,6 +103,9 @@ export default function Home() {
             </Link>
             <Link
               to="/destinations"
+              onClick={() => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+              }}
               className="group relative w-full sm:w-auto bg-white/10 backdrop-blur-md text-white font-bold py-3 sm:py-4 px-6 sm:px-10 rounded-full hover:scale-105 transition-all duration-300 text-base sm:text-lg shadow-2xl border-2 border-white/30 hover:border-white/50"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">

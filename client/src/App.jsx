@@ -4,6 +4,7 @@ import { ToastProvider } from './context/ToastContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BackendStatusBanner from './components/BackendStatusBanner';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Destinations from './pages/Destinations';
@@ -48,6 +49,7 @@ function App() {
   return (
     <ToastProvider>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <BackendStatusBanner />
           <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />

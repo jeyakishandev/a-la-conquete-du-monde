@@ -22,6 +22,15 @@ export default function Footer({ darkMode }) {
   const [email, setEmail] = useState('');
   const { showToast } = useToast();
 
+  // Fonction pour scroller vers le haut lors d'un clic sur un lien
+  const handleLinkClick = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const handleNewsletterSubmit = e => {
     e.preventDefault();
     if (!email) {
@@ -90,6 +99,7 @@ export default function Footer({ darkMode }) {
               <li>
                 <Link
                   to="/"
+                  onClick={handleLinkClick}
                   className={`flex items-center gap-2 text-sm transition-all duration-300 hover:text-orange-500 hover:translate-x-1 ${
                     darkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}
@@ -101,6 +111,7 @@ export default function Footer({ darkMode }) {
               <li>
                 <Link
                   to="/blog"
+                  onClick={handleLinkClick}
                   className={`flex items-center gap-2 text-sm transition-all duration-300 hover:text-orange-500 hover:translate-x-1 ${
                     darkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}
@@ -112,6 +123,7 @@ export default function Footer({ darkMode }) {
               <li>
                 <Link
                   to="/destinations"
+                  onClick={handleLinkClick}
                   className={`flex items-center gap-2 text-sm transition-all duration-300 hover:text-orange-500 hover:translate-x-1 ${
                     darkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}
@@ -123,6 +135,7 @@ export default function Footer({ darkMode }) {
               <li>
                 <Link
                   to="/about"
+                  onClick={handleLinkClick}
                   className={`flex items-center gap-2 text-sm transition-all duration-300 hover:text-orange-500 hover:translate-x-1 ${
                     darkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}
@@ -134,6 +147,7 @@ export default function Footer({ darkMode }) {
               <li>
                 <Link
                   to="/contact"
+                  onClick={handleLinkClick}
                   className={`flex items-center gap-2 text-sm transition-all duration-300 hover:text-orange-500 hover:translate-x-1 ${
                     darkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}
@@ -145,6 +159,7 @@ export default function Footer({ darkMode }) {
               <li>
                 <Link
                   to="/favorites"
+                  onClick={handleLinkClick}
                   className={`flex items-center gap-2 text-sm transition-all duration-300 hover:text-orange-500 hover:translate-x-1 ${
                     darkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}
@@ -305,6 +320,7 @@ export default function Footer({ darkMode }) {
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs">
             <Link
               to="/about"
+              onClick={handleLinkClick}
               className={`transition-all duration-300 hover:text-orange-500 ${
                 darkMode ? 'text-gray-400' : 'text-gray-600'
               }`}
@@ -313,6 +329,7 @@ export default function Footer({ darkMode }) {
             </Link>
             <Link
               to="/contact"
+              onClick={handleLinkClick}
               className={`transition-all duration-300 hover:text-orange-500 ${
                 darkMode ? 'text-gray-400' : 'text-gray-600'
               }`}
@@ -321,6 +338,7 @@ export default function Footer({ darkMode }) {
             </Link>
             <Link
               to="/contact"
+              onClick={handleLinkClick}
               className={`transition-all duration-300 hover:text-orange-500 ${
                 darkMode ? 'text-gray-400' : 'text-gray-600'
               }`}

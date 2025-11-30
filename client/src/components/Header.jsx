@@ -65,15 +65,33 @@ export default function Header({ darkMode }) {
   }, [location.pathname]);
 
   const handleLogout = () => {
+    setIsMenuOpen(false); // Fermer le menu mobile si ouvert
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
+    // Scroller vers le haut avant la navigation
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
     navigate('/');
     window.location.reload();
   };
 
   const isActive = path => {
     return location.pathname === path;
+  };
+
+  // Fonction pour gérer le clic sur un lien du menu mobile
+  const handleMobileLinkClick = () => {
+    setIsMenuOpen(false);
+    // Scroller vers le haut immédiatement
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -534,7 +552,7 @@ export default function Header({ darkMode }) {
           <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4 space-y-2">
             <Link
               to="/"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleMobileLinkClick}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/')
                   ? 'bg-orange-500 text-white shadow-lg'
@@ -549,7 +567,7 @@ export default function Header({ darkMode }) {
 
             <Link
               to="/blog"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleMobileLinkClick}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/blog')
                   ? 'bg-orange-500 text-white shadow-lg'
@@ -564,7 +582,7 @@ export default function Header({ darkMode }) {
 
             <Link
               to="/destinations"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleMobileLinkClick}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/destinations')
                   ? 'bg-orange-500 text-white shadow-lg'
@@ -579,7 +597,7 @@ export default function Header({ darkMode }) {
 
             <Link
               to="/about"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleMobileLinkClick}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/about')
                   ? 'bg-orange-500 text-white shadow-lg'
@@ -594,7 +612,7 @@ export default function Header({ darkMode }) {
 
             <Link
               to="/contact"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={handleMobileLinkClick}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive('/contact')
                   ? 'bg-orange-500 text-white shadow-lg'
@@ -611,7 +629,7 @@ export default function Header({ darkMode }) {
               <>
                 <Link
                   to="/favorites"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={handleMobileLinkClick}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 relative ${
                     isActive('/favorites')
                       ? 'bg-orange-500 text-white shadow-lg'
@@ -631,7 +649,7 @@ export default function Header({ darkMode }) {
 
                 <Link
                   to="/create-article"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={handleMobileLinkClick}
                   className="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold bg-gradient-to-r from-orange-500 to-yellow-400 text-white shadow-lg"
                 >
                   <FaEdit />
@@ -640,7 +658,7 @@ export default function Header({ darkMode }) {
 
                 <Link
                   to="/my-articles"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={handleMobileLinkClick}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                     isActive('/my-articles')
                       ? 'bg-orange-500 text-white shadow-lg'
@@ -655,7 +673,7 @@ export default function Header({ darkMode }) {
 
                 <Link
                   to="/profile"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={handleMobileLinkClick}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                     isActive('/profile')
                       ? 'bg-orange-500 text-white shadow-lg'
@@ -682,7 +700,7 @@ export default function Header({ darkMode }) {
               <>
                 <Link
                   to="/login"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={handleMobileLinkClick}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                     darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
                   }`}
@@ -693,7 +711,7 @@ export default function Header({ darkMode }) {
 
                 <Link
                   to="/register"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={handleMobileLinkClick}
                   className="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold bg-gradient-to-r from-orange-500 to-yellow-400 text-white shadow-lg"
                 >
                   <FaCompass />
