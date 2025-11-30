@@ -64,30 +64,36 @@ export default function PWAInstallPrompt() {
   }
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-96 z-50 animate-slide-up">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 p-4 flex items-start gap-3">
-        <div className="flex-1">
-          <h3 className="font-bold text-gray-900 dark:text-white mb-1">
-            Installer l'application
-          </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Installez "À la Conquête du Monde" sur votre appareil pour un accès rapide et une meilleure expérience.
-          </p>
-        </div>
-        <div className="flex flex-col gap-2">
+    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-[420px] z-50 animate-slide-up">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700 p-6 relative overflow-hidden">
+        {/* Bouton fermer en haut à droite */}
+        <button
+          onClick={handleDismiss}
+          className="absolute top-4 right-4 p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+          aria-label="Fermer"
+        >
+          <FaTimes className="text-lg" />
+        </button>
+
+        <div className="flex items-start justify-between gap-4 pr-8">
+          {/* Contenu texte */}
+          <div className="flex-1">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">
+              <span className="block">Installer</span>
+              <span className="block">l'application</span>
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              Installez <span className="font-semibold text-gray-900 dark:text-white">"À la Conquête du Monde"</span> sur votre appareil pour un accès rapide et une meilleure expérience.
+            </p>
+          </div>
+
+          {/* Bouton d'installation */}
           <button
             onClick={handleInstall}
-            className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-4 py-2 rounded-full hover:scale-105 transition-all text-sm font-semibold shadow-lg"
+            className="flex items-center gap-2 bg-gradient-to-r from-orange-500 via-orange-400 to-yellow-400 text-white px-6 py-3 rounded-full hover:scale-105 active:scale-95 transition-all text-sm font-bold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 whitespace-nowrap"
           >
-            <FaDownload />
+            <FaDownload className="text-base" />
             <span>Installer</span>
-          </button>
-          <button
-            onClick={handleDismiss}
-            className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            aria-label="Fermer"
-          >
-            <FaTimes />
           </button>
         </div>
       </div>
